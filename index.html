@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Simulador de Provas OAB</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="header-container">
+    <header>
+      <div id="timer" style="display: none; font-weight: bold; color: white; font-size: 18px;">
+        Tempo restante: <span id="time-left"></span>
+      </div>
+      <div class="logo">
+        <img src="\data\imagens\logooab.png" alt="Logo OAB">
+      </div>
+      <div class="welcome-message">
+        <h1>Bem-vindo ao Simulador de Provas da 1ª Fase da OAB</h1>
+      </div>
+    </header>
+</header>
+      </header>
+  <main>
+    <section id="exames">
+        <h2>Selecione o Exame de Ordem Unificado</h2>        
+        <button id="fullscreen-btn">Tela Cheia</button>
+        <p>Escolha um exame anterior para começar a simular e testar seus conhecimentos.</p>
+        <label for="examSelect">Exames disponíveis:</label>
+        <select id="examSelect">
+            <option value="">Escolha o Exame</option>
+            <option value="41">41º Exame de Ordem Unificado</option>
+            <option value="40">40º Exame de Ordem Unificado</option>
+            <option value="39">39º Exame de Ordem Unificado</option>
+            <option value="38">38º Exame de Ordem Unificado</option>
+            <option value="37">37º Exame de Ordem Unificado</option>
+            <option value="36">36º Exame de Ordem Unificado</option>
+            <option value="35">35º Exame de Ordem Unificado</option>
+          </select>
+          <button id="consultGabarito" type="button">Consultar Gabarito</button>
+          <button id="consultEdital" type="button">Consultar Edital</button>
+      </section>
+<!-- Container para o leitor de PDF -->
+<section id="layout-container">
+    <!-- Container do leitor de PDF -->
+    <div id="pdf-reader-container">
+      <div id="pdf-viewer">
+        <iframe id="pdf-frame" src="" width="100%" height="100%"></iframe>
+      </div>
+    </div>
+  
+    <!-- Container do cartão resposta -->
+    <div id="answer-sheet-container">
+      <h2>Cartão Resposta</h2>
+      <div id="answer-sheet">
+      </div>
+      <div class="button-group">
+        <button id="finalize-exam">Finalizar</button>
+        <button id="clear-answer-sheet" type="button">Limpar Cartão Resposta</button>
+
+      </div>
+    </div>
+  </section>
+  <footer>
+    <div class="footer-content">
+      <p><strong>Prepare-se para o Exame de Ordem</strong></p>
+      <p>Simulador de 1ª fase desenvolvido por Leonardo Frota</p>
+      <p><strong>Para Sugestões ou Dúvidas - Contato:</strong> (21) 97665-1085 | <a href="mailto:l.frota94@gmail.com">l.frota94@gmail.com</a></p>
+    </div>
+  </footer>
+  <script src="scripts.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.16.9/xlsx.full.min.js"></script>
+</body>
+</html>
