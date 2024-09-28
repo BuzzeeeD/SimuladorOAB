@@ -217,6 +217,7 @@ button[type="submit"]:hover {
   text-align: center;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
   width: 300px;
+  position: relative; /* Define o popup como contexto para o botão de fechar */
 }
 
 .popup-box.large {
@@ -442,7 +443,7 @@ button[type="submit"]:hover {
   footer {
       font-size: 12px;
   }
-  
+
 #fullscreen-btn {
   display: none; /* Oculta o botão em telas menores */
 }
