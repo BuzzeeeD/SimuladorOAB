@@ -3,7 +3,20 @@ document.addEventListener('DOMContentLoaded', function() {
   let countdown; // Variável global para o cronômetro
   let duration = 5 * 60 * 60; // 5 horas em segundos (18000 segundos)
   let timeRemaining; // Variável global para o tempo restante
-  
+  const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
+  const isAndroid = /Android/.test(navigator.userAgent);
+  if (isIOS || isAndroid) {
+    // Esconde o conteúdo principal da página
+    document.body.innerHTML = `
+      <div style="display: flex; align-items: center; justify-content: center; height: 100vh; text-align: center; background-color: #f4f4f4;">
+        <div style="padding: 20px; background-color: white; border: 2px solid #ccc; border-radius: 10px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); max-width: 400px;">
+          <h1 style="color: #ff0000;">Atenção!</h1>
+          <p style="font-size: 18px; color: #333;">Telefone não é Ferramenta de Estudo, procure um computador e venha estudar de verdade.</p>
+        </div>
+      </div>
+    `;
+    return; // Impede o carregamento do restante do código
+  }
   //Tela Cheia
   document.getElementById('fullscreen-btn').addEventListener('click', function() {
     if (!document.fullscreenElement) {
@@ -60,7 +73,7 @@ function startCountdown(durationInput) {
 
 // Função para ler o arquivo Excel e identificar questões anuladas
 function loadExcelFile(examNumber, callback) {
-  const filePath = `data/Gabaritos/${examNumber}.xlsx`;
+  const filePath = `/data/Gabaritos/${examNumber}.xlsx`;
 
   fetch(filePath).then(response => response.arrayBuffer()).then(data => {
       const workbook = XLSX.read(data, { type: 'array' });
@@ -179,26 +192,31 @@ function calculateResults(gabarito) {
   // Evento para a seleção do exame
   document.getElementById('examSelect').addEventListener('change', function() {
     const selectedExam = this.value;
+  
+    // Verificar se o usuário escolheu uma opção válida
     if (selectedExam === "") {
-      return;
+      return; // Não faz nada se for "Escolha o Exame"
     }
-
+  
+    // Exibir pop-up estilizado ao invés de confirm nativo
     showPopup(`Você selecionou o ${selectedExam}º Exame de Ordem Unificado. A prova terá duração de 5 horas. Deseja começar agora?`, function() {
-      startCountdown(5 * 60 * 60);
-
-      const basePath = 'data/Provas/';
-      const pdfPath = `${basePath}${selectedExam}.pdf`;
-      const pdfFrame = document.getElementById('pdf-frame');
+      // Iniciar o cronômetro de 5 horas (18000 segundos)
+      startCountdown(5 * 60 * 60); // 5 horas em segundos
       
-      // Força o recarregamento do iframe para corrigir o problema de exibição
-      pdfFrame.src = ''; // Limpa o src primeiro
-      setTimeout(() => {
-        pdfFrame.src = pdfPath; // Atualiza o src com o novo PDF
-      }, 100); // Pequeno atraso para garantir o recarregamento
-
+      // Caminho base dos PDFs
+      const basePath = '/data/Provas/';
+      
+      // Monta o caminho completo para o PDF
+      const pdfPath = `${basePath}${selectedExam}.pdf`;
+      
+      // Seleciona o iframe e atualiza o src
+      document.getElementById('pdf-frame').src = pdfPath;
+  
+      // Carrega o gabarito do exame e gera o cartão resposta, incluindo anuladas
       loadExcelFile(selectedExam, generateAnswerSheet);
     }, function() {
-      document.getElementById('examSelect').value = "";
+      // Callback ao cancelar o popup: redefine o examSelect para a opção inicial
+      document.getElementById('examSelect').value = ""; // Retorna para a opção "Escolha o Exame"
     });
   });
 
@@ -374,7 +392,7 @@ document.getElementById('consultGabarito').addEventListener('click', function() 
   }
   
   // Caminho para o PDF do gabarito
-  const gabaritoPath = `data/Gabaritos/${selectedExam}.pdf`;
+  const gabaritoPath = `/data/Gabaritos/${selectedExam}.pdf`;
   
   // Exibir o PDF do gabarito em um popup
   showPDFPopup(gabaritoPath, `Gabarito do ${selectedExam}º Exame de Ordem Unificado`);
@@ -389,7 +407,7 @@ document.getElementById('consultEdital').addEventListener('click', function() {
   }
 
   // Caminho para o PDF do edital
-  const editalPath = `data/Editais/${selectedExam}.pdf`;
+  const editalPath = `/data/Editais/${selectedExam}.pdf`;
 
   // Exibir o PDF do edital em um popup
   showPDFPopup(editalPath, `Edital do ${selectedExam}º Exame de Ordem Unificado`);
