@@ -179,31 +179,26 @@ function calculateResults(gabarito) {
   // Evento para a seleção do exame
   document.getElementById('examSelect').addEventListener('change', function() {
     const selectedExam = this.value;
-  
-    // Verificar se o usuário escolheu uma opção válida
     if (selectedExam === "") {
-      return; // Não faz nada se for "Escolha o Exame"
+      return;
     }
-  
-    // Exibir pop-up estilizado ao invés de confirm nativo
+
     showPopup(`Você selecionou o ${selectedExam}º Exame de Ordem Unificado. A prova terá duração de 5 horas. Deseja começar agora?`, function() {
-      // Iniciar o cronômetro de 5 horas (18000 segundos)
-      startCountdown(5 * 60 * 60); // 5 horas em segundos
-      
-      // Caminho base dos PDFs
+      startCountdown(5 * 60 * 60);
+
       const basePath = 'data/Provas/';
-      
-      // Monta o caminho completo para o PDF
       const pdfPath = `${basePath}${selectedExam}.pdf`;
+      const pdfFrame = document.getElementById('pdf-frame');
       
-      // Seleciona o iframe e atualiza o src
-      document.getElementById('pdf-frame').src = pdfPath;
-  
-      // Carrega o gabarito do exame e gera o cartão resposta, incluindo anuladas
+      // Força o recarregamento do iframe para corrigir o problema de exibição
+      pdfFrame.src = ''; // Limpa o src primeiro
+      setTimeout(() => {
+        pdfFrame.src = pdfPath; // Atualiza o src com o novo PDF
+      }, 100); // Pequeno atraso para garantir o recarregamento
+
       loadExcelFile(selectedExam, generateAnswerSheet);
     }, function() {
-      // Callback ao cancelar o popup: redefine o examSelect para a opção inicial
-      document.getElementById('examSelect').value = ""; // Retorna para a opção "Escolha o Exame"
+      document.getElementById('examSelect').value = "";
     });
   });
 
