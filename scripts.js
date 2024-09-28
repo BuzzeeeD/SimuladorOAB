@@ -11,7 +11,7 @@ document.addEventListener('DOMContentLoaded', function() {
       <div style="display: flex; align-items: center; justify-content: center; height: 100vh; text-align: center; background-color: #f4f4f4;">
         <div style="padding: 20px; background-color: white; border: 2px solid #ccc; border-radius: 10px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); max-width: 400px;">
           <h1 style="color: #ff0000;">Atenção!</h1>
-          <p style="font-size: 18px; color: #333;">Telefone não é Ferramenta de Estudo, procure um computador e venha estudar de verdade.</p>
+          <p style="font-size: 18px; color: #333;">Telefone não é ferramenta de estudo, procure um computador e venha estudar de verdade!</p>
         </div>
       </div>
     `;
