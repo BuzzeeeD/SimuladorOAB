@@ -442,7 +442,7 @@ button[type="submit"]:hover {
   footer {
       font-size: 12px;
   }
-}
+  
 #fullscreen-btn {
   display: none; /* Oculta o botão em telas menores */
 }
@@ -455,4 +455,4 @@ button[type="submit"]:hover {
   height: 20vh;
   overflow-y: auto;
 }
-
+}
