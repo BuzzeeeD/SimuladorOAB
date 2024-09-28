@@ -73,7 +73,7 @@ function startCountdown(durationInput) {
 
 // Função para ler o arquivo Excel e identificar questões anuladas
 function loadExcelFile(examNumber, callback) {
-  const filePath = `/data/Gabaritos/${examNumber}.xlsx`;
+  const filePath = `data/Gabaritos/${examNumber}.xlsx`;
 
   fetch(filePath).then(response => response.arrayBuffer()).then(data => {
       const workbook = XLSX.read(data, { type: 'array' });
@@ -204,7 +204,7 @@ function calculateResults(gabarito) {
       startCountdown(5 * 60 * 60); // 5 horas em segundos
       
       // Caminho base dos PDFs
-      const basePath = '/data/Provas/';
+      const basePath = 'data/Provas/';
       
       // Monta o caminho completo para o PDF
       const pdfPath = `${basePath}${selectedExam}.pdf`;
@@ -392,7 +392,7 @@ document.getElementById('consultGabarito').addEventListener('click', function() 
   }
   
   // Caminho para o PDF do gabarito
-  const gabaritoPath = `/data/Gabaritos/${selectedExam}.pdf`;
+  const gabaritoPath = `data/Gabaritos/${selectedExam}.pdf`;
   
   // Exibir o PDF do gabarito em um popup
   showPDFPopup(gabaritoPath, `Gabarito do ${selectedExam}º Exame de Ordem Unificado`);
@@ -407,7 +407,7 @@ document.getElementById('consultEdital').addEventListener('click', function() {
   }
 
   // Caminho para o PDF do edital
-  const editalPath = `/data/Editais/${selectedExam}.pdf`;
+  const editalPath = `data/Editais/${selectedExam}.pdf`;
 
   // Exibir o PDF do edital em um popup
   showPDFPopup(editalPath, `Edital do ${selectedExam}º Exame de Ordem Unificado`);
