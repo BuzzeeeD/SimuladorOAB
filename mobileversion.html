@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Simulador de Provas OAB</title>
+  <link rel="stylesheet" href="data/mobilestyles.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.16.9/xlsx.full.min.js"></script>
+</head>
+<body>
+  <div class="header-container">
+    <header>
+      <div id="timer" style="display: none; font-weight: bold; color: white; font-size: 18px;">
+        Tempo restante: <span id="time-left"></span>
+      </div>
+      <div class="logo">
+        <img src="data\Imagens\LogoOAB.png" alt="Logo OAB">
+      </div>
+      <div class="welcome-message">
+        <h1>Bem-vindo ao Simulador de Provas da 1ª Fase da OAB</h1>
+      </div>
+    </header>
+  </div>
+
+  <main>
+    <section id="exames">
+        <h2>Selecione o Exame de Ordem Unificado</h2>        
+        <p>Escolha um exame anterior para começar a simular e testar seus conhecimentos.</p>
+        <label for="examSelect">Exames disponíveis:</label>
+        <select id="examSelect">
+            <option value="">Escolha o Exame</option>
+            <option value="41">41º Exame de Ordem Unificado</option>
+            <option value="40">40º Exame de Ordem Unificado</option>
+            <option value="39">39º Exame de Ordem Unificado</option>
+            <option value="38">38º Exame de Ordem Unificado</option>
+            <option value="37">37º Exame de Ordem Unificado</option>
+            <option value="36">36º Exame de Ordem Unificado</option>
+            <option value="35">35º Exame de Ordem Unificado</option>
+        </select>
+        <button id="consultEdital" type="button">Consultar Edital</button>
+    </section>
+
+    <!-- Container para exibir as questões -->
+    <section id="layout-container">
+        <!-- Questões serão inseridas aqui dinamicamente -->
+    </section>
+
+    <!-- Botão para finalizar a prova -->
+    <div class="button-group">
+        <button id="finalize-exam">Finalizar</button>
+        <button id="consultGabarito" type="button">Consultar Gabarito</button>
+    </div>
+  </main>
+
+  <footer>
+    <div class="footer-content">
+      <p><strong>Prepare-se para o Exame de Ordem</strong></p>
+      <p>Simulador de 1ª fase desenvolvido por Leonardo Frota</p>
+      <p><strong>Para Sugestões ou Dúvidas - Contato:</strong> (21) 97665-1085 | <a href="mailto:l.frota94@gmail.com">l.frota94@gmail.com</a></p>
+    </div>
+  </footer>
+
+  <script src="data/mobilescripts.js"></script>
+</body>
+</html>

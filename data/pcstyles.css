@@ -1,0 +1,468 @@
+/* Reseta o estilo básico */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: Arial, sans-serif;
+  background-color: #f4f4f4;
+  color: #333;
+}
+
+/* Estilizando o Header */
+header {
+  background-color: #002a5c;
+  padding: 15px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+}
+
+.logo {
+  position: absolute;
+  left: 15px;
+}
+
+.logo img {
+  height: 50px;
+}
+
+.welcome-message {
+  text-align: center;
+}
+
+.welcome-message h1 {
+  color: white;
+  font-size: 22px;
+}
+
+#timer {
+  background-color: #ff0000;
+  padding: 10px;
+  border-radius: 5px;
+  position: absolute;
+  right: 15px;
+  font-weight: bold;
+  color: white;
+}
+
+main {
+  padding: 20px;
+}
+
+h1, h2 {
+  color: #002a5c;
+}
+
+/* Footer */
+footer {
+  background-color: #002a5c;
+  color: white;
+  text-align: center;
+  padding: 15px 0;
+  font-size: 14px;
+  margin-top: 20px;
+}
+
+.footer-content p {
+  margin: 5px 0;
+}
+
+.footer-content a {
+  color: #ffca28;
+  text-decoration: none;
+}
+
+.footer-content a:hover {
+  text-decoration: underline;
+}
+
+/* Estilos do Select */
+select {
+  padding: 5px;
+  font-size: 15px;
+  margin-top: 10px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  background-color: #fff;
+}
+
+#exam-select-container {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  margin-top: 10px;
+}
+
+#consultGabarito, #consultEdital {
+  padding: 5px 10px;
+  background-color: #002a5c;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+#exam-select-container button:hover {
+  background-color: #ffca28;
+  color: #002a5c;
+}
+
+label {
+  font-weight: bold;
+  margin-right: 10px;
+  user-select: none;
+  cursor: pointer;
+}
+
+#pdf-viewer {
+  flex-grow: 1;
+  height: calc(100vh - 60px);
+  background-color: #d6d6d6a1;
+}
+
+#pdf-viewer iframe {
+  width: 100%;
+  height: 100%;
+  border: none;
+}
+
+/* Layout dos containers */
+#layout-container {
+  margin-top: 10px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: stretch;
+  height: 80vh;
+}
+
+#pdf-reader-container {
+  flex: 1;
+  margin: 0 10px;
+  padding: 0px;
+  border: 2px solid #ccc;
+  background-color: #f9f9f9;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Estilos do Cartão Resposta */
+#answer-sheet-container {
+  margin-top: 5px;
+  padding: 15px;
+  border: 2px solid #ccc;
+  background-color: #f9f9f9;
+  height: 80vh;
+  overflow-y: auto;
+}
+
+#answer-sheet {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-gap: 20px;
+}
+
+.question {
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 10px;
+  background-color: #fff;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  transition: transform 0.2s, box-shadow 0.2s;
+  display: flex;
+  flex-direction: column;
+}
+
+.question:hover {
+  transform: scale(1.02);
+  box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15);
+}
+
+.question label {
+  margin-bottom: 5px;
+  color: #555;
+}
+
+input[type="radio"] {
+  cursor: pointer;
+  user-select: none;
+}
+
+button[type="submit"] {
+  background-color: #002a5c;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+  margin-top: 20px;
+  transition: background-color 0.3s ease;
+}
+
+button[type="submit"]:hover {
+  background-color: #ffca28;
+  color: #002a5c;
+}
+
+
+/* Estilos do Pop-up */
+.popup-box {
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 10px;
+  text-align: center;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  width: 300px;
+  position: relative; /* Define o popup como contexto para o botão de fechar */
+}
+
+.popup-box.large {
+  width: 750px;
+  max-height: 80vh;
+  overflow-y: auto;
+}
+
+.popup-box.large h2 {
+  padding: 5px;
+  margin-top: -12px;
+}
+
+.result-container {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.result-section {
+  padding: 15px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  background-color: #d8d8d8;
+  text-align: left;
+}
+
+.result-section h3 {
+  margin-bottom: 10px;
+  color: #002a5c;
+  border-bottom: 1px solid #ddd;
+  padding-bottom: 5px;
+}
+
+.result-section p {
+  margin-bottom: 10px;
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+.popup-box ul {
+  text-align: left;
+  margin: 10px 0;
+  padding-left: 20px;
+}
+
+.popup-box button {
+  background-color: #002a5c;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-top: 15px;
+}
+
+.popup-box button:hover {
+  background-color: #ffca28;
+  color: #002a5c;
+}
+
+.aprovado {
+  color: green;
+  font-weight: bold;
+}
+
+.reprovado {
+  color: red;
+  font-weight: bold;
+}
+
+.button-group {
+  margin-top: 20px;
+  text-align: center;
+}
+
+.button-group button {
+  background-color: #002a5c;
+  color: white;
+  padding: 5px 12px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+  margin: 0 5px;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.button-group button:hover {
+  background-color: #ffca28;
+  color: #002a5c;
+}
+
+.popup-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.8);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+#popup-close {
+  background-color: #002a5c;
+  color: white;
+  padding: 5px 15px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  position: absolute;
+  top: 0px;
+  right: 20px;
+}
+
+#popup-close:hover {
+  background-color: #ffca28;
+  color: #002a5c;
+}
+
+/* Botão de tela cheia */
+#fullscreen-btn {
+  background-color: #ff0000;
+  color: white;
+  border: none;
+  cursor: pointer;
+  width: 5%;
+  height: 5%;
+  margin-left: 20px;
+  margin-top: -20px;
+  transition: background-color 0.3s ease;
+  padding: 10px;
+  border-radius: 5px;
+  position: absolute;
+  right: 15px;
+  font-weight: bold;
+  color: white;
+}
+
+#fullscreen-btn:hover {
+  background-color: #ffca28;
+  color: #000000;
+}
+/* Estilo do iframe para ocupar o espaço correto */
+#pdf-frame {
+  width: 100%;
+  height: 100vh; /* Usar 100% da altura da viewport */
+  border: none;
+}
+
+/* Responsividade - Mobile */
+@media (max-width: 768px) {
+  .header-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+  }
+  #pdf-frame {
+    height: 90vh; /* Ajusta a altura para telas menores */
+  }
+  #timer {
+      position: relative; /* Remover a posição absoluta no mobile */
+      margin: 10px 0; /* Espaçamento entre o header e a seção de exames */
+      display: block;
+  }
+
+  /* Reordenando o cronômetro para aparecer após o header e antes da seção #exames */
+  .header-container {
+      order: 1; /* Header mantém a ordem */
+  }
+
+  #timer {
+      order: 2; /* O timer agora aparece logo abaixo do header */
+  }
+
+  #exames {
+      order: 3; /* Mantém a ordem natural do conteúdo abaixo */
+  }
+
+  header {
+      flex-direction: column;
+      padding: 10px;
+  }
+
+  .logo {
+      position: relative;
+      margin-bottom: 10px;
+  }
+
+  .logo img {
+      height: 40px;
+  }
+
+  .welcome-message h1 {
+      font-size: 18px;
+  }
+
+  #timer {
+      font-size: 14px;
+      padding: 8px;
+      right: 10px;
+  }
+
+  #layout-container {
+      flex-direction: column;
+      height: auto;
+  }
+
+  #pdf-viewer {
+      height: 50vh;
+  }
+
+  #answer-sheet {
+      grid-template-columns: 1fr; /* Alinha as questões em uma coluna */
+      grid-gap: 10px;
+  }
+
+  .button-group button {
+      font-size: 14px;
+      padding: 5px 10px;
+  }
+
+  .popup-box.large {
+      width: 100%;
+      max-height: 70vh;
+  }
+
+  footer {
+      font-size: 12px;
+  }
+
+#fullscreen-btn {
+  display: none; /* Oculta o botão em telas menores */
+}
+/* Estilos do Cartão Resposta */
+#answer-sheet-container {
+  margin-top: 5px;
+  padding: 15px;
+  border: 2px solid #ccc;
+  background-color: #f9f9f9;
+  height: 20vh;
+  overflow-y: auto;
+}
+}
