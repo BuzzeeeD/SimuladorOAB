@@ -45,7 +45,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Função para carregar a planilha ao abrir a página
     function loadExcel() {
-        fetch('data/dados/OAB/dataoab.xlsx')
+        fetch('data/OAB/dataoab.xlsx')
             .then(response => response.arrayBuffer())
             .then(data => {
                 const workbook = XLSX.read(data, { type: 'array' });
