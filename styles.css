@@ -1,0 +1,691 @@
+/* Header */
+header {
+    background-color: #002a5c;
+    width: 100vw; /* Garante que o header ocupe 100% da largura da viewport */
+    padding: 15px;
+    margin: 0; /* Remove qualquer margem padrão */
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    box-sizing: border-box; /* Inclui padding na largura total */
+    user-select: none;  /* Desabilita a seleção de texto */
+    -webkit-user-select: none;  /* Safari */
+    -moz-user-select: none;     /* Firefox */
+    -ms-user-select: none;      /* Internet Explorer/Edge */
+}
+/* Estilo para o cronômetro */
+#countdown-timer {
+    position: fixed;               /* Fixa o cronômetro na posição da página */
+    top: 10px;                     /* Alinha no topo da página */
+    right: -5px;                   /* Alinha à direita da página */
+    background-color: rgba(0, 42, 92, 0.9); /* Cor de fundo com leve transparência */
+    color: white;                  /* Cor do texto */
+    font-size: 24px;               /* Tamanho da fonte do cronômetro */
+    padding: 2px 10px;            /* Espaçamento interno */
+    border-radius: 5px;            /* Bordas arredondadas */
+    z-index: 1000;                 /* Garante que o cronômetro fique por cima de outros elementos */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Sombra para dar destaque */
+}
+/* Estilo para o container da logo */
+.logo {
+    flex: 1;                        /* A logo ocupa uma parte do espaço */
+    display: flex;                  /* Garante que o conteúdo seja flexível */
+    justify-content: center;        /* Centraliza horizontalmente */
+}
+
+.logo img {
+    height: 50px;                   /* Ajusta o tamanho da logo */
+    max-width: 100%;                /* Evita que a imagem estoure o container */
+}
+
+/* Estilo para a mensagem de boas-vindas */
+.welcome-message {
+    flex: 6;                        /* A mensagem ocupa mais espaço */
+    text-align: center;             /* Centraliza o texto */
+    user-select: none;  /* Desabilita a seleção de texto */
+    -webkit-user-select: none;  /* Safari */
+    -moz-user-select: none;     /* Firefox */
+    -ms-user-select: none;      /* Internet Explorer/Edge */
+}
+
+.welcome-message h1 {
+    font-size: 22px;
+    color: white;
+    margin: 0;                      /* Remove as margens padrão */
+}
+
+/* Garante que o body e o html ocupem 100% da altura da tela */
+html, body {
+    height: 100%;
+    margin: 0; /* Remove margens para evitar espaços indesejados */
+    padding: 0; /* Remove padding para evitar espaços indesejados */
+    display: flex;
+    flex-direction: column; /* Organiza o layout em uma coluna (header, main, footer) */
+    user-select: none;  /* Desabilita a seleção de texto */
+}
+
+/* Garante que o main ocupe todo o espaço disponível */
+main {
+    flex: 1;
+    padding: 5px;
+    display: flex;
+    flex-direction: column;
+}
+/* Estiliza o footer para que fique no final da página */
+footer {
+    background-color: #002a5c;
+    color: white;
+    text-align: center;
+    padding: 10px;
+    font-size: 15px;
+    margin: 0; /* Remove qualquer margem padrão */
+    width: 100vw; /* Garante que o footer ocupe 100% da largura da viewport */
+    box-sizing: border-box; /* Inclui padding na largura total */
+}
+
+/* Links no footer */
+.footer-content a {
+    color: #ffca28;
+    text-decoration: none;
+}
+
+.footer-content a:hover {
+    text-decoration: underline;
+}
+/* Estilo para o #exames para ter a mesma flexibilidade do layout-container */
+#exames {
+    background-color: #fff;                   /* Fundo branco para destacar */
+    border-radius: 10px;                      /* Bordas arredondadas */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Sombra leve igual ao layout-container */
+    padding: 20px;                            /* Espaçamento interno igual ao layout-container */
+    margin: 20px auto;                        /* Centralizado com margem automática */
+    max-width: 900px;                         /* Mesma largura máxima do layout-container */
+    width: 100%;                              /* Garante que ele ocupe 100% da largura disponível */
+    display: flex;                            /* Usando flexbox para flexibilidade */
+    flex-direction: column;                   /* Garantir que os elementos dentro sejam organizados em coluna */
+    justify-content: center;                  /* Centraliza o conteúdo verticalmente */
+    align-items: center;                      /* Centraliza o conteúdo horizontalmente */
+}
+
+/* Estilo para o título da seção */
+#exames h2 {
+    font-size: 22px;
+    color: #333;
+    margin-bottom: 15px;                   /* Espaçamento entre o título e o seletor */
+}
+
+/* Estilo para o seletor de exames */
+#exames select {
+    width: 100%;                           /* Ocupa toda a largura do container */
+    max-width: 400px;                      /* Limite de largura para o seletor */
+    padding: 10px;                         /* Espaçamento interno */
+    font-size: 16px;                       /* Tamanho da fonte para boa leitura */
+    border: 1px solid #ccc;                /* Borda leve */
+    border-radius: 8px;                    /* Bordas arredondadas */
+    background-color: #d1d1d1;             /* Fundo claro */
+    color: #333;                           /* Cor do texto */
+    margin-top: 10px;                      /* Espaçamento acima do seletor */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Leve sombra para destaque */
+}
+
+/* Efeito hover e foco no seletor */
+#exames select:hover, #exames select:focus {
+    background-color: #f1f1f1;             /* Fundo ligeiramente mais escuro no hover e foco */
+    border-color: #002a5c;                 /* Cor da borda no hover e foco */
+    box-shadow: 0 0 8px rgba(0, 42, 92, 0.2); /* Brilho leve no hover e foco */
+    outline: none;                         /* Remove o contorno padrão */
+}
+
+/* Estilo para o botão */
+#exames button {
+    font-size: 16px;
+    padding: 10px 20px;
+    margin-top: 20px;
+    background-color: #002a5c;
+    color: white;
+    border: none;
+    border-radius: 8px;                    /* Bordas arredondadas */
+    cursor: pointer;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* Efeito hover no botão */
+#exames button:hover {
+    background-color: #ffca28;
+    color: #002a5c;
+}
+/* Botões */
+.button-group button {
+    font-size: 14px;
+    padding: 8px 12px;
+    background-color: #002a5c;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.button-group button:hover {
+    background-color: #ffca28;
+    color: #002a5c;
+}
+
+.footer-content a {
+    color: #ffca28;
+    text-decoration: none;
+}
+
+.footer-content a:hover {
+    text-decoration: underline;
+}
+
+/* Estilo para o layout-container */
+#layout-container {
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Sombra leve para destacar o conteúdo */
+    padding: 20px;
+    margin: 20px auto;
+    max-width: 900px;                         /* Limite de largura para evitar que fique muito largo */
+    width: 100%;                              /* Ocupa 100% da largura disponível */
+}
+
+/* Estilo para as questões inseridas posteriormente */
+.question {
+    padding: 15px;
+    border: 1px solid #ddd;                /* Borda leve para separar cada questão */
+    border-radius: 8px;                    /* Bordas arredondadas nas questões */
+    background-color: #fafafa;             /* Fundo suave para as questões */
+    margin-bottom: 20px;                   /* Espaço entre cada questão */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05); /* Leve sombra para destacar cada questão */
+}
+
+/* Estilizando o texto das questões */
+.question p {
+    font-size: 16px;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 10px;
+}
+/* Estilo para o container de respostas */
+.answer-container label {
+    display: block;
+    margin-bottom: 10px; /* Quebra de linha entre alternativas */
+    font-size: 16px; /* Ajuste do tamanho da fonte */
+    color: #333;
+    position: relative;
+    padding-left: 35px; /* Espaço para o radio button customizado */
+    cursor: pointer;
+    line-height: 20px;
+}
+
+/* Esconde apenas visualmente o radio button padrão */
+.answer-container input[type="radio"] {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+}
+
+/* Cria o círculo customizado para o radio button */
+.answer-container input[type="radio"] + span::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 20px;
+    height: 20px;
+    border: 2px solid #002a5c; /* Cor da borda do círculo */
+    border-radius: 50%;
+    background-color: #fff;
+    transition: background-color 0.3s, border-color 0.3s;
+}
+
+/* Círculo interno menor quando selecionado */
+.answer-container input[type="radio"]:checked + span::after {
+    content: '';
+    position: absolute;
+    left: 6px;
+    top: 6px;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: 002a5c(45, 100%, 58%); /* Cor interna ao selecionar */
+}
+
+/* Estilo quando o radio button é selecionado */
+.answer-container input[type="radio"]:checked + span::before {
+    background-color: #002a5c; /* Cor de fundo quando selecionado */
+    border-color: #555555; /* Cor da borda quando selecionado */
+}
+
+/* Efeito de hover */
+.answer-container label:hover input[type="radio"] + span::before {
+    border-color: #555555; /* Muda a cor da borda ao passar o mouse */
+}
+
+
+/* Estilo para o popup de gabarito */
+#popup-gabarito {
+    display: none;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: rgba(255, 255, 255, 0.95); /* Fundo branco com leve transparência */
+    color: #002a5c; /* Texto azul escuro */
+    padding: 25px;
+    border-radius: 10px;
+    z-index: 1001;
+    max-width: 70%;
+    max-height: 70%;
+    overflow-y: auto;
+    box-shadow: 0 4px 12px rgba(0, 42, 92, 0.2); /* Sombra azul suave */
+    text-align: left;
+}
+
+/* Estilo para o conteúdo do popup */
+.popup-content {
+    background-color: #f9f9f9; /* Fundo cinza muito claro */
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    border-radius: 10px;
+    padding: 10px; /* Espaçamento interno */
+    box-shadow: 0 4px 8px rgba(0, 42, 92, 0.1); /* Sombra leve */
+    color: #002a5c; /* Texto azul escuro */
+}
+
+/* Estilo padrão dos itens de gabarito */
+.popup-content p {
+    margin-bottom: 5px; /* Ajuste da margem entre os gabaritos */
+    padding: 12px;
+    background-color: #f9f9f9; /* Fundo claro padrão */
+    border-radius: 6px;
+    transition: background-color 0.3s ease, color 0.3s ease;
+    color: #002a5c; /* Texto azul escuro */
+}
+
+/* Estilo padrão para o item de gabarito */
+.gabarito-question {
+    color: #002a5c; /* Texto azul escuro padrão */
+    cursor: pointer; /* Cursor de ponteiro para indicar interatividade */
+    transition: background-color 0.3s ease, color 0.3s ease;
+    display: inline-block; /* Para o hover funcionar corretamente */
+    border-radius: 6px; /* Bordas arredondadas */
+}
+
+/* Efeito hover para .gabarito-question */
+.gabarito-question:hover {
+    background-color: #4d79ff; /* Azul claro no hover */
+    color: white; /* Texto branco no hover */
+}
+/* Estilo para o botão de fechar que ocupa a parte superior inteira com bordas arredondadas */
+#close-popup {
+    background-color: #002a5c; /* Fundo azul escuro */
+    color: white; /* Texto branco */
+    border: none;
+    border-top-left-radius: 10px; /* Bordas arredondadas na parte superior esquerda */
+    border-top-right-radius: 10px; /* Bordas arredondadas na parte superior direita */
+    padding: 15px 0; /* Aumenta o espaçamento vertical */
+    cursor: pointer;
+    width: 100%; /* Faz o botão ocupar toda a largura do popup */
+    text-align: center; /* Centraliza o texto no botão */
+    position: relative; /* Posicionamento relativo para manter dentro do fluxo */
+    top: 0; /* Alinhado ao topo */
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+#close-popup:hover {
+    background-color: #ffca28; /* Amarelo no hover */
+    color: #002a5c; /* Texto azul no hover */
+}
+
+/* Efeito hover para as respostas */
+.popup-content p:hover {
+    background-color: #ffca28;
+    color: #000000;
+}
+
+/* Estilo para o container dos botões */
+.buttons-container {
+    display: flex;            /* Alinhar os botões lado a lado */
+    justify-content: center;   /* Centralizar os botões horizontalmente */
+    align-items: center;       /* Alinhar os botões verticalmente */
+    gap: 20px;                 /* Espaçamento entre os botões */
+    margin-bottom: 40px;       /* Aumentar o espaçamento em relação ao footer */
+}
+
+/* Estilo uniforme para os botões Gabarito e Finalizar a Prova */
+.buttons-container button {
+    font-size: 16px;           /* Tamanho de fonte uniforme */
+    padding: 10px 20px;        /* Tamanho de preenchimento (padding) igual */
+    background-color: #002a5c; /* Cor de fundo azul */
+    color: white;              /* Texto branco */
+    border: none;              /* Remover bordas padrão */
+    border-radius: 8px;        /* Bordas arredondadas */
+    cursor: pointer;           /* Cursor de ponteiro ao passar o mouse */
+    flex: 1;                   /* Ambos os botões terão a mesma largura */
+    max-width: 200px;          /* Limitar a largura máxima para evitar exageros */
+    text-align: center;        /* Centralizar o texto nos botões */
+}
+
+.buttons-container button:hover {
+    background-color: #ffca28; /* Cor de fundo ao passar o mouse */
+    color: #002a5c;            /* Cor do texto ao passar o mouse */
+}
+/* Estilo para o popup de estatísticas */
+/* Estilo para o popup de estatísticas */
+#popup-estatisticas {
+    display: none; /* Inicialmente oculto */
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #f4f4f4; /* Fundo cinza claro para um estilo profissional */
+    color: #ffffff; /* Texto cinza escuro para bom contraste */
+    padding: 25px;
+    border-radius: 10px;
+    max-width: 450px;
+    width: 90%;
+    z-index: 1001;
+    text-align: left; /* Texto alinhado à esquerda */
+    overflow-y: auto; /* Rolagem automática se o conteúdo for muito grande */
+    max-height: 85vh; /* Limitar altura do popup */
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); /* Sombra sutil para destaque */
+}
+#popup-estatisticas button {
+    background-color: #002a5c;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 20px;
+    cursor: pointer;
+    margin-top: 15px;
+    font-size: 15px;
+}
+
+#popup-estatisticas button:hover {
+    background-color: #ffca28;
+    color: #002a5c;
+}
+/* Estilo para os containers de contraste */
+.container-contraste {
+    background-color: #ffffff; /* Fundo branco para um contraste discreto */
+    padding: 20px;
+    margin-bottom: 15px;
+    border-radius: 8px;
+    border: 1px solid #ddd; /* Borda leve e elegante */
+}
+
+/* Estilo para o título do popup */
+.popup-content h2 {
+    font-size: 22px;
+    margin-bottom: 15px;
+    color: #da2020; /* Cor mais escura para o título */
+    text-align: center; /* Centralizar o texto do título */
+}
+
+/* Centralizar o título das disciplinas */
+.popup-content h3 {
+    text-align: center; /* Centralizar o texto */
+    margin-bottom: 15px;
+    font-size: 18px; /* Tamanho do texto */
+    color: #333; /* Cor do texto */
+}
+/* Estilo para os itens de estatísticas */
+.popup-content .estatistica-item {
+    margin-bottom: 10px;
+    font-size: 15px;
+    color: #333;
+}
+
+/* Estilo para o botão de fechar */
+#close-popup-estatisticas {
+    background-color: #002a5c; /* Azul escuro discreto */
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 20px;
+    cursor: pointer;
+    margin-top: 15px;
+    font-size: 15px;
+    display: block;
+    width: 100%; /* Largura completa no mobile */
+    text-align: center;
+}
+
+#close-popup-estatisticas:hover {
+    background-color: #ffca28; /* Cor mais escura no hover */
+    color: #ffffff;
+}
+
+/* Cores para os resultados */
+.aprovado {
+    color: #28a745; /* Verde profissional e sutil */
+    font-weight: bold;
+}
+
+.reprovado {
+    color: #dc3545; /* Vermelho suave */
+    font-weight: bold;
+}
+
+.certas {
+    color: #28a745; /* Verde sutil para as respostas certas */
+}
+
+.erradas {
+    color: #dc3545; /* Vermelho suave para as respostas erradas */
+}
+
+/* Estilo para o container descritivo */
+.description-container {
+    background-color: #f9f9f9; /* Fundo claro */
+    border-radius: 10px; /* Bordas arredondadas */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Sombra leve */
+    padding: 10px 20px; /* Reduzido o padding superior (10px) */
+    font-size: 18px;         /* Aumentar o tamanho da fonte */
+    font-weight: bold;       /* Deixar o texto em negrito */
+    color: #000000;          /* Cor do texto preto */
+    margin-bottom: 20px;     /* Espaço abaixo do texto */
+    text-align: justify;     /* Justificar o texto */
+    max-width: 800px;
+    margin: 20px auto; /* Centralizar horizontalmente */
+    display: flex;
+    flex-direction: column;  /* Organiza o texto e o QR code em coluna */
+    justify-content: center; /* Centraliza verticalmente */
+    align-items: center;     /* Centraliza horizontalmente */
+}
+.small-text {
+    font-size: 0.95em; /* Ou ajuste conforme o tamanho desejado */
+    color: #000000a1;
+}
+/* Estilo para o texto descritivo */
+.description-container p {
+    font-size: 16px; /* Tamanho da fonte */
+    color: #000000; /* Cor do texto */
+    margin-bottom: 20px; /* Espaço abaixo do texto */
+    text-align: justify; /* Justificar o texto */
+    
+}
+
+/* Estilo para o QR code */
+.description-container img {
+    width: 250px; /* Alterado o tamanho do QR code para 250px */
+    cursor: pointer; /* Indica que é clicável */
+    margin-top: 10px; /* Pequeno espaçamento superior ao QR code */
+    
+}
+/* Responsividade - Mobile */
+@media (max-width: 768px) {
+    #countdown-timer {
+        font-size: 18px; /* Tamanho da fonte menor para dispositivos móveis */
+        padding: 8px 15px; /* Reduzir o padding interno */
+        top: 5px; /* Ajustar o espaço superior */
+        right: 5px; /* Ajustar o espaço à direita */
+    }
+    /* Header ajustado para mobile */
+    header {
+        flex-direction: column;     /* Alinha a logo acima do texto em telas menores */
+        text-align: center;         /* Garante que tudo esteja centralizado */
+        width: 100%;
+    }
+
+    .logo {
+        margin-bottom: 10px;        /* Espaço extra abaixo da logo no mobile */
+    }
+
+    .welcome-message h1 {
+        font-size: 18px;            /* Reduz o tamanho do texto no mobile */
+    }
+
+    .button-group button {
+        font-size: 12px;
+        padding: 6px 10px;
+    }
+
+    /* Estilos para o #exames em mobile */
+    #exames {
+        background-color: #ffffff;
+        padding: 15px;                        /* Reduz o espaçamento interno */
+        margin: 10px auto;                    /* Margem menor */
+        max-width: 95%;                       /* Ocupa quase toda a largura da tela */
+        box-shadow: none;                     /* Remove a sombra para telas pequenas */
+        border-radius: 8px;                   /* Mantém bordas arredondadas */
+    }
+
+    /* Ajustes no título da seção de exames */
+    #exames h2 {
+        font-size: 20px;                       /* Tamanho de fonte menor em telas pequenas */
+        margin-bottom: 10px;                   /* Reduz o espaçamento inferior */
+    }
+
+    /* Ajustes no seletor de exames */
+    #exames select {
+        padding: 8px;                          /* Menor padding para se ajustar a telas pequenas */
+        font-size: 14px;                       /* Fonte levemente menor para dispositivos móveis */
+        max-width: 100%;                       /* O seletor agora ocupará toda a largura em telas pequenas */
+    }
+
+    /* Ajustes no botão */
+    #exames button {
+        font-size: 14px;                       /* Fonte menor para o botão */
+        padding: 8px 15px;                     /* Menor espaçamento no botão */
+        margin-top: 15px;                      /* Ajuste no espaçamento superior */
+        width: 100%;                           /* O botão ocupará toda a largura disponível */
+    }
+
+    /* Estilos para o layout-container em mobile */
+    #layout-container {
+        background-color: #ffffff;
+        padding: 15px;                        /* Reduz o espaçamento interno */
+        margin: 10px auto;                    /* Margem menor */
+        max-width: 95%;                       /* Ocupa quase toda a largura da tela */
+        border-radius: 10px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Sombra leve para destacar o conteúdo */
+    }
+
+    /* Estilo para o container de cada questão */
+    .question {
+        padding: 15px;
+        border: 1px solid #ddd;
+        border-radius: 8px;
+        background-color: #fafafa;
+        margin-bottom: 20px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    }
+
+    /* Estilizando o texto das questões */
+    .question p {
+        font-size: 16px;
+        font-weight: bold;
+        color: #333;
+        margin-bottom: 10px;
+    }
+
+    /* Estilo para os detalhes no topo da questão */
+    .question div {
+        margin-bottom: 10px;
+    }
+
+    /* Estilo para as alternativas */
+    .answer-container label {
+        display: block;
+        margin-bottom: 10px;  /* Quebra de linha entre alternativas */
+    }
+
+    .answer-container input[type="radio"] {
+        margin-right: 10px;
+    }
+
+    /* Ajustes no footer */
+    footer {
+        font-size: 15px;                       /* Texto menor no footer */
+        padding: 8px;                          /* Menor padding para o footer */
+        width: 100%;
+    }
+
+    /* Ajustar o tamanho dos popups */
+    .popup-box {
+        width: 90%;
+    }
+
+    .popup-box.large {
+        width: 100%;
+        max-height: 70vh;
+    }
+
+    .popup-box h2 {
+        font-size: 18px;
+    }
+
+    .popup-box p {
+        font-size: 14px;
+    }
+
+    .popup-box button {
+        font-size: 14px;
+        padding: 8px 15px;
+    }
+
+    #popup-gabarito {
+        width: 90%;
+        max-height: 70%; /* Reduz a altura máxima em dispositivos móveis */
+        padding: 15px;
+        font-size: 16px; /* Ajusta o tamanho da fonte para melhor legibilidade */
+    }
+
+    #close-popup {
+        font-size: 14px;
+        padding: 8px 10px;
+    }
+
+    /* Estilos para o popup de estatísticas */
+    #popup-estatisticas {
+        max-width: 90%;
+        padding: 20px;
+        max-height: 80vh; /* Garantir que o popup não ocupe toda a altura */
+    }
+
+    .popup-content h2 {
+        font-size: 20px;
+    }
+
+    .popup-content p, .popup-content h3, .popup-content .estatistica-item {
+        font-size: 14px;
+    }
+
+    #close-popup-estatisticas {
+        font-size: 14px;
+        padding: 8px 15px;
+        width: 100%; /* Garantir que o botão tenha largura completa no mobile */
+        text-align: center; /* Centralizar o texto no botão */
+    }
+
+    .container-contraste {
+        padding: 10px;
+        margin-bottom: 15px;
+    }
+}
