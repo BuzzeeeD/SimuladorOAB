@@ -15,7 +15,6 @@ header {
     -ms-user-select: none;      /* Internet Explorer/Edge */
 }
 #question-navigator {
-    
     position: fixed;
     top: 10px;
     left: 50%;
@@ -28,16 +27,17 @@ header {
     z-index: 1000;
     display: flex;
     align-items: center;
-    justify-content: space-between; /* Ensure even spacing */
+    justify-content: space-between;
     font-size: 16px;
 }
   
-  #question-navigator button {
+#question-navigator button {
     background-color: #002a5c;
     color: white;
     border: none;
-    border-radius: 25px;
-    padding: 5px 30px;
+    border-radius: 12px;
+    padding: 8px 35px;
+    margin-inline: 10px;
     cursor: pointer;
     transition: background-color 0.3s ease;
 }
@@ -64,32 +64,34 @@ header {
 
 /* Estilo para o container da logo */
 .logo {
-    flex: 1;                        /* A logo ocupa uma parte do espaço */
-    display: flex;                  /* Garante que o conteúdo seja flexível */
-    justify-content: center;        /* Centraliza horizontalmente */
+    flex: 0 0 250px; /* A logo terá um tamanho fixo de 250px */
+    display: flex;
+    justify-content: center; /* Centraliza horizontalmente a logo */
+    align-items: center; /* Centraliza verticalmente */
 }
 
+/* Estilo para a imagem da logo */
 .logo img {
-    height: 50px;                   /* Ajusta o tamanho da logo */
-    max-width: 100%;                /* Evita que a imagem estoure o container */
+    width: 250px; /* Tamanho fixo da logo */
+    height: auto; /* Mantém a proporção da logo */
 }
 
 /* Estilo para a mensagem de boas-vindas */
 .welcome-message {
-    flex: 6;                        /* A mensagem ocupa mais espaço */
-    text-align: center;             /* Centraliza o texto */
-    user-select: none;  /* Desabilita a seleção de texto */
-    -webkit-user-select: none;  /* Safari */
-    -moz-user-select: none;     /* Firefox */
-    -ms-user-select: none;      /* Internet Explorer/Edge */
+    flex: 1; /* O restante do espaço vai para a mensagem de boas-vindas */
+    display: flex;
+    justify-content: center; /* Centraliza horizontalmente */
+    align-items: center; /* Centraliza verticalmente */
+    text-align: center; /* Centraliza o texto */
+    user-select: none; /* Desabilita a seleção de texto */
 }
 
 .welcome-message h1 {
     font-size: 22px;
+    padding-right: 250px;
     color: white;
-    margin: 0;                      /* Remove as margens padrão */
+    margin: 0px;
 }
-
 /* Garante que o body e o html ocupem 100% da altura da tela */
 html, body {
     height: 100%;
@@ -624,48 +626,62 @@ input[type="radio"]:disabled {
 }
 /* Responsividade - Mobile */
 @media (max-width: 768px) {
+    /* Estilo do cronômetro para mobile */
     #countdown-timer {
-        font-size: 14px; /* Smaller font for better fit on mobile */
-        padding: 5px;
+        font-size: 18px;
+        padding-left: 20px;
+        padding-right: 20px;
     }
 
     #question-navigator {
         width: 90%;
-        font-size: 14px; /* Slightly smaller font for mobile */
+        font-size: 14px; /* Ajusta o tamanho da fonte */
     }
-    
-      #question-navigator button {
-        padding: 5px 20px; /* Reduz o padding dos botões */
-        font-size: 14px; /* Ajusta o tamanho da fonte dos botões */
-      }
-    
-      #question-navigator input {
+
+    #question-navigator button {
+        padding: 5px 50px;
+        font-size: 14px;
+    }
+
+    #question-navigator input {
         width: 30px; /* Reduz a largura do input */
         padding: 5px;
         font-size: 14px; /* Ajusta o tamanho da fonte do input */
-      }
+    }
     
     /* Header ajustado para mobile */
-    header {
-        flex-direction: column;     /* Alinha a logo acima do texto em telas menores */
-        text-align: center;         /* Garante que tudo esteja centralizado */
+        header {
+        flex-direction: column;     /* Alinha a logo acima da mensagem */
+        justify-content: center;    /* Centraliza verticalmente */
+        align-items: center;        /* Centraliza horizontalmente */
+        text-align: center;
         width: 100%;
     }
-    /* Personalização da barra de rolagem para a página */
-    html::-webkit-scrollbar, body::-webkit-scrollbar {
-        width: 15px; /* Largura da barra de rolagem */
-    }
+
     .logo {
-        margin-bottom: 10px;        /* Espaço extra abaixo da logo no mobile */
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        margin-bottom: -75px; /* Adiciona um espaço abaixo da logo */
+        margin-top: -75px;
+    }
+
+    .logo img {
+        width: 250px; /* Mantém a logo com 250px */
+        height: auto; /* Mantém a proporção da logo */
+    }
+
+    .welcome-message {
+        width: 100%; /* A mensagem ocupa toda a largura */
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding-right: 0; /* Remove o padding extra à direita */
     }
 
     .welcome-message h1 {
-        font-size: 18px;            /* Reduz o tamanho do texto no mobile */
-    }
-
-    .button-group button {
-        font-size: 12px;
-        padding: 6px 10px;
+        font-size: 18px; /* Reduz o tamanho da fonte */
+        padding-right: 0px; /* Remove o padding extra */
     }
 
     /* Estilos para o #exames em mobile */
