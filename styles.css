@@ -259,6 +259,7 @@ footer {
     background-color: #fafafa;             /* Fundo suave para as questões */
     margin-bottom: 20px;                   /* Espaço entre cada questão */
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05); /* Leve sombra para destacar cada questão */
+    transition: all 0.3s ease-in-out;
 }
 
 /* Estilizando o texto das questões */
@@ -626,6 +627,13 @@ input[type="radio"]:disabled {
 }
 /* Responsividade - Mobile */
 @media (max-width: 768px) {
+    main {
+        flex: 1;
+        padding-left: 0px;
+        padding-right: 17px;
+        display: flex;
+        flex-direction: column;
+    }
     /* Estilo do cronômetro para mobile */
     #countdown-timer {
         font-size: 18px;
@@ -805,7 +813,6 @@ input[type="radio"]:disabled {
     /* Estilos para o popup de estatísticas */
     #popup-estatisticas {
         max-width: 90%;
-        padding: 20px;
         max-height: 80vh; /* Garantir que o popup não ocupe toda a altura */
     }
 
