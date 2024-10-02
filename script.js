@@ -1,4 +1,5 @@
-document.addEventListener('DOMContentLoaded', function() {  
+document.addEventListener('DOMContentLoaded', function() {
+    const header = document.querySelector('header'); // Seleciona o header  
     const examSelect = document.getElementById('examSelect');
     const questionNavigator = document.getElementById('question-navigator');
     const layoutContainer = document.getElementById('layout-container');
@@ -14,6 +15,18 @@ document.addEventListener('DOMContentLoaded', function() {
     let examsData = {};  // Para armazenar os dados de cada exame
     let selectedAnswers = {}; // Para armazenar as respostas do usuário
     let countdownInterval; // Variável para armazenar o intervalo do cronômetro
+
+    window.addEventListener('scroll', function() {
+        const headerBottom = header.offsetTop + header.offsetHeight; // Calcula o limite inferior do header
+        const scrollPosition = window.scrollY; // Posição atual do scroll
+
+        // Oculta o question-navigator quando ele ultrapassa a linha inferior do header
+        if (scrollPosition > headerBottom) {
+            questionNavigator.style.display = 'flex'; // Oculta o question-navigator
+        } else {
+            questionNavigator.style.display = 'none'; // Exibe o question-navigator
+        }
+    });
 
     document.getElementById('scroll-top-btn').addEventListener('click', function() {
         window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -585,12 +598,4 @@ container1.appendChild(resultadoProva);
             startCountdown(5 * 60 * 60);  // Iniciar o cronômetro de 5 horas
         }
     });
-      // Exibir o navegador de questões quando um exame for selecionado
-  examSelect.addEventListener('change', function() {
-    if (this.value !== "" && this.value !== "Escolha o Exame") {
-      questionNavigator.style.display = 'flex'; // Exibe o navegador quando um exame é selecionado
-    } else {
-      questionNavigator.style.display = 'none'; // Oculta o navegador se o exame for desmarcado
-    }
-  });
 });
