@@ -15,21 +15,22 @@ header {
     -ms-user-select: none;      /* Internet Explorer/Edge */
 }
 #question-navigator {
+    
     position: fixed;
-    top: 10px; /* Distância do topo da tela */
-    left: 50%; /* Alinha o centro do navegador com 50% da largura da tela */
-    transform: translateX(-50%); /* Move o navegador para que fique centralizado */
+    top: 10px;
+    left: 50%;
+    transform: translateX(-50%);
     background-color: #00295ce1;
     color: white;
-    padding: 5px 5px;
+    padding: 5px 10px;
     border-radius: 8px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     z-index: 1000;
     display: flex;
     align-items: center;
-    gap: 10px;
+    justify-content: space-between; /* Ensure even spacing */
     font-size: 16px;
-  }
+}
   
   #question-navigator button {
     background-color: #002a5c;
@@ -49,23 +50,16 @@ header {
   #question-navigator input {
     width: 40px;
     padding: 5px;
-    border: 2px solid #313131c2;
-    background-color: #ffffffee;
-    color: #000000;
-    border-radius: 5px;
-  }
+}
 /* Estilo para o cronômetro */
 #countdown-timer {
-    position: fixed;               /* Fixa o cronômetro na posição da página */
-    top: 10px;                     /* Alinha no topo da página */
-    right: -5px;                   /* Alinha à direita da página */
-    background-color: rgba(0, 42, 92, 0.9); /* Cor de fundo com leve transparência */
-    color: white;                  /* Cor do texto */
-    font-size: 24px;               /* Tamanho da fonte do cronômetro */
-    padding: 2px 10px;            /* Espaçamento interno */
-    border-radius: 5px;            /* Bordas arredondadas */
-    z-index: 1000;                 /* Garante que o cronômetro fique por cima de outros elementos */
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Sombra para dar destaque */
+    display: none;
+    background-color: rgba(255, 255, 255, 0.1);
+    color: white;
+    font-size: 20px;
+    padding: 6px;
+    border-radius: 10px;
+    margin-left: 15px;
 }
 
 /* Estilo para o container da logo */
@@ -631,21 +625,14 @@ input[type="radio"]:disabled {
 /* Responsividade - Mobile */
 @media (max-width: 768px) {
     #countdown-timer {
-        font-size: 18px; /* Tamanho da fonte menor para dispositivos móveis */
-        padding: 8px 15px; /* Reduzir o padding interno */
-        top: 10px; /* Ajustar o espaço superior */
-        right: 5px; /* Ajustar o espaço à direita */
+        font-size: 14px; /* Smaller font for better fit on mobile */
+        padding: 5px;
     }
 
     #question-navigator {
-        width: 90%; /* Ocupará 90% da largura da tela no mobile */
-        top: 10px;
-        left: 50%;
-        transform: translateX(-50%);
-        padding: 5px 10px;
-        font-size: 14px; /* Reduz o tamanho da fonte */
-        gap: 5px; /* Diminui o espaçamento entre elementos */
-      }
+        width: 90%;
+        font-size: 14px; /* Slightly smaller font for mobile */
+    }
     
       #question-navigator button {
         padding: 5px 20px; /* Reduz o padding dos botões */
