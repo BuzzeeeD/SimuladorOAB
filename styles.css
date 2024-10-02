@@ -362,14 +362,14 @@ input[type="radio"]:disabled {
 }
 /* Estilo para o popup de gabarito */
 #popup-gabarito {
-    display: none;
+    display: none; /* O popup está oculto inicialmente */
     position: fixed;
-    top: 63%;
-    left: 50%;
-    transform: translate(-50%, -50%);
+    top: 50%; /* Centralizado verticalmente */
+    left: 50%; /* Centralizado horizontalmente */
+    transform: translate(-50%, -50%); /* Ajusta a posição para estar exatamente no centro */
     background-color: rgba(255, 255, 255, 0.95); /* Fundo branco com leve transparência */
     color: #002a5c; /* Texto azul escuro */
-    padding: 25px;
+    padding: 10px 10px 10px 10px; /* Padding uniformizado */
     border-radius: 10px;
     z-index: 1001;
     max-width: 70%;
@@ -404,13 +404,11 @@ input[type="radio"]:disabled {
     flex-direction: column;
     border-radius: 10px;
     box-shadow: 0 4px 8px rgba(0, 42, 92, 0.1); /* Sombra leve */
-    color: #002a5c; /* Texto azul escuro */
 }
 
 /* Estilo padrão dos itens de gabarito */
 .popup-content p {
-    margin-bottom: 5px; /* Ajuste da margem entre os gabaritos */
-    padding: 12px;
+    margin-bottom: -10px; /* Ajuste da margem entre os gabaritos */
     background-color: #f9f9f9; /* Fundo claro padrão */
     border-radius: 6px;
     transition: background-color 0.3s ease, color 0.3s ease;
@@ -433,17 +431,17 @@ input[type="radio"]:disabled {
 }
 /* Estilo para o botão de fechar que ocupa a parte superior inteira com bordas arredondadas */
 #close-popup {
-    background-color: #002a5c; /* Fundo azul escuro */
-    color: white; /* Texto branco */
+    background-color: #002a5c;
+    color: white;
     border: none;
-    border-top-left-radius: 10px; /* Bordas arredondadas na parte superior esquerda */
-    border-top-right-radius: 10px; /* Bordas arredondadas na parte superior direita */
-    padding: 15px 0; /* Aumenta o espaçamento vertical */
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    padding: 8px 0px;
     cursor: pointer;
-    width: 100%; /* Faz o botão ocupar toda a largura do popup */
-    text-align: center; /* Centraliza o texto no botão */
-    position: relative; /* Posicionamento relativo para manter dentro do fluxo */
-    top: 0; /* Alinhado ao topo */
+    width: 100%;
+    text-align: center;
+    position: relative;
+    top: 0px;
     transition: background-color 0.3s ease, color 0.3s ease;
 }
 
@@ -539,10 +537,10 @@ input[type="radio"]:disabled {
 
 /* Centralizar o título das disciplinas */
 .popup-content h3 {
-    text-align: center; /* Centralizar o texto */
-    margin: 10px;
-    font-size: 18px; /* Tamanho do texto */
-    color: #333; /* Cor do texto */
+    text-align: center;
+    margin: 5px;
+    font-size: 16px;
+    color: #333;
 }
 /* Estilo para os itens de estatísticas */
 .popup-content .estatistica-item {
@@ -685,7 +683,7 @@ input[type="radio"]:disabled {
 
     /* Estilos para o #exames em mobile */
     #exames {
-        background-color: #f9f9f9;
+
         padding: 15px;                        /* Reduz o espaçamento interno */
         margin: 10px auto;                    /* Margem menor */
         max-width: 95%;                       /* Ocupa quase toda a largura da tela */
