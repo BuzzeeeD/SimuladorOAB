@@ -255,7 +255,7 @@ function displayQuestions(examNumber) {
     // Exibir o popup com gabarito e respostas do usuário
     gabaritoBtn.addEventListener('click', function() {
         // Limpar e criar o conteúdo do popup
-        popupGabarito.innerHTML = '<button id="close-popup">Finalizar</button>';
+        popupGabarito.innerHTML = '<button id="close-popup">Fechar</button>';
         const popupContent = document.createElement('div');
         popupContent.classList.add('popup-content');
 
@@ -271,7 +271,7 @@ const respostaUsuario = selectedAnswers[`question${index}`] || "Não respondida"
 
 // Verificar se a questão foi anulada
 if (respostaCerta && respostaCerta.toLowerCase() === "anulada") {
-    gabaritoRow.innerHTML = `<span class="gabarito-question" data-question-id="question-${index}"> ${index}: <strong style="color: red;">ANULADA!</strong></span> `;
+    gabaritoRow.innerHTML = `<span class="gabarito-question" data-question-id="question-${index}"> Questão ${index}: <strong style="color: red;">ANULADA!</strong></span> `;
     gabaritoRow.style.backgroundColor = "rgba(255, 248, 179, 0.8)"; // Amarelo suave e sóbrio
     gabaritoRow.style.color = "#000000"; // Texto preto para contraste
 } else {
