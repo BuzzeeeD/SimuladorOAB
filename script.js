@@ -495,5 +495,3 @@ container1.appendChild(resultadoProva);
         }
     });
 });
-
-
