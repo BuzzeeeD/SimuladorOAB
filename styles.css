@@ -639,8 +639,10 @@ input[type="radio"]:disabled {
     }
 
     #question-navigator button {
-        padding: 5px 50px;
-        font-size: 14px;
+        padding: 8px 8px;
+        margin: -5px;
+        margin-left: -2px;
+        font-size: 12px;
     }
 
     #question-navigator input {
