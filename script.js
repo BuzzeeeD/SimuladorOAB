@@ -204,7 +204,13 @@ function displayQuestions(examNumber) {
                     const label = optionContainer.querySelector('label');
                     const radioInput = label.querySelector('input');
                     const optionText = label.querySelector('span');
-
+                
+                    // Verificar se o radio button está marcado e desmarcar
+                    if (radioInput.checked) {
+                        radioInput.checked = false; // Desmarca o radio button
+                        delete selectedAnswers[`question${index}`]; // Remove a resposta selecionada
+                    }
+                
                     // Alterna o status de desativação do radio button e o estilo striked
                     if (radioInput.disabled) {
                         radioInput.disabled = false;
@@ -214,6 +220,7 @@ function displayQuestions(examNumber) {
                         optionText.classList.add('striked');
                     }
                 });
+                
 
                 // Criar o label da alternativa
                 const optionLabel = document.createElement('label');
@@ -233,8 +240,18 @@ function displayQuestions(examNumber) {
                 optionText.textContent = `${letter}) ${alternativeText}`;
 
                 // Armazena a resposta marcada pelo usuário
-                radioInput.addEventListener('change', () => {
-                    selectedAnswers[`question${index}`] = letter;
+                radioInput.addEventListener('click', function() {
+                    if (this.checked) {
+                        // Verifica se já está marcado
+                        if (selectedAnswers[`question${index}`] === this.value) {
+                            this.checked = false; // Desmarca o radio button
+                            delete selectedAnswers[`question${index}`]; // Remove a resposta selecionada
+                        } else {
+                            selectedAnswers[`question${index}`] = this.value; // Atualiza a resposta marcada
+                        }
+                    } else {
+                        selectedAnswers[`question${index}`] = this.value; // Marca a nova resposta
+                    }
                 });
 
                 optionLabel.appendChild(radioInput);
