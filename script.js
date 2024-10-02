@@ -209,67 +209,65 @@ function displayQuestions(examNumber) {
                 // Criar o container que envolve a tesoura e a alternativa
                 const optionContainer = document.createElement('div');
                 optionContainer.classList.add('icon-container');
-
+        
                 // Adicionar o ícone da tesoura
                 const scissorsIcon = document.createElement('div');
                 scissorsIcon.classList.add('icon');
-                scissorsIcon.addEventListener('click', () => {
-                    const label = optionContainer.querySelector('label');
-                    const radioInput = label.querySelector('input');
-                    const optionText = label.querySelector('span');
-                
-                    // Verificar se o radio button está marcado e desmarcar
-                    if (radioInput.checked) {
-                        radioInput.checked = false; // Desmarca o radio button
-                        delete selectedAnswers[`question${index}`]; // Remove a resposta selecionada
-                    }
-                
-                    // Alterna o status de desativação do radio button e o estilo striked
-                    if (radioInput.disabled) {
-                        radioInput.disabled = false;
-                        optionText.classList.remove('striked');
-                    } else {
-                        radioInput.disabled = true;
-                        optionText.classList.add('striked');
-                    }
-                });
-                
-
+        
+                // Verifica se a questão foi anulada
+                if (!anulada) {
+                    // Adicionar evento de clique na tesoura
+                    scissorsIcon.addEventListener('click', () => {
+                        const label = optionContainer.querySelector('label');
+                        const radioInput = label.querySelector('input');
+                        const optionText = label.querySelector('span');
+                    
+                        // Verificar se o radio button está marcado e desmarcar
+                        if (radioInput.checked) {
+                            radioInput.checked = false; // Desmarca o radio button
+                            delete selectedAnswers[`question${index}`]; // Remove a resposta selecionada
+                        }
+                    
+                        // Alterna o status de desativação do radio button e o estilo striked
+                        if (radioInput.disabled) {
+                            radioInput.disabled = false;
+                            optionText.classList.remove('striked');
+                        } else {
+                            radioInput.disabled = true;
+                            optionText.classList.add('striked');
+                        }
+                    });
+                } else {
+                    // Estilizar a tesoura para parecer desabilitada e impedir o clique
+                    scissorsIcon.style.opacity = 0.5; // Reduz a opacidade para indicar que está desabilitada
+                    scissorsIcon.style.cursor = 'not-allowed'; // Indica visualmente que não é clicável
+                }
+        
                 // Criar o label da alternativa
                 const optionLabel = document.createElement('label');
                 optionLabel.style.display = 'block';
-
+        
                 const radioInput = document.createElement('input');
                 radioInput.type = 'radio';
                 radioInput.name = `question${index}`;
                 radioInput.value = letter;
-
+        
                 // Se a questão for anulada, desativar os radio buttons
                 if (anulada) {
                     radioInput.disabled = true;
                 }
-
+        
                 const optionText = document.createElement('span');
                 optionText.textContent = `${letter}) ${alternativeText}`;
-
+        
                 // Armazena a resposta marcada pelo usuário
-                radioInput.addEventListener('click', function() {
-                    if (this.checked) {
-                        // Verifica se já está marcado
-                        if (selectedAnswers[`question${index}`] === this.value) {
-                            this.checked = false; // Desmarca o radio button
-                            delete selectedAnswers[`question${index}`]; // Remove a resposta selecionada
-                        } else {
-                            selectedAnswers[`question${index}`] = this.value; // Atualiza a resposta marcada
-                        }
-                    } else {
-                        selectedAnswers[`question${index}`] = this.value; // Marca a nova resposta
-                    }
+                radioInput.addEventListener('change', () => {
+                    selectedAnswers[`question${index}`] = letter;
                 });
-
+        
                 optionLabel.appendChild(radioInput);
                 optionLabel.appendChild(optionText);
-
+        
                 // Adicionar o ícone da tesoura e a alternativa ao container
                 optionContainer.appendChild(scissorsIcon);
                 optionContainer.appendChild(optionLabel);
@@ -598,4 +596,5 @@ container1.appendChild(resultadoProva);
             startCountdown(5 * 60 * 60);  // Iniciar o cronômetro de 5 horas
         }
     });
+
 });
