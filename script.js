@@ -1,17 +1,54 @@
 document.addEventListener('DOMContentLoaded', function() {  
     const examSelect = document.getElementById('examSelect');
+    const questionNavigator = document.getElementById('question-navigator');
     const layoutContainer = document.getElementById('layout-container');
     const countdownTimer = document.getElementById('countdown-timer'); // Referência ao cronômetro
     const gabaritoBtn = document.getElementById('gabarito-btn'); // Botão Gabarito
     const finalizarProvaBtn = document.getElementById('finalizar-prova-btn'); // Botão Finalizar Prova
     const popupGabarito = document.createElement('div'); // Criar o popup dinamicamente
     countdownTimer.style.display = "none";
+    questionNavigator.style.display = 'none'; 
     popupGabarito.id = 'popup-gabarito';
     document.body.appendChild(popupGabarito); // Adicionar o popup ao body
     displayDescriptionContainer(); // Exibir a descrição inicialmente
     let examsData = {};  // Para armazenar os dados de cada exame
     let selectedAnswers = {}; // Para armazenar as respostas do usuário
     let countdownInterval; // Variável para armazenar o intervalo do cronômetro
+
+    document.getElementById('scroll-top-btn').addEventListener('click', function() {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      });
+      
+      document.getElementById('scroll-bottom-btn').addEventListener('click', function() {
+        window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
+      });
+      
+      document.getElementById('go-to-question-btn').addEventListener('click', function() {
+        const questionNumber = document.getElementById('question-number').value;
+        const questionElement = document.getElementById(`question-${questionNumber}`);
+        if (questionElement) {
+          questionElement.scrollIntoView({ behavior: 'smooth' });
+        } else {
+          alert('Questão não encontrada!');
+        }
+      });
+      
+      // Atualiza o campo de número da questão ao rolar a página
+      window.addEventListener('scroll', function() {
+        let questions = document.querySelectorAll('.question');
+        let currentQuestionNumber = null;
+      
+        questions.forEach((question) => {
+          const rect = question.getBoundingClientRect();
+          if (rect.top >= 0 && rect.top <= window.innerHeight / 2) {
+            currentQuestionNumber = question.id.split('-')[1]; // Extrai o número da questão do id
+          }
+        });
+      
+        if (currentQuestionNumber) {
+          document.getElementById('question-number').value = currentQuestionNumber;
+        }
+      });
 
     // Função para iniciar o cronômetro
     function startCountdown(duration) {
@@ -109,83 +146,111 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 
     // Função para exibir as questões e capturar as respostas
-    function displayQuestions(examNumber) {
-        layoutContainer.innerHTML = '';  // Limpar o container antes de exibir as questões
-        const questions = examsData[examNumber];
-        selectedAnswers = {};  // Resetar as respostas selecionadas pelo usuário
-    
-        questions.forEach((row, index) => {
-            if (index === 0) return;  // Ignorar o cabeçalho
-    
-            // Criar o container da questão
-            const questionDiv = document.createElement('div');
-            questionDiv.classList.add('question');
-            questionDiv.id = `question-${index}`; // ID exclusivo da questão
-    
-            // Verificar se a questão foi anulada
-            let anulada = row[15] && row[15].toLowerCase() === "anulada";
-    
-            // Se for anulada, alterar o estilo do container para amarelo
-            if (anulada) {
-                questionDiv.style.backgroundColor = 'rgba(255, 248, 179, 0.8)'; // Amarelo suave e sóbrio com transparência
-            }
-    
-            // Cabeçalho da questão com fonte menor
-            const questionHeader = document.createElement('div');
-            questionHeader.classList.add('small-text');
-            questionHeader.innerHTML = `
-                <strong style="font-size: 1.25em;">${row[0]})</strong>
-                <strong>${row[8]}</strong> / 
-                ${row[6]} / 
-                ${row[7]} / 
-                ${row[4]}
-                ${anulada ? '<span style="color: red; font-weight: bold;"> ANULADA!</span>' : ''}
-            `;
-            questionDiv.appendChild(questionHeader);
-    
-            // Texto do Enunciado
-            const questionText = document.createElement('p');
-            questionText.innerHTML = `<strong>${row[9]}</strong>`;
-            questionDiv.appendChild(questionText);
-    
-            const answerContainer = document.createElement('div');
-            answerContainer.classList.add('answer-container');
-    
-            ['A', 'B', 'C', 'D', 'E'].forEach((letter, i) => {
-                const alternativeText = row[i + 10];
-                if (alternativeText) {
-                    const optionLabel = document.createElement('label');
-                    optionLabel.style.display = 'block';
-    
-                    const radioInput = document.createElement('input');
-                    radioInput.type = 'radio';
-                    radioInput.name = `question${index}`;
-                    radioInput.value = letter;
-    
-                    // Se a questão for anulada, desativar os radio buttons
-                    if (anulada) {
+// Função para exibir as questões e capturar as respostas
+function displayQuestions(examNumber) {
+    layoutContainer.innerHTML = '';  // Limpar o container antes de exibir as questões
+    const questions = examsData[examNumber];
+    selectedAnswers = {};  // Resetar as respostas selecionadas pelo usuário
+
+    questions.forEach((row, index) => {
+        if (index === 0) return;  // Ignorar o cabeçalho
+
+        // Criar o container da questão
+        const questionDiv = document.createElement('div');
+        questionDiv.classList.add('question');
+        questionDiv.id = `question-${index}`; // ID exclusivo da questão
+
+        // Verificar se a questão foi anulada
+        let anulada = row[15] && row[15].toLowerCase() === "anulada";
+
+        // Se for anulada, alterar o estilo do container para amarelo
+        if (anulada) {
+            questionDiv.style.backgroundColor = 'rgba(255, 248, 179, 0.8)'; // Amarelo suave e sóbrio com transparência
+        }
+
+        // Cabeçalho da questão com fonte menor
+        const questionHeader = document.createElement('div');
+        questionHeader.classList.add('small-text');
+        questionHeader.innerHTML = `
+            <strong style="font-size: 1.25em;">${row[0]})</strong>
+            <strong>${row[8]}</strong> / 
+            ${row[6]} / 
+            ${row[7]} / 
+            ${row[4]}
+            ${anulada ? '<span style="color: red; font-weight: bold;"> ANULADA!</span>' : ''}
+        `;
+        questionDiv.appendChild(questionHeader);
+
+        // Texto do Enunciado
+        const questionText = document.createElement('p');
+        questionText.style.marginLeft = "10px"; // Adiciona espaçamento à esquerda do texto da questão
+        questionText.innerHTML = `${row[9]}`;
+        questionDiv.appendChild(questionText);
+
+        const answerContainer = document.createElement('div');
+        answerContainer.classList.add('answer-container');
+
+        ['A', 'B', 'C', 'D', 'E'].forEach((letter, i) => {
+            const alternativeText = row[i + 10];
+            if (alternativeText) {
+                // Criar o container que envolve a tesoura e a alternativa
+                const optionContainer = document.createElement('div');
+                optionContainer.classList.add('icon-container');
+
+                // Adicionar o ícone da tesoura
+                const scissorsIcon = document.createElement('div');
+                scissorsIcon.classList.add('icon');
+                scissorsIcon.addEventListener('click', () => {
+                    const label = optionContainer.querySelector('label');
+                    const radioInput = label.querySelector('input');
+                    const optionText = label.querySelector('span');
+
+                    // Alterna o status de desativação do radio button e o estilo striked
+                    if (radioInput.disabled) {
+                        radioInput.disabled = false;
+                        optionText.classList.remove('striked');
+                    } else {
                         radioInput.disabled = true;
+                        optionText.classList.add('striked');
                     }
-    
-                    const optionText = document.createElement('span');
-                    optionText.textContent = `${letter}) ${alternativeText}`;
-    
-                    // Armazena a resposta marcada pelo usuário
-                    radioInput.addEventListener('change', () => {
-                        selectedAnswers[`question${index}`] = letter;
-                    });
-    
-                    optionLabel.appendChild(radioInput);
-                    optionLabel.appendChild(optionText);
-                    answerContainer.appendChild(optionLabel);
+                });
+
+                // Criar o label da alternativa
+                const optionLabel = document.createElement('label');
+                optionLabel.style.display = 'block';
+
+                const radioInput = document.createElement('input');
+                radioInput.type = 'radio';
+                radioInput.name = `question${index}`;
+                radioInput.value = letter;
+
+                // Se a questão for anulada, desativar os radio buttons
+                if (anulada) {
+                    radioInput.disabled = true;
                 }
-            });
-    
-            questionDiv.appendChild(answerContainer);
-            layoutContainer.appendChild(questionDiv);
+
+                const optionText = document.createElement('span');
+                optionText.textContent = `${letter}) ${alternativeText}`;
+
+                // Armazena a resposta marcada pelo usuário
+                radioInput.addEventListener('change', () => {
+                    selectedAnswers[`question${index}`] = letter;
+                });
+
+                optionLabel.appendChild(radioInput);
+                optionLabel.appendChild(optionText);
+
+                // Adicionar o ícone da tesoura e a alternativa ao container
+                optionContainer.appendChild(scissorsIcon);
+                optionContainer.appendChild(optionLabel);
+                answerContainer.appendChild(optionContainer);
+            }
         });
-    }
-    
+
+        questionDiv.appendChild(answerContainer);
+        layoutContainer.appendChild(questionDiv);
+    });
+}
 
     // Exibir o popup com gabarito e respostas do usuário
     gabaritoBtn.addEventListener('click', function() {
@@ -452,11 +517,19 @@ container1.appendChild(resultadoProva);
         // Criar o texto descritivo
         const descriptionText = document.createElement('p');
         descriptionText.innerHTML = `
-            Bem-vindo à nossa plataforma de simulados! <br><br>
-            Esta iniciativa é totalmente gratuita e foi criada para ajudar você a se preparar para suas provas. 
-            No entanto, para manter a plataforma no ar, existem custos operacionais.<br><br>
-            Se você gostou da plataforma e quer colaborar, fique à vontade para fazer uma doação no valor que desejar. 
-            Basta escanear o QR code abaixo ou clicar nele para doar.
+            <div style="text-align: center; font-size: 20px; font-weight: bold;">
+                Bem-vindo à nossa plataforma de simulados!
+            </div>
+            <br>
+            <p style="font-size: 16px; line-height: 1.6;">
+                Criamos este espaço gratuito para facilitar sua preparação, oferecendo um ambiente acessível e eficiente para você estudar e conquistar seus objetivos.
+            </p>
+            <p style="font-size: 16px; line-height: 1.6;">
+                Entretanto, manter a plataforma em funcionamento envolve custos operacionais. Se você achou nosso serviço útil e deseja apoiar a continuidade deste projeto, sua colaboração será muito bem-vinda.
+            </p>
+            <p style="font-size: 16px; line-height: 1.6;">
+                Sinta-se à vontade para doar qualquer valor. Basta escanear ou clicar no QR code abaixo. Toda ajuda faz a diferença!
+            </p>
         `;
     
         // Criar o QR code
@@ -485,6 +558,7 @@ container1.appendChild(resultadoProva);
         const selectedExam = this.value;
     
         if (selectedExam === "Escolha o Exame" || !selectedExam) {
+            
             location.reload();  // Recarrega a página inteira
         } else {
             // Limpar o container e exibir questões se um exame válido for selecionado
@@ -494,4 +568,12 @@ container1.appendChild(resultadoProva);
             startCountdown(5 * 60 * 60);  // Iniciar o cronômetro de 5 horas
         }
     });
+      // Exibir o navegador de questões quando um exame for selecionado
+  examSelect.addEventListener('change', function() {
+    if (this.value !== "" && this.value !== "Escolha o Exame") {
+      questionNavigator.style.display = 'flex'; // Exibe o navegador quando um exame é selecionado
+    } else {
+      questionNavigator.style.display = 'none'; // Oculta o navegador se o exame for desmarcado
+    }
+  });
 });
