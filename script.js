@@ -45,7 +45,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Função para carregar a planilha ao abrir a página
     function loadExcel() {
-        fetch('data/OAB/dataoab.xlsx')
+        fetch('data/dados/OAB/dataoab.xlsx')
             .then(response => response.arrayBuffer())
             .then(data => {
                 const workbook = XLSX.read(data, { type: 'array' });
@@ -67,12 +67,26 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Preencher o seletor de exames
     function populateExamSelect() {
+        // Criar um array para armazenar os exames com seus anos
+        let examList = [];
+        
         for (let i = 30; i <= 41; i++) {
-            const option = document.createElement('option');
-            option.value = i;  // Número do exame
-            option.textContent = `${i}º Exame de Ordem - Tipo 1 - Objetiva`;
-            examSelect.appendChild(option);
+            if (examsData[i] && examsData[i][1] && examsData[i][1][5]) {
+                const examYear = examsData[i][1][5]; // Acessar o ano na coluna 5
+                examList.push({ examNumber: i, year: examYear });
+            }
         }
+    
+        // Ordenar a lista de exames em ordem decrescente pelo número do exame
+        examList.sort((a, b) => b.examNumber - a.examNumber);
+    
+        // Preencher o seletor com os exames ordenados
+        examList.forEach(exam => {
+            const option = document.createElement('option');
+            option.value = exam.examNumber;
+            option.textContent = `${exam.examNumber}º Exame de Ordem - ${exam.year}`;
+            examSelect.appendChild(option);
+        });
     }
 
     // Exibir questões ao selecionar um exame e iniciar cronômetro
@@ -99,63 +113,79 @@ document.addEventListener('DOMContentLoaded', function() {
         layoutContainer.innerHTML = '';  // Limpar o container antes de exibir as questões
         const questions = examsData[examNumber];
         selectedAnswers = {};  // Resetar as respostas selecionadas pelo usuário
-
+    
         questions.forEach((row, index) => {
             if (index === 0) return;  // Ignorar o cabeçalho
-
+    
             // Criar o container da questão
             const questionDiv = document.createElement('div');
             questionDiv.classList.add('question');
             questionDiv.id = `question-${index}`; // ID exclusivo da questão
-
+    
+            // Verificar se a questão foi anulada
+            let anulada = row[15] && row[15].toLowerCase() === "anulada";
+    
+            // Se for anulada, alterar o estilo do container para amarelo
+            if (anulada) {
+                questionDiv.style.backgroundColor = 'rgba(255, 248, 179, 0.8)'; // Amarelo suave e sóbrio com transparência
+            }
+    
             // Cabeçalho da questão com fonte menor
             const questionHeader = document.createElement('div');
             questionHeader.classList.add('small-text');
             questionHeader.innerHTML = `
-            <strong style="font-size: 1.25em;">${row[0]})</strong>
-            <strong>${row[8]}</strong> / 
-           ${row[6]} / 
-        ${row[7]} / 
-           ${row[4]}`;
+                <strong style="font-size: 1.25em;">${row[0]})</strong>
+                <strong>${row[8]}</strong> / 
+                ${row[6]} / 
+                ${row[7]} / 
+                ${row[4]}
+                ${anulada ? '<span style="color: red; font-weight: bold;"> ANULADA!</span>' : ''}
+            `;
             questionDiv.appendChild(questionHeader);
-
+    
             // Texto do Enunciado
             const questionText = document.createElement('p');
             questionText.innerHTML = `<strong>${row[9]}</strong>`;
             questionDiv.appendChild(questionText);
-
+    
             const answerContainer = document.createElement('div');
             answerContainer.classList.add('answer-container');
-
+    
             ['A', 'B', 'C', 'D', 'E'].forEach((letter, i) => {
                 const alternativeText = row[i + 10];
                 if (alternativeText) {
                     const optionLabel = document.createElement('label');
                     optionLabel.style.display = 'block';
-
+    
                     const radioInput = document.createElement('input');
                     radioInput.type = 'radio';
                     radioInput.name = `question${index}`;
                     radioInput.value = letter;
-
+    
+                    // Se a questão for anulada, desativar os radio buttons
+                    if (anulada) {
+                        radioInput.disabled = true;
+                    }
+    
                     const optionText = document.createElement('span');
                     optionText.textContent = `${letter}) ${alternativeText}`;
-
+    
                     // Armazena a resposta marcada pelo usuário
                     radioInput.addEventListener('change', () => {
                         selectedAnswers[`question${index}`] = letter;
                     });
-
+    
                     optionLabel.appendChild(radioInput);
                     optionLabel.appendChild(optionText);
                     answerContainer.appendChild(optionLabel);
                 }
             });
-
+    
             questionDiv.appendChild(answerContainer);
             layoutContainer.appendChild(questionDiv);
         });
     }
+    
 
     // Exibir o popup com gabarito e respostas do usuário
     gabaritoBtn.addEventListener('click', function() {
@@ -171,22 +201,29 @@ document.addEventListener('DOMContentLoaded', function() {
         examsData[examSelect.value].forEach((row, index) => {
             if (index > 0) {  // Ignorar o cabeçalho
                 const gabaritoRow = document.createElement('p');
-                const respostaCerta = row[15];  // Coluna "Resposta Certa"
-                const respostaUsuario = selectedAnswers[`question${index}`] || "Não respondida";
+const respostaCerta = row[15];  // Coluna "Resposta Certa"
+const respostaUsuario = selectedAnswers[`question${index}`] || "Não respondida";
 
-                // Exibir o resultado com cor baseada na resposta
-                gabaritoRow.innerHTML = `<span class="gabarito-question" data-question-id="question-${index}">Questão ${index}: Marcada - ${respostaUsuario}, Gabarito - ${respostaCerta}</span>`;
+// Verificar se a questão foi anulada
+if (respostaCerta && respostaCerta.toLowerCase() === "anulada") {
+    gabaritoRow.innerHTML = `<span class="gabarito-question" data-question-id="question-${index}"> ${index}: <strong style="color: red;">ANULADA!</strong></span> `;
+    gabaritoRow.style.backgroundColor = "rgba(255, 248, 179, 0.8)"; // Amarelo suave e sóbrio
+    gabaritoRow.style.color = "#000000"; // Texto preto para contraste
+} else {
+    // Exibir a resposta marcada pelo usuário e o gabarito, se a questão não for anulada
+    gabaritoRow.innerHTML = `<span class="gabarito-question" data-question-id="question-${index}"> Questão ${index} - Resp: (${respostaUsuario}) || Gab: (${respostaCerta})</span>`;
 
-                if (respostaUsuario === "Não respondida") {
-                    gabaritoRow.style.backgroundColor = "#f3f3f3";
-                    gabaritoRow.style.color = "#000000"; // Texto branco para legibilidade
-                } else if (respostaUsuario === respostaCerta) {
-                    gabaritoRow.style.backgroundColor = "rgba(0, 200, 0, 0.5)"; // Verde suave e transparente para correta
-                    gabaritoRow.style.color = "#000000"; // Texto branco para contraste
-                } else {
-                    gabaritoRow.style.backgroundColor = "rgba(255, 69, 0, 0.5)"; // Vermelho suave e transparente para errada
-                    gabaritoRow.style.color = "#000000"; // Texto branco para contraste
-                }
+    if (respostaUsuario === "Não respondida") {
+        gabaritoRow.style.backgroundColor = "#f3f3f3"; // Cinza claro para "Não respondida"
+        gabaritoRow.style.color = "#000000"; // Texto preto
+    } else if (respostaUsuario === respostaCerta) {
+        gabaritoRow.style.backgroundColor = "rgba(0, 200, 0, 0.5)"; // Verde suave para correta
+        gabaritoRow.style.color = "#000000"; // Texto preto para contraste
+    } else {
+        gabaritoRow.style.backgroundColor = "rgba(255, 69, 0, 0.5)"; // Vermelho suave para errada
+        gabaritoRow.style.color = "#000000"; // Texto preto para contraste
+    }
+}
 
                 gabaritoRow.querySelector('span').addEventListener('click', function() {
                     const questionElement = document.getElementById(this.getAttribute('data-question-id'));
@@ -224,62 +261,92 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 
     // Função "Finalizar a Prova" com estatísticas
-    finalizarProvaBtn.addEventListener('click', function() {
-        clearInterval(countdownInterval);  // Pausar o cronômetro
+finalizarProvaBtn.addEventListener('click', function() {
+    clearInterval(countdownInterval);  // Pausar o cronômetro
 
-        // Criar o popup de estatísticas
-        const popupEstatisticas = document.createElement('div');
-        popupEstatisticas.id = 'popup-estatisticas';
+    // Criar o popup de estatísticas
+    const popupEstatisticas = document.createElement('div');
+    popupEstatisticas.id = 'popup-estatisticas';
 
-        // Criar o conteúdo do popup
-        const popupContent = document.createElement('div');
-        popupContent.classList.add('popup-content');
+    // Criar o conteúdo do popup
+    const popupContent = document.createElement('div');
+    popupContent.classList.add('popup-content');
 
-        // Container 1: Título até Questões Certas e Erradas
-        const container1 = document.createElement('div');
-        container1.classList.add('container-contraste');
+    // Container 1: Título até Questões Certas e Erradas
+    const container1 = document.createElement('div');
+    container1.classList.add('container-contraste');
 
-        // Título e introdução
-        const titulo = document.createElement('h2');
-        titulo.textContent = "Parabéns! Prova Finalizada!";
-        container1.appendChild(titulo);
+    // Título e introdução
+    const titulo = document.createElement('h2');
+    titulo.textContent = "Parabéns! Prova Finalizada!";
+    container1.appendChild(titulo);
 
-        // Obter o tempo decorrido de prova (baseado no cronômetro)
-        const tempoDecorrido = document.createElement('div');
-        tempoDecorrido.classList.add('estatistica-item');
-        tempoDecorrido.innerHTML = `<strong>Tempo decorrido de Prova:</strong> ${countdownTimer.textContent}`;
-        container1.appendChild(tempoDecorrido);
+    // Obter o tempo decorrido de prova (baseado no cronômetro)
+    const tempoDecorrido = document.createElement('div');
+    tempoDecorrido.classList.add('estatistica-item');
+    tempoDecorrido.innerHTML = `<strong>Tempo decorrido de Prova:</strong> ${countdownTimer.textContent}`;
+    container1.appendChild(tempoDecorrido);
 
-        // Contar as questões certas e erradas
-        let questoesCertas = 0;
-        let questoesErradas = 0;
-        examsData[examSelect.value].forEach((row, index) => {
-            if (index > 0) {  // Ignorar o cabeçalho
-                const respostaCerta = row[15];  // Coluna onde está a "Resposta Certa"
-                const respostaUsuario = selectedAnswers[`question${index}`];
-                if (respostaUsuario === respostaCerta) {
-                    questoesCertas++;
-                } else if (respostaUsuario) {
-                    questoesErradas++;
-                }
-            }
-        });
+    // Contar as questões certas, erradas e anuladas
+    // Contar as questões certas, erradas e anuladas
+let questoesCertas = 0;
+let questoesErradas = 0;
+let questoesAnuladas = 0;
 
-        // Exibir o resultado de aprovação ou reprovação
-        const resultadoProva = document.createElement('div');
-        resultadoProva.classList.add('estatistica-item');
-        if (questoesCertas > 40) {
-            resultadoProva.innerHTML = '<strong>Status:</strong> <span class="aprovado">Aprovado!</span>';
-        } else {
-            resultadoProva.innerHTML = '<strong>Status:</strong> <span class="reprovado">Reprovado!</span>';
+examsData[examSelect.value].forEach((row, index) => {
+    if (index > 0) {  // Ignorar o cabeçalho
+        const respostaCerta = row[15];  // Coluna onde está a "Resposta Certa"
+        const respostaUsuario = selectedAnswers[`question${index}`];
+
+        // Se a questão for anulada, conta como certa
+        if (respostaCerta && respostaCerta.toLowerCase() === "anulada") {
+            questoesCertas++;
+            questoesAnuladas++;  // Contabiliza as anuladas
+        } 
+        // Se a questão não for anulada, verifica a resposta do usuário
+        else if (respostaUsuario === respostaCerta) {
+            questoesCertas++;
+        } else if (respostaUsuario) {
+            questoesErradas++;
         }
-        container1.appendChild(resultadoProva);
+    }
+});
+
+// Exibir o resultado de aprovação ou reprovação
+const resultadoProva = document.createElement('div');
+resultadoProva.classList.add('estatistica-item');
+
+// Lógica de aprovação permanece inalterada: Aprovado se tiver mais de 40 questões certas (incluindo as anuladas)
+if (questoesCertas > 40) {
+    resultadoProva.innerHTML = '<strong>Status:</strong> <span class="aprovado">Aprovado!</span>';
+} else {
+    resultadoProva.innerHTML = '<strong>Status:</strong> <span class="reprovado">Reprovado!</span>';
+}
+
+container1.appendChild(resultadoProva);
 
         // Exibir o número de questões certas e erradas
         const questoesCertasErradas = document.createElement('div');
         questoesCertasErradas.classList.add('estatistica-item');
         const totalQuestoes = examsData[examSelect.value].length - 1; // Desconta o cabeçalho
-        questoesCertasErradas.innerHTML = `<strong>Questões Certas:</strong> <span class="certas">(${questoesCertas})</span> / <strong>Questões Erradas:</strong> <span class="erradas">(${questoesErradas})</span> / <strong>Total:</strong> (${totalQuestoes})`;
+        questoesCertasErradas.innerHTML = `
+    <div style="font-size: 1.0em; margin-bottom: 10px;">
+        <strong>Questões Certas:</strong> 
+        <span class="certas" style="color: green; font-weight: bold;">(${questoesCertas})</span> 
+    </div>
+    <div style="font-size: 1.0em; margin-bottom: 10px;">
+        <strong>Questões Erradas:</strong> 
+        <span class="erradas" style="color: red; font-weight: bold;">(${questoesErradas})</span> 
+    </div>
+    <div style="font-size: 1.0em; margin-bottom: 10px;">
+        <strong>Questões Anuladas:</strong> 
+        <span class="anuladas" style="color: orange; font-weight: bold;">(${questoesAnuladas})</span> 
+    </div>
+    <div style="font-size: 1.0em; margin-bottom: 10px;">
+        <strong>Total de Questões:</strong> 
+        <span class="total" style="color: blue; font-weight: bold;">(${totalQuestoes})</span>
+    </div>
+`;
         container1.appendChild(questoesCertasErradas);
 
         // Adicionar o container 1 ao popup
