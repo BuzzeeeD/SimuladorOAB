@@ -5,7 +5,15 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Simulador de Provas - OAB</title>
   <link rel="stylesheet" href="styles.css">
+  <div id="question-navigator">
+    <button id="scroll-top-btn">⬆ Inicio</button>
+    <button id="scroll-bottom-btn">⬇ Fim</button>
+    <label for="question-number">Questão: </label>
+    <input type="number" id="question-number" min="1" placeholder="Número" />
+    <button id="go-to-question-btn">Ir</button>
+  </div>
 </head>
+
 <body>
     <div id="countdown-timer">05:00:00</div> 
     <div class="header-container">
@@ -21,8 +29,7 @@
 
   <main>
     <section id="exames">
-        <h2>Selecione um Exame de Ordem Unificado</h2>
-        <label for="examSelect">Exames disponíveis:</label>
+        <h2>Selecione um Exame de Ordem (Provas Tipo - 1)</h2>
         <select id="examSelect">
             <option value="">Escolha o Exame</option>
             <!-- Outros exames -->
