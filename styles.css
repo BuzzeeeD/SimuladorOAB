@@ -1,19 +1,59 @@
 /* Header */
 header {
     background-color: #002a5c;
-    width: 100vw; /* Garante que o header ocupe 100% da largura da viewport */
+    width: 100%; /* Garante que o header ocupe 100% da largura */
     padding: 15px;
-    margin: 0; /* Remove qualquer margem padrão */
     display: flex;
     justify-content: space-between;
     align-items: center;
     flex-wrap: wrap;
-    box-sizing: border-box; /* Inclui padding na largura total */
+    box-sizing: border-box;
+    flex-shrink: 0; /* Impede que o header encolha */
     user-select: none;  /* Desabilita a seleção de texto */
     -webkit-user-select: none;  /* Safari */
     -moz-user-select: none;     /* Firefox */
     -ms-user-select: none;      /* Internet Explorer/Edge */
 }
+#question-navigator {
+    position: fixed;
+    top: 10px; /* Distância do topo da tela */
+    left: 50%; /* Alinha o centro do navegador com 50% da largura da tela */
+    transform: translateX(-50%); /* Move o navegador para que fique centralizado */
+    background-color: #00295ce1;
+    color: white;
+    padding: 5px 5px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 16px;
+  }
+  
+  #question-navigator button {
+    background-color: #002a5c;
+    color: white;
+    border: none;
+    border-radius: 25px;
+    padding: 5px 30px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+  
+  #question-navigator button:hover {
+    background-color: #ffca28; /* Amarelo no hover */
+    color: #002a5c;
+  }
+  
+  #question-navigator input {
+    width: 40px;
+    padding: 5px;
+    border: 2px solid #313131c2;
+    background-color: #ffffffee;
+    color: #000000;
+    border-radius: 5px;
+  }
 /* Estilo para o cronômetro */
 #countdown-timer {
     position: fixed;               /* Fixa o cronômetro na posição da página */
@@ -27,6 +67,7 @@ header {
     z-index: 1000;                 /* Garante que o cronômetro fique por cima de outros elementos */
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Sombra para dar destaque */
 }
+
 /* Estilo para o container da logo */
 .logo {
     flex: 1;                        /* A logo ocupa uma parte do espaço */
@@ -62,16 +103,36 @@ html, body {
     padding: 0; /* Remove padding para evitar espaços indesejados */
     display: flex;
     flex-direction: column; /* Organiza o layout em uma coluna (header, main, footer) */
-    user-select: none;  /* Desabilita a seleção de texto */
+    user-select: none; /* Desabilita a seleção de texto */
+    box-sizing: border-box; /* Garante que padding e border sejam incluídos no tamanho dos elementos */
+    
 }
-
-/* Garante que o main ocupe todo o espaço disponível */
 main {
-    flex: 1;
+    flex: 1; /* Faz o main ocupar o espaço restante entre o header e o footer */
     padding: 5px;
     display: flex;
     flex-direction: column;
 }
+/* Personalização da barra de rolagem para a página */
+html::-webkit-scrollbar, body::-webkit-scrollbar {
+    width: 20px; /* Largura da barra de rolagem */
+}
+
+html::-webkit-scrollbar-track, body::-webkit-scrollbar-track {
+    background: #f1f1f1; /* Cor do trilho da barra de rolagem */
+    border-radius: 10px; /* Bordas arredondadas no trilho */
+}
+
+html::-webkit-scrollbar-thumb, body::-webkit-scrollbar-thumb {
+    background-color: #002a5c; /* Cor da barra de rolagem */
+    border-radius: 10px; /* Bordas arredondadas na barra */
+    border: 2px solid #f1f1f1; /* Pequeno espaçamento entre a barra e o trilho */
+}
+
+html::-webkit-scrollbar-thumb:hover, body::-webkit-scrollbar-thumb:hover {
+    background-color: #ffca28; /* Cor da barra de rolagem ao passar o mouse (hover) */
+}
+
 /* Estiliza o footer para que fique no final da página */
 footer {
     background-color: #002a5c;
@@ -79,9 +140,10 @@ footer {
     text-align: center;
     padding: 10px;
     font-size: 15px;
-    margin: 0; /* Remove qualquer margem padrão */
-    width: 100vw; /* Garante que o footer ocupe 100% da largura da viewport */
+    margin: 0;
+    width: 100%; /* Garante que o footer ocupe 100% da largura da tela */
     box-sizing: border-box; /* Inclui padding na largura total */
+    flex-shrink: 0; /* Impede que o footer encolha */
 }
 
 /* Links no footer */
@@ -93,48 +155,50 @@ footer {
 .footer-content a:hover {
     text-decoration: underline;
 }
-/* Estilo para o #exames para ter a mesma flexibilidade do layout-container */
+
+/* Exames container */
 #exames {
-    background-color: #fff;                   /* Fundo branco para destacar */
-    border-radius: 10px;                      /* Bordas arredondadas */
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Sombra leve igual ao layout-container */
-    padding: 20px;                            /* Espaçamento interno igual ao layout-container */
-    margin: 20px auto;                        /* Centralizado com margem automática */
-    max-width: 900px;                         /* Mesma largura máxima do layout-container */
-    width: 100%;                              /* Garante que ele ocupe 100% da largura disponível */
-    display: flex;                            /* Usando flexbox para flexibilidade */
-    flex-direction: column;                   /* Garantir que os elementos dentro sejam organizados em coluna */
-    justify-content: center;                  /* Centraliza o conteúdo verticalmente */
-    align-items: center;                      /* Centraliza o conteúdo horizontalmente */
+    background-color: #f9f9f9;
+    border-radius: 10px;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15); /* Sombra mais pronunciada */
+    padding: 20px;
+    margin: 20px auto;
+    max-width: 900px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border-left: 4px solid #002a5c; /* Destaque sutil com borda à esquerda */
+    border-right: 4px solid #002a5c; /* Destaque sutil com borda à esquerda */
 }
 
-/* Estilo para o título da seção */
+/* Título da seção exames */
 #exames h2 {
-    font-size: 22px;
-    color: #333;
-    margin-bottom: 15px;                   /* Espaçamento entre o título e o seletor */
+    font-size: 24px;
+    color: #002a5c;
+    margin-bottom: 15px;
 }
 
-/* Estilo para o seletor de exames */
+/* Estilo para o seletor */
 #exames select {
-    width: 100%;                           /* Ocupa toda a largura do container */
-    max-width: 400px;                      /* Limite de largura para o seletor */
-    padding: 10px;                         /* Espaçamento interno */
-    font-size: 16px;                       /* Tamanho da fonte para boa leitura */
-    border: 1px solid #ccc;                /* Borda leve */
-    border-radius: 8px;                    /* Bordas arredondadas */
-    background-color: #d1d1d1;             /* Fundo claro */
-    color: #333;                           /* Cor do texto */
-    margin-top: 10px;                      /* Espaçamento acima do seletor */
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Leve sombra para destaque */
+    width: 100%;
+    max-width: 400px;
+    padding: 12px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    background-color: #f9f9f9;
+    color: #333;
+    margin-top: 10px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
-/* Efeito hover e foco no seletor */
 #exames select:hover, #exames select:focus {
-    background-color: #f1f1f1;             /* Fundo ligeiramente mais escuro no hover e foco */
-    border-color: #002a5c;                 /* Cor da borda no hover e foco */
-    box-shadow: 0 0 8px rgba(0, 42, 92, 0.2); /* Brilho leve no hover e foco */
-    outline: none;                         /* Remove o contorno padrão */
+    background-color: #f1f1f1;
+    border-color: #002a5c;
+    box-shadow: 0 0 8px rgba(0, 42, 92, 0.2);
+    outline: none;
 }
 
 /* Estilo para o botão */
@@ -145,12 +209,11 @@ footer {
     background-color: #002a5c;
     color: white;
     border: none;
-    border-radius: 8px;                    /* Bordas arredondadas */
+    border-radius: 8px;
     cursor: pointer;
     transition: background-color 0.3s ease, color 0.3s ease;
 }
 
-/* Efeito hover no botão */
 #exames button:hover {
     background-color: #ffca28;
     color: #002a5c;
@@ -185,13 +248,13 @@ footer {
 #layout-container {
     background-color: #fff;
     border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Sombra leve para destacar o conteúdo */
     padding: 20px;
     margin: 20px auto;
-    max-width: 900px;                         /* Limite de largura para evitar que fique muito largo */
-    width: 100%;                              /* Ocupa 100% da largura disponível */
+    max-width: 900px;
+    width: 100%;
+    border-left: 4px solid #002a5c;
+    border-right: 4px solid #002a5c;
 }
-
 /* Estilo para as questões inseridas posteriormente */
 .question {
     padding: 15px;
@@ -205,72 +268,103 @@ footer {
 /* Estilizando o texto das questões */
 .question p {
     font-size: 16px;
-    font-weight: bold;
+    font-weight: normal;
     color: #333;
-    margin-bottom: 10px;
+    margin-bottom: 20px;
+    padding-inline: 10px;
+    text-align: justify; /* Adiciona o alinhamento justificado */
 }
 /* Estilo para o container de respostas */
 .answer-container label {
-    display: block;
-    margin-bottom: 10px; /* Quebra de linha entre alternativas */
-    font-size: 16px; /* Ajuste do tamanho da fonte */
-    color: #333;
-    position: relative;
-    padding-left: 35px; /* Espaço para o radio button customizado */
-    cursor: pointer;
-    line-height: 20px;
+    display: inline-flex; /* Use flexbox para alinhar melhor o conteúdo */
+    font-size: 16px; /* Tamanho da fonte para o texto das alternativas */
+    color: #333; /* Cor padrão do texto */
+    align-items: center; /* Alinha verticalmente o conteúdo */
+    margin-bottom: 20px; /* Espaçamento entre alternativas */
+    cursor: pointer; /* Define o cursor de pointer ao passar sobre a alternativa */
+    padding-left: 10px; /* Ajuste para espaçamento entre a borda e o texto */
+    text-align: justify; /* Justifica o texto da alternativa */
+}
+/* Texto das alternativas com espaçamento maior */
+.answer-container label span {
+    margin-left: 30px;
+    margin-top: 4px;
+    vertical-align: middle;
+    line-height: 1.5;
+    display: inherit;
+}
+.answer-container label::after {
+    content: "";
+    display: inline-block;
+    width: 100%; /* Força a última linha a se justificar */
+    height: 0;
 }
 
-/* Esconde apenas visualmente o radio button padrão */
+/* Estilizando o radio button */
 .answer-container input[type="radio"] {
     position: absolute;
-    opacity: 0;
+    margin-left: -5px;
+    margin-top: 4px;
+    appearance: none; /* Remove o estilo padrão do radio */
+    width: 25px;
+    height: 25px;
+    border: 2px solid #002a5c; /* Borda azul para o radio */
+    border-radius: 25%; /* Faz o radio ficar circular */
+    background-color: white;
     cursor: pointer;
-}
-
-/* Cria o círculo customizado para o radio button */
-.answer-container input[type="radio"] + span::before {
-    content: '';
-    position: absolute;
-    left: 0;
-    top: 0;
-    width: 20px;
-    height: 20px;
-    border: 2px solid #002a5c; /* Cor da borda do círculo */
-    border-radius: 50%;
-    background-color: #fff;
+    outline: none;
     transition: background-color 0.3s, border-color 0.3s;
 }
 
-/* Círculo interno menor quando selecionado */
-.answer-container input[type="radio"]:checked + span::after {
-    content: '';
-    position: absolute;
-    left: 6px;
-    top: 6px;
-    width: 8px;
-    height: 8px;
-    border-radius: 50%;
-    background: 002a5c(45, 100%, 58%); /* Cor interna ao selecionar */
+/* Efeito quando o radio button estiver selecionado */
+.answer-container input[type="radio"]:checked {
+    background-color: #002a5c; /* Preenche o fundo com azul quando selecionado */
+    border-color: #002a5c; /* Altera a cor da borda para azul */
 }
 
-/* Estilo quando o radio button é selecionado */
-.answer-container input[type="radio"]:checked + span::before {
-    background-color: #002a5c; /* Cor de fundo quando selecionado */
-    border-color: #555555; /* Cor da borda quando selecionado */
+/* Efeito de hover para o radio button */
+.answer-container input[type="radio"]:hover {
+    border-color: #ffca28; /* Muda a cor da borda ao passar o mouse */
+}
+/* Estilo para ícone da tesoura */
+/* Ícone da tesoura ao lado esquerdo do radio button */
+.icon {
+    margin-top: 4px;
+    margin-left: 4px;
+    width: 25px;
+    height: 25px;
+    background-image: url('data/logos/tesoura.png');
+    background-size: contain;
+    background-repeat: no-repeat;
+    margin-right: 10px;
+    cursor: pointer;
+    flex-shrink: 0; /* Impede que o ícone se encolha dentro do flexbox */
 }
 
-/* Efeito de hover */
-.answer-container label:hover input[type="radio"] + span::before {
-    border-color: #555555; /* Muda a cor da borda ao passar o mouse */
+/* Evita que a tesoura dispare o clique no radio button */
+.icon-container {
+    display: flex;
+    align-items: normal;
+    margin-right: 10px;
+    margin-bottom: -30px;
 }
 
+/* Texto tachado quando a alternativa é sinalizada como errada */
+.striked {
+    text-decoration: line-through;
+    color: rgb(138, 138, 138); /* Torna o texto mais claro */
+}
 
+/* Estilo quando o radio button está desativado */
+input[type="radio"]:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+}
 /* Estilo para o popup de gabarito */
 #popup-gabarito {
     display: none;
     position: fixed;
-    top: 50%;
+    top: 63%;
     left: 50%;
     transform: translate(-50%, -50%);
     background-color: rgba(255, 255, 255, 0.95); /* Fundo branco com leve transparência */
@@ -280,19 +374,35 @@ footer {
     z-index: 1001;
     max-width: 70%;
     max-height: 70%;
-    overflow-y: auto;
+    overflow-y: auto; /* Habilita a barra de rolagem vertical */
     box-shadow: 0 4px 12px rgba(0, 42, 92, 0.2); /* Sombra azul suave */
     text-align: left;
 }
+/* Personalização da barra de rolagem */
+#popup-gabarito::-webkit-scrollbar {
+    width: 10px; /* Largura da barra de rolagem */
+}
 
+#popup-gabarito::-webkit-scrollbar-track {
+    background: #f1f1f1; /* Cor do trilho da barra de rolagem */
+    border-radius: 10px; /* Bordas arredondadas no trilho */
+}
+
+#popup-gabarito::-webkit-scrollbar-thumb {
+    background-color: #002a5c; /* Cor da barra de rolagem */
+    border-radius: 10px; /* Bordas arredondadas na barra */
+    border: 2px solid #f1f1f1; /* Pequeno espaçamento entre a barra e o trilho */
+}
+
+#popup-gabarito::-webkit-scrollbar-thumb:hover {
+    background-color: #ffca28; /* Cor da barra de rolagem ao passar o mouse (hover) */
+}
 /* Estilo para o conteúdo do popup */
 .popup-content {
     background-color: #f9f9f9; /* Fundo cinza muito claro */
     display: flex;
     flex-direction: column;
-    gap: 10px;
     border-radius: 10px;
-    padding: 10px; /* Espaçamento interno */
     box-shadow: 0 4px 8px rgba(0, 42, 92, 0.1); /* Sombra leve */
     color: #002a5c; /* Texto azul escuro */
 }
@@ -375,7 +485,7 @@ footer {
     background-color: #ffca28; /* Cor de fundo ao passar o mouse */
     color: #002a5c;            /* Cor do texto ao passar o mouse */
 }
-/* Estilo para o popup de estatísticas */
+
 /* Estilo para o popup de estatísticas */
 #popup-estatisticas {
     display: none; /* Inicialmente oculto */
@@ -383,17 +493,17 @@ footer {
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    background-color: #f4f4f4; /* Fundo cinza claro para um estilo profissional */
+    background-color: #00295cee;
     color: #ffffff; /* Texto cinza escuro para bom contraste */
-    padding: 25px;
     border-radius: 10px;
     max-width: 450px;
     width: 90%;
     z-index: 1001;
     text-align: left; /* Texto alinhado à esquerda */
-    overflow-y: auto; /* Rolagem automática se o conteúdo for muito grande */
+    overflow-y: visible; /* Rolagem automática se o conteúdo for muito grande */
     max-height: 85vh; /* Limitar altura do popup */
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); /* Sombra sutil para destaque */
+    border: 2px solid #002a5c;;
 }
 #popup-estatisticas button {
     background-color: #002a5c;
@@ -402,27 +512,27 @@ footer {
     border-radius: 5px;
     padding: 10px 20px;
     cursor: pointer;
-    margin-top: 15px;
+    margin-top: 0px;
     font-size: 15px;
+    margin-bottom: 10px;
 }
-
 #popup-estatisticas button:hover {
     background-color: #ffca28;
     color: #002a5c;
 }
 /* Estilo para os containers de contraste */
 .container-contraste {
-    background-color: #ffffff; /* Fundo branco para um contraste discreto */
-    padding: 20px;
-    margin-bottom: 15px;
-    border-radius: 8px;
-    border: 1px solid #ddd; /* Borda leve e elegante */
+    background-color: #ffffff;
+    padding: 5px;
+    margin: 5px;
+    border-radius: 15px;
+    border: 2px solid #002a5c;;
 }
 
 /* Estilo para o título do popup */
 .popup-content h2 {
     font-size: 22px;
-    margin-bottom: 15px;
+    margin: 1px;
     color: #da2020; /* Cor mais escura para o título */
     text-align: center; /* Centralizar o texto do título */
 }
@@ -430,7 +540,7 @@ footer {
 /* Centralizar o título das disciplinas */
 .popup-content h3 {
     text-align: center; /* Centralizar o texto */
-    margin-bottom: 15px;
+    margin: 10px;
     font-size: 18px; /* Tamanho do texto */
     color: #333; /* Cor do texto */
 }
@@ -480,35 +590,37 @@ footer {
     color: #dc3545; /* Vermelho suave para as respostas erradas */
 }
 
-/* Estilo para o container descritivo */
+/* Ajuste de espaçamento para o container descritivo */
 .description-container {
     background-color: #f9f9f9; /* Fundo claro */
-    border-radius: 10px; /* Bordas arredondadas */
+    border-radius: 5px; /* Bordas arredondadas */
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Sombra leve */
-    padding: 10px 20px; /* Reduzido o padding superior (10px) */
-    font-size: 18px;         /* Aumentar o tamanho da fonte */
-    font-weight: bold;       /* Deixar o texto em negrito */
-    color: #000000;          /* Cor do texto preto */
-    margin-bottom: 20px;     /* Espaço abaixo do texto */
-    text-align: justify;     /* Justificar o texto */
+    padding: 5px 15px; /* Reduzi o padding para evitar espaçamento excessivo */
+    font-size: 16px; /* Tamanho da fonte ajustado */
+    font-weight: normal; /* Deixa o texto com peso normal */
+    color: #000000; /* Cor do texto preto */
+    margin-bottom: 15px; /* Espaço reduzido abaixo do container */
+    text-align: justify; /* Justifica o texto */
     max-width: 800px;
-    margin: 20px auto; /* Centralizar horizontalmente */
+    margin: 15px auto; /* Centralizado com margem automática */
     display: flex;
-    flex-direction: column;  /* Organiza o texto e o QR code em coluna */
+    flex-direction: column; /* Organiza o texto e o QR code em coluna */
     justify-content: center; /* Centraliza verticalmente */
-    align-items: center;     /* Centraliza horizontalmente */
+    align-items: center; /* Centraliza horizontalmente */
 }
-.small-text {
-    font-size: 0.95em; /* Ou ajuste conforme o tamanho desejado */
-    color: #000000a1;
-}
-/* Estilo para o texto descritivo */
+
+/* Estilo para o parágrafo dentro do container */
 .description-container p {
-    font-size: 16px; /* Tamanho da fonte */
+    font-size: 15px; /* Tamanho da fonte ajustado */
     color: #000000; /* Cor do texto */
-    margin-bottom: 20px; /* Espaço abaixo do texto */
-    text-align: justify; /* Justificar o texto */
-    
+    margin-bottom: 10px; /* Espaço ajustado abaixo do parágrafo */
+}
+
+/* Estilo para o QR code */
+.description-container img {
+    width: 200px; /* Ajuste do tamanho do QR code */
+    cursor: pointer; /* Indica que é clicável */
+    margin-top: 10px; /* Pequeno espaçamento superior ao QR code */
 }
 
 /* Estilo para o QR code */
@@ -523,16 +635,41 @@ footer {
     #countdown-timer {
         font-size: 18px; /* Tamanho da fonte menor para dispositivos móveis */
         padding: 8px 15px; /* Reduzir o padding interno */
-        top: 5px; /* Ajustar o espaço superior */
+        top: 10px; /* Ajustar o espaço superior */
         right: 5px; /* Ajustar o espaço à direita */
     }
+
+    #question-navigator {
+        width: 90%; /* Ocupará 90% da largura da tela no mobile */
+        top: 10px;
+        left: 50%;
+        transform: translateX(-50%);
+        padding: 5px 10px;
+        font-size: 14px; /* Reduz o tamanho da fonte */
+        gap: 5px; /* Diminui o espaçamento entre elementos */
+      }
+    
+      #question-navigator button {
+        padding: 5px 20px; /* Reduz o padding dos botões */
+        font-size: 14px; /* Ajusta o tamanho da fonte dos botões */
+      }
+    
+      #question-navigator input {
+        width: 30px; /* Reduz a largura do input */
+        padding: 5px;
+        font-size: 14px; /* Ajusta o tamanho da fonte do input */
+      }
+    
     /* Header ajustado para mobile */
     header {
         flex-direction: column;     /* Alinha a logo acima do texto em telas menores */
         text-align: center;         /* Garante que tudo esteja centralizado */
         width: 100%;
     }
-
+    /* Personalização da barra de rolagem para a página */
+    html::-webkit-scrollbar, body::-webkit-scrollbar {
+        width: 15px; /* Largura da barra de rolagem */
+    }
     .logo {
         margin-bottom: 10px;        /* Espaço extra abaixo da logo no mobile */
     }
@@ -548,7 +685,7 @@ footer {
 
     /* Estilos para o #exames em mobile */
     #exames {
-        background-color: #ffffff;
+        background-color: #f9f9f9;
         padding: 15px;                        /* Reduz o espaçamento interno */
         margin: 10px auto;                    /* Margem menor */
         max-width: 95%;                       /* Ocupa quase toda a largura da tela */
@@ -613,7 +750,7 @@ footer {
     /* Estilo para as alternativas */
     .answer-container label {
         display: block;
-        margin-bottom: 10px;  /* Quebra de linha entre alternativas */
+        margin-bottom: -20px;
     }
 
     .answer-container input[type="radio"] {
