@@ -701,11 +701,11 @@ input[type="radio"]:disabled {
 
     /* Estilos para o #exames em mobile */
     #exames {
-        margin-left: 1%;
-        padding-right: 15%;
+        margin-left: 0%;
+        padding-right: 0%;
         margin-bottom: 0%;
-        /* margin: 0px auto; */
-        max-width: 80%;
+        margin: 0px auto;
+        max-width: 97%;
         box-shadow: none;
         border-radius: 8px;
     }
@@ -735,13 +735,13 @@ input[type="radio"]:disabled {
     /* Estilos para o layout-container em mobile */
     #layout-container {
         padding-left: 0%;
-        margin-left: 1%;
-        max-width: 95%;
+        margin-left: 0%;
+        max-width: 97%;
     }
 
     /* Estilo para o container de cada questão */
     .question {
-        padding: 15px;
+        padding: 10px;
         border: 1px solid #ddd;
         border-radius: 8px;
         background-color: #fafafa;
