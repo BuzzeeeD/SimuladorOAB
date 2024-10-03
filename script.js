@@ -115,30 +115,37 @@ document.addEventListener('DOMContentLoaded', function() {
             .catch(error => console.error('Erro ao carregar a planilha:', error));
     }
 
-    // Preencher o seletor de exames
-    function populateExamSelect() {
-        // Criar um array para armazenar os exames com seus anos
-        let examList = [];
-        
-        for (let i = 30; i <= 41; i++) {
-            if (examsData[i] && examsData[i][1] && examsData[i][1][5]) {
-                const examYear = examsData[i][1][5]; // Acessar o ano na coluna 5
-                examList.push({ examNumber: i, year: examYear });
-            }
+// Preencher o seletor de exames
+function populateExamSelect() {
+    // Criar um array para armazenar os exames com seus anos
+    let examList = [];
+    
+    for (let i = 30; i <= 41; i++) {
+        if (examsData[i] && examsData[i][1] && examsData[i][1][5]) {
+            const examYear = examsData[i][1][5]; // Acessar o ano na coluna 5
+            examList.push({ examNumber: i, year: examYear });
         }
-    
-        // Ordenar a lista de exames em ordem decrescente pelo número do exame
-        examList.sort((a, b) => b.examNumber - a.examNumber);
-    
-        // Preencher o seletor com os exames ordenados
-        examList.forEach(exam => {
-            const option = document.createElement('option');
-            option.value = exam.examNumber;
-            option.textContent = `${exam.examNumber}º Exame de Ordem - ${exam.year}`;
-            examSelect.appendChild(option);
-        });
     }
 
+    // Ordenar a lista de exames em ordem decrescente pelo número do exame
+    examList.sort((a, b) => b.examNumber - a.examNumber);
+
+    // Preencher o seletor com os exames ordenados
+    examList.forEach(exam => {
+        const option = document.createElement('option');
+        option.value = exam.examNumber;
+        option.textContent = `${exam.examNumber}º Exame de Ordem - ${exam.year}`;
+        examSelect.appendChild(option);
+    });
+
+    // Aplicar fadeIn ao seletor após ele ser preenchido
+    $('#examSelect').fadeIn(100);
+}
+
+// Exemplo de chamada para preencher a lista de exames
+$(document).ready(function() {
+    populateExamSelect();
+});
     // Exibir questões ao selecionar um exame e iniciar cronômetro
     examSelect.addEventListener('change', function() {
         const selectedExam = this.value;
@@ -331,18 +338,21 @@ if (respostaCerta && respostaCerta.toLowerCase() === "anulada") {
         });
 
         popupGabarito.appendChild(popupContent);
+        $(popupGabarito).fadeIn(100);
         popupGabarito.style.display = 'block';
 
         // Fechar o popup ao clicar no botão de fechar
         document.getElementById('close-popup').addEventListener('click', function() {
-            popupGabarito.style.display = 'none';
+            $(popupGabarito).fadeOut(200);;
+
             document.removeEventListener('click', closePopupOnClickOutside); // Remove o listener para evitar duplicidade
         });
 
         // Função para fechar o popup ao clicar fora dele
         function closePopupOnClickOutside(event) {
             if (!popupGabarito.contains(event.target) && event.target !== gabaritoBtn) {
-                popupGabarito.style.display = 'none';
+                $(popupGabarito).fadeOut(200);;
+
                 document.removeEventListener('click', closePopupOnClickOutside); // Remove o listener ao fechar
             }
         }
@@ -506,16 +516,30 @@ container1.appendChild(resultadoProva);
         // Adicionar o conteúdo ao popup e exibir
         popupEstatisticas.appendChild(popupContent);
         document.body.appendChild(popupEstatisticas);
+        $(popupEstatisticas).fadeIn(100);
 
         // Fechar o popup ao clicar fora dele
         document.addEventListener('click', function(event) {
-            if (!popupContent.contains(event.target) && !finalizarProvaBtn.contains(event.target)) {
-                popupEstatisticas.remove();  // Fecha o popup
-            }
+        if (!popupContent.contains(event.target) && !finalizarProvaBtn.contains(event.target)) {
+        // Retomar o cronômetro antes de fechar o popup
+        const timeParts = countdownTimer.textContent.split(':');
+        const hours = parseInt(timeParts[0], 10);
+        const minutes = parseInt(timeParts[1], 10);
+        const seconds = parseInt(timeParts[2], 10);
+        
+        // Converter de volta para segundos e retomar
+        const remainingTimeInSeconds = (hours * 3600) + (minutes * 60) + seconds;
+        startCountdown(remainingTimeInSeconds);  // Retomar o cronômetro
+
+        // Aplicar a animação de fadeOut
+        $(popupEstatisticas).fadeOut(400, function() {
+            // Depois da animação, remove o popup do DOM
+            popupEstatisticas.remove();
         });
-    // Evento de clique para o botão de "Cancelar" (novo)
-    cancelBtn.addEventListener('click', function() {
-        popupEstatisticas.style.display = 'none';  // Fecha o popup
+    }
+});
+        // Evento de clique para o botão de "Cancelar" (novo)
+        cancelBtn.addEventListener('click', function() {
 
         // Retomar o cronômetro de onde parou
         const timeParts = countdownTimer.textContent.split(':');
@@ -526,6 +550,11 @@ container1.appendChild(resultadoProva);
         // Converter de volta para segundos e retomar
         const remainingTimeInSeconds = (hours * 3600) + (minutes * 60) + seconds;
         startCountdown(remainingTimeInSeconds);  // Retomar o cronômetro
+
+        $(popupEstatisticas).fadeOut(400, function() {
+            // Depois da animação, remove o popup do DOM
+            popupEstatisticas.remove();
+        });
     });
 
         // Aplicar estilo ao popup
