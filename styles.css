@@ -819,6 +819,7 @@ input[type="radio"]:disabled {
     #popup-estatisticas {
         max-width: 90%;
         max-height: 80vh; /* Garantir que o popup não ocupe toda a altura */
+        overflow-y: scroll;
     }
 
     .popup-content h2 {
