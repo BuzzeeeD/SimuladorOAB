@@ -712,16 +712,17 @@ input[type="radio"]:disabled {
 
     /* Ajustes no título da seção de exames */
     #exames h2 {
-        font-size: 20px;                       /* Tamanho de fonte menor em telas pequenas */
-        margin-bottom: 10px;                   /* Reduz o espaçamento inferior */
-        align-self: center;
+        font-size: 25px;
+        margin-bottom: 5px;
+        align-content: center;
     }
 
     /* Ajustes no seletor de exames */
     #exames select {
-        padding: 8px;                          /* Menor padding para se ajustar a telas pequenas */
-        font-size: 14px;                       /* Fonte levemente menor para dispositivos móveis */
-        max-width: 100%;                       /* O seletor agora ocupará toda a largura em telas pequenas */
+        padding: 10px;
+        font-size: 14px;
+        max-width: 100%;
+        margin-right: 5%;
     }
 
     /* Ajustes no botão */
@@ -734,9 +735,13 @@ input[type="radio"]:disabled {
 
     /* Estilos para o layout-container em mobile */
     #layout-container {
-        padding-left: 0%;
-        margin-left: 0%;
-        max-width: 97%;
+        margin-left: 9%;
+        background-color: #fff;
+        border-radius: 10px;
+        padding: 4px;
+        margin: 0px;
+        max-width: 900px;
+        width: 100%;
     }
 
     /* Estilo para o container de cada questão */
