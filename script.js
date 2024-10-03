@@ -267,9 +267,14 @@ function displayQuestions(examNumber) {
                 const optionText = document.createElement('span');
                 optionText.textContent = `${letter}) ${alternativeText}`;
         
-                // Armazena a resposta marcada pelo usuário
-                radioInput.addEventListener('change', () => {
-                    selectedAnswers[`question${index}`] = letter;
+                radioInput.addEventListener('click', () => {
+                    // Se já estiver marcado, desmarque e remova a resposta
+                    if (radioInput.checked && selectedAnswers[`question${index}`] === letter) {
+                        radioInput.checked = false; // Desmarca o radio button
+                        delete selectedAnswers[`question${index}`]; // Remove a resposta selecionada
+                    } else {
+                        selectedAnswers[`question${index}`] = letter; // Armazena a resposta
+                    }
                 });
         
                 optionLabel.appendChild(radioInput);
