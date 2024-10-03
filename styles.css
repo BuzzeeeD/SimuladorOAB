@@ -627,6 +627,11 @@ input[type="radio"]:disabled {
 }
 /* Responsividade - Mobile */
 @media (max-width: 768px) {
+    html, body {
+        margin: 0; /* Remove margens para evitar espaços indesejados */
+        padding: 0; /* Remove padding para evitar espaços indesejados */
+    }
+
     main {
         flex: 1;
         padding-left: 0px;
@@ -696,18 +701,20 @@ input[type="radio"]:disabled {
 
     /* Estilos para o #exames em mobile */
     #exames {
-
-        padding: 15px;                        /* Reduz o espaçamento interno */
-        margin: 10px auto;                    /* Margem menor */
-        max-width: 95%;                       /* Ocupa quase toda a largura da tela */
-        box-shadow: none;                     /* Remove a sombra para telas pequenas */
-        border-radius: 8px;                   /* Mantém bordas arredondadas */
+        margin-left: 1%;
+        padding-right: 15%;
+        margin-bottom: 0%;
+        /* margin: 0px auto; */
+        max-width: 80%;
+        box-shadow: none;
+        border-radius: 8px;
     }
 
     /* Ajustes no título da seção de exames */
     #exames h2 {
         font-size: 20px;                       /* Tamanho de fonte menor em telas pequenas */
         margin-bottom: 10px;                   /* Reduz o espaçamento inferior */
+        align-self: center;
     }
 
     /* Ajustes no seletor de exames */
@@ -727,12 +734,9 @@ input[type="radio"]:disabled {
 
     /* Estilos para o layout-container em mobile */
     #layout-container {
-        background-color: #ffffff;
-        padding: 15px;                        /* Reduz o espaçamento interno */
-        margin: 10px auto;                    /* Margem menor */
-        max-width: 95%;                       /* Ocupa quase toda a largura da tela */
-        border-radius: 10px;
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Sombra leve para destacar o conteúdo */
+        padding-left: 0%;
+        margin-left: 1%;
+        max-width: 95%;
     }
 
     /* Estilo para o container de cada questão */
@@ -751,6 +755,7 @@ input[type="radio"]:disabled {
         font-weight: bold;
         color: #333;
         margin-bottom: 10px;
+        padding-inline: 0px;
     }
 
     /* Estilo para os detalhes no topo da questão */
@@ -834,5 +839,25 @@ input[type="radio"]:disabled {
     .container-contraste {
         padding: 10px;
         margin-bottom: 15px;
+    }
+}
+@media only screen and (min-width: 480px) and (max-width: 1024px) and (orientation: landscape) {
+    html, body {
+        height: 100%;
+        margin: -10px;
+        padding: 10px;
+    }
+    #exames {
+        padding: 8px;
+        margin: auto;
+    }
+    #layout-container {
+        border-radius: 10px;
+        padding: 8px;
+    }
+    #popup-estatisticas {
+        max-width: 60%;
+        overflow-y: scroll;
+        max-height: 95%;
     }
 }
