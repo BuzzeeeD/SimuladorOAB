@@ -693,8 +693,9 @@ input[type="radio"]:disabled {
     }
     /* Estilo do cronômetro para mobile */
     #gabarito-inline-btn, #order-toggle-btn {
-        width: 44.5vh;
+        width: 50%;
         margin-bottom: 5px;
+        font-size: 10px;
     }
     #countdown-timer {
         font-size: 18px;
