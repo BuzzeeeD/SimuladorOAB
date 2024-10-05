@@ -158,7 +158,7 @@ function populateExamSelect() {
     materiaOption.textContent = `Questões por Matéria (${totalQuestionsAll} questões)`; // Adicionar o número total de questões
     examSelect.appendChild(materiaOption);  // Adicionar ao seletor
 
-    // Ordenar a lista de exames em ordem decrescente pelo número do exame
+    // Ordenar a lista de exames em ordem Decrescente pelo número do exame
     examList.sort((a, b) => b.examNumber - a.examNumber);
 
     // Preencher o seletor com os exames ordenados e o número de questões
@@ -762,7 +762,7 @@ examSelect.addEventListener('change', function() {
         });
     }
     
-    let currentOrder = 'decrescente'; // Ordem inicial decrescente
+    let currentOrder = 'Decrescente'; // Ordem inicial Decrescente
 
 function displayFilteredQuestions(disciplina) {
     layoutContainer.innerHTML = '';  // Limpa o container antes de exibir as questões filtradas
@@ -782,17 +782,17 @@ function displayFilteredQuestions(disciplina) {
     });
 
     // Ordenar por ano de acordo com a ordem atual
-    if (currentOrder === 'decrescente') {
+    if (currentOrder === 'Decrescente') {
         filteredQuestions.sort((a, b) => b.year - a.year);
-    } else if (currentOrder === 'crescente') {
+    } else if (currentOrder === 'Crescente') {
         filteredQuestions.sort((a, b) => a.year - b.year);
-    } else if (currentOrder === 'randomizado') {
+    } else if (currentOrder === 'Randomizado') {
         filteredQuestions.sort(() => Math.random() - 0.5);  // Randomizar a ordem
     }
 
     const orderButton = document.createElement('button');
     orderButton.id = 'order-toggle-btn';  // Adiciona o ID para estilização
-    orderButton.textContent = `Ordenar por Ano: ${currentOrder}`;
+    orderButton.textContent = ` ${currentOrder}`;
     orderButton.addEventListener('click', toggleOrder);
     layoutContainer.appendChild(orderButton);
 
@@ -909,12 +909,12 @@ function displayFilteredQuestions(disciplina) {
 }
 
 function toggleOrder() {
-    if (currentOrder === 'decrescente') {
-        currentOrder = 'crescente';
-    } else if (currentOrder === 'crescente') {
-        currentOrder = 'randomizado';
+    if (currentOrder === 'Decrescente') {
+        currentOrder = 'Crescente';
+    } else if (currentOrder === 'Crescente') {
+        currentOrder = 'Randomizado';
     } else {
-        currentOrder = 'decrescente';
+        currentOrder = 'Decrescente';
     }
 
     // Atualizar a exibição com a nova ordem
