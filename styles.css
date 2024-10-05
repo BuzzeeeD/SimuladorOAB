@@ -729,7 +729,7 @@ input[type="radio"]:disabled {
         color: white;
         transform: scale(0.98);          /* Pequena redução no clique */
     }
-}
+
     #countdown-timer {
         font-size: 18px;
         padding-left: 2vh;
@@ -737,12 +737,12 @@ input[type="radio"]:disabled {
     }
 
     #question-navigator {
-        width: 42vh;
+        width: 45vh;
         font-size: 14px; /* Ajusta o tamanho da fonte */
     }
 
     #question-navigator button {
-        padding: 1vh 1vh;
+        padding: 1vh 2vh;
         margin: 0px;
         margin-left: 0px;
         font-size: 12px;
@@ -803,14 +803,15 @@ input[type="radio"]:disabled {
     /* Ajustes no título da seção de exames */
     #exames h2 {
         font-size: 25px;
+        margin-right: 25px;
         margin-bottom: 5px;
         align-content: center;
     }
 
     /* Ajustes no seletor de exames */
     #exames select {
-        padding: 10px;
-        font-size: 14px;
+        padding: 16px;
+        font-size: 16px;
         max-width: 100%;
         margin-right: 5%;
     }
@@ -935,7 +936,7 @@ input[type="radio"]:disabled {
         padding: 10px;
         margin-bottom: 15px;
     }
-
+}
 @media only screen and (min-width: 480px) and (max-width: 1024px) and (orientation: landscape) {
     html, body {
         height: 100%;
