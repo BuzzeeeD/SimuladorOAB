@@ -3,12 +3,12 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Simulador de Provas - OAB</title>
+  <title>Simulador de Provas - OAB 1ª Fase</title>
   <link rel="stylesheet" href="styles.css">
   <div id="question-navigator">
-    <button id="scroll-top-btn">⬆ Inicio</button>
-    <button id="scroll-bottom-btn">⬇ Fim</button>
-    <label for="question-number">Questão: </label>
+    <button id="scroll-top-btn">⬆ Subir</button>
+    <button id="scroll-bottom-btn">⬇ Descer</button>
+    <label for="question-number">Ir até: </label>
     <input type="number" id="question-number" min="1" value="1" placeholder="Número">
     <button id="go-to-question-btn">Ir</button>
     <div id="countdown-timer">05:00:00</div> <!-- Moved inside question-navigator -->
@@ -42,6 +42,8 @@
   </section>
 
     <section id="layout-container">
+      <button id="order-toggle-btn">Ordenar por Ano</button>
+      <button id="gabarito-inline-btn">Ver Gabarito</button>
         <!-- Questões serão inseridas aqui dinamicamente -->
     </section>
 
