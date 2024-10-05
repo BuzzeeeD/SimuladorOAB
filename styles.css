@@ -691,12 +691,45 @@ input[type="radio"]:disabled {
         display: flex;
         flex-direction: column;
     }
-    /* Estilo do cronômetro para mobile */
-    #gabarito-inline-btn, #order-toggle-btn {
-        width: 50%;
-        margin-bottom: 5px;
-        font-size: 10px;
+    /* Contêiner dos botões */
+    .buttons-wrapper {
+        display: flex;
+        justify-content: space-between;  /* Distribui os botões de forma uniforme */
+        position: fixed;                 /* Fixa os botões na parte inferior da tela */
+        bottom: 0;                       /* Posiciona os botões no fundo */
+        width: 100%;                     /* Largura total da tela */
+        background-color: #fff;          /* Fundo branco para o contêiner */
+        padding: 10px 5px;               /* Espaçamento interno */
+        box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.1);  /* Sombra leve */
+        z-index: 1000;                   /* Garante que os botões fiquem acima de outros elementos */
     }
+
+    /* Botões */
+    #gabarito-inline-btn, #order-toggle-btn {
+        width: 48%;                      /* Cada botão ocupa 48% da largura para caber lado a lado */
+        margin: 4px;                       /* Remove margens para manter alinhamento */
+        font-size: 12px;                 /* Tamanho da fonte menor para mobile */
+        padding: 10px;                   /* Padding ajustado para botões menores */
+        text-align: center;              /* Centraliza o texto dentro do botão */
+        border-radius: 8px;              /* Bordas arredondadas */
+        cursor: pointer;                 /* Cursor de ponteiro */
+        transition: background-color 0.3s ease, transform 0.3s ease;
+        box-sizing: border-box;          /* Inclui padding e borda no cálculo de tamanho */
+    }
+
+    /* Efeito hover nos botões */
+    #gabarito-inline-btn:hover, #order-toggle-btn:hover {
+        background-color: #ffca28;       /* Muda para amarelo no hover */
+        color: #002a5c;                  /* Cor do texto no hover */
+    }
+
+    /* Efeito de clique */
+    #gabarito-inline-btn:active, #order-toggle-btn:active {
+        background-color: #ffb400;
+        color: white;
+        transform: scale(0.98);          /* Pequena redução no clique */
+    }
+}
     #countdown-timer {
         font-size: 18px;
         padding-left: 2vh;
@@ -902,7 +935,7 @@ input[type="radio"]:disabled {
         padding: 10px;
         margin-bottom: 15px;
     }
-}
+
 @media only screen and (min-width: 480px) and (max-width: 1024px) and (orientation: landscape) {
     html, body {
         height: 100%;
