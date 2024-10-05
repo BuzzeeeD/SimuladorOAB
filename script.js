@@ -8,6 +8,8 @@ document.addEventListener('DOMContentLoaded', function() {
     const finalizarProvaBtn = document.getElementById('finalizar-prova-btn'); // Botão Finalizar Prova
     const popupGabarito = document.createElement('div'); // Criar o popup dinamicamente
     countdownTimer.style.display = "none";
+    gabaritoBtn.style.display = 'none';
+    finalizarProvaBtn.style.display = 'none';
     questionNavigator.style.display = 'none'; 
     popupGabarito.id = 'popup-gabarito';
     document.body.appendChild(popupGabarito); // Adicionar o popup ao body
@@ -105,7 +107,19 @@ window.addEventListener('scroll', function() {
                     examsData[examNumber] = jsonData;  // Armazenar os dados da planilha
                 });
 
-                populateExamSelect();  // Preencher o seletor de exames
+                // Calcular o número total de questões
+                let totalQuestionsAll = 0;
+                for (let i = 20; i <= 41; i++) {
+                    if (examsData[i] && examsData[i].length > 1) {
+                        totalQuestionsAll += examsData[i].length - 1; // Descontar o cabeçalho
+                    }
+                }
+
+                // Exibir o número total de questões na descrição
+                displayDescriptionContainer(totalQuestionsAll);
+
+                // Preencher o seletor de exames após o carregamento
+                populateExamSelect();  
             })
             .catch(error => console.error('Erro ao carregar a planilha:', error));
     }
@@ -115,39 +129,43 @@ function populateExamSelect() {
     const examSelect = document.getElementById('examSelect');
     examSelect.innerHTML = '';  // Limpar o seletor antes de preenchê-lo
 
-    let totalQuestions = 0;  // Variável para contar o total de questões
+    let totalQuestionsExams = 0;  // Variável para contar o total de questões de exames (30 a 41)
+    let totalQuestionsAll = 0;  // Variável para contar o total de questões de todas as folhas (20 a 41)
     let examList = [];  // Criar um array para armazenar os exames com seus anos
     
-    // Iterar pelos exames e contar as questões
-    for (let i = 30; i <= 41; i++) {
+    // Iterar pelos exames e contar as questões de todas as folhas (20 a 41)
+    for (let i = 20; i <= 41; i++) {
         if (examsData[i] && examsData[i][1] && examsData[i][1][5]) {
-            const examYear = examsData[i][1][5]; // Acessar o ano na coluna 5
             const questionCount = examsData[i].length - 1; // Contar o número de questões, descontando o cabeçalho
-            totalQuestions += questionCount;  // Somar ao total de questões
-            examList.push({ examNumber: i, year: examYear });
+            totalQuestionsAll += questionCount;  // Somar ao total de todas as questões
+            if (i >= 30 && i <= 41) {
+                totalQuestionsExams += questionCount;  // Somar ao total de questões para exames (30 a 41)
+                const examYear = examsData[i][1][5]; // Acessar o ano na coluna 5
+                examList.push({ examNumber: i, year: examYear, questionCount }); // Adicionar o número de questões por exame
+            }
         }
     }
 
-    // Adicionar a opção "Escolha o Exame" com o total de questões
+    // Adicionar a opção "Escolha o Exame" com o total de questões de exames 30 a 41
     const defaultOption = document.createElement('option');
     defaultOption.value = "";
-    defaultOption.textContent = `Escolha o Exame (Total: ${totalQuestions} questões)`;
+    defaultOption.textContent = `Escolha o Exame (${totalQuestionsExams} questões)`;
     examSelect.appendChild(defaultOption);  // Adicionar ao seletor
 
-    // Adicionar a opção "Questões por Matéria"
+    // Adicionar a opção "Questões por Matéria" com o total de questões de todas as folhas 20 a 41
     const materiaOption = document.createElement('option');
     materiaOption.value = "filtro";
-    materiaOption.textContent = "Questões por Matéria";
+    materiaOption.textContent = `Questões por Matéria (${totalQuestionsAll} questões)`; // Adicionar o número total de questões
     examSelect.appendChild(materiaOption);  // Adicionar ao seletor
 
     // Ordenar a lista de exames em ordem decrescente pelo número do exame
     examList.sort((a, b) => b.examNumber - a.examNumber);
 
-    // Preencher o seletor com os exames ordenados
+    // Preencher o seletor com os exames ordenados e o número de questões
     examList.forEach(exam => {
         const option = document.createElement('option');
         option.value = exam.examNumber;
-        option.textContent = `${exam.examNumber}º Exame de Ordem - ${exam.year}`;
+        option.textContent = `${exam.examNumber}º Exame de Ordem - ${exam.year} (${exam.questionCount} questões)`;
         examSelect.appendChild(option);
     });
 
@@ -616,77 +634,92 @@ container1.appendChild(resultadoProva);
     // Função para carregar a planilha ao abrir a página
     loadExcel();
 
-    // Função para exibir o container de descrição
-    function displayDescriptionContainer() {
-        layoutContainer.innerHTML = ''; // Limpar o conteúdo anterior
+   // Função para exibir o container de descrição com o número total de questões
+function displayDescriptionContainer(totalQuestionsAll) {
+    layoutContainer.innerHTML = ''; // Limpar o conteúdo anterior
+
+    const descriptionDiv = document.createElement('div');
+    descriptionDiv.classList.add('description-container');
+
+    // Criar o texto descritivo com o número total de questões dinâmico
+    const descriptionText = document.createElement('p');
+    descriptionText.innerHTML = `
+        <div style="text-align: center; font-size: 20px; font-weight: bold;">
+            Bem-vindo à nossa plataforma de simulados!
+        </div>
+        <br>
+        <p style="font-size: 16px; line-height: 1.6;">
+            Criamos este espaço gratuito para facilitar sua preparação, oferecendo um ambiente acessível e eficiente para você estudar e conquistar seus objetivos.
+        </p>
+        <p style="font-size: 16px; line-height: 1.6;">
+            Atualmente, nossa plataforma conta com <strong>${totalQuestionsAll} questões</strong> da FGV disponíveis para você treinar e melhorar seu desempenho.
+        </p>
+        <p style="font-size: 16px; line-height: 1.6;">
+            Entretanto, manter a plataforma em funcionamento envolve custos operacionais. Se você achou nosso serviço útil e deseja apoiar a continuidade deste projeto, sua colaboração será muito bem-vinda.
+        </p>
+        <p style="font-size: 16px; line-height: 1.6;">
+            Sinta-se à vontade para doar qualquer valor. Basta escanear ou clicar no QR code abaixo. Toda ajuda faz a diferença!
+        </p>
+    `;
+
+    // Criar o QR code
+    const qrCode = document.createElement('img');
+    qrCode.src = 'data/logos/qr-code.png'; // Caminho da imagem do QR code
+    qrCode.alt = 'QR Code para doação';
+    qrCode.style.width = '250px'; // Ajustar tamanho do QR code
+    qrCode.style.cursor = 'pointer';
+
+    // Adicionar um link ao QR code para redirecionar a página
+    const qrLink = document.createElement('a');
+    qrLink.href = 'https://nubank.com.br/cobrar/whu36/66fabc3b-cb28-4faa-9c3d-02659c132816'; // Substitua pelo link da doação
+    qrLink.target = '_blank'; // Abre em uma nova aba
+    qrLink.appendChild(qrCode);
+
+    // Adicionar o texto e o QR code ao container
+    descriptionDiv.appendChild(descriptionText);
+    descriptionDiv.appendChild(qrLink);
     
-        const descriptionDiv = document.createElement('div');
-        descriptionDiv.classList.add('description-container');
-    
-        // Criar o texto descritivo
-        const descriptionText = document.createElement('p');
-        descriptionText.innerHTML = `
-            <div style="text-align: center; font-size: 20px; font-weight: bold;">
-                Bem-vindo à nossa plataforma de simulados!
-            </div>
-            <br>
-            <p style="font-size: 16px; line-height: 1.6;">
-                Criamos este espaço gratuito para facilitar sua preparação, oferecendo um ambiente acessível e eficiente para você estudar e conquistar seus objetivos.
-            </p>
-            <p style="font-size: 16px; line-height: 1.6;">
-                Entretanto, manter a plataforma em funcionamento envolve custos operacionais. Se você achou nosso serviço útil e deseja apoiar a continuidade deste projeto, sua colaboração será muito bem-vinda.
-            </p>
-            <p style="font-size: 16px; line-height: 1.6;">
-                Sinta-se à vontade para doar qualquer valor. Basta escanear ou clicar no QR code abaixo. Toda ajuda faz a diferença!
-            </p>
-        `;
-    
-        // Criar o QR code
-        const qrCode = document.createElement('img');
-        qrCode.src = 'data/logos/qr-code.png'; // Caminho da imagem do QR code
-        qrCode.alt = 'QR Code para doação';
-        qrCode.style.width = '250px'; // Ajustar tamanho do QR code
-        qrCode.style.cursor = 'pointer';
-    
-        // Adicionar um link ao QR code para redirecionar a página
-        const qrLink = document.createElement('a');
-        qrLink.href = 'https://nubank.com.br/cobrar/whu36/66fabc3b-cb28-4faa-9c3d-02659c132816'; // Substitua pelo link da doação
-        qrLink.target = '_blank'; // Abre em uma nova aba
-        qrLink.appendChild(qrCode);
-    
-        // Adicionar o texto e o QR code ao container
-        descriptionDiv.appendChild(descriptionText);
-        descriptionDiv.appendChild(qrLink);
-        
-        // Adicionar o container descritivo ao layout-container
-        layoutContainer.appendChild(descriptionDiv);
+    // Adicionar o container descritivo ao layout-container
+    layoutContainer.appendChild(descriptionDiv);
+}
+
+// Exemplo de como chamar a função após calcular o total de questões
+examSelect.addEventListener('change', function() {
+    const selectedExam = this.value;
+
+    // Calcular o número total de questões de todas as folhas (20 a 41)
+    let totalQuestionsAll = 0;
+    for (let i = 20; i <= 41; i++) {
+        if (examsData[i] && examsData[i].length > 1) {
+            totalQuestionsAll += examsData[i].length - 1; // Descontar o cabeçalho
+        }
     }
 
-    examSelect.addEventListener('change', function() {
-        const selectedExam = this.value;
-    
-        if (selectedExam === "filtro") {
-            document.getElementById('disciplinaSelect').style.display = 'block'; // Exibe o select de disciplinas
-            populateDisciplinaSelect(); // Popula a lista de disciplinas
-            displayDescriptionContainer();
-            countdownTimer.style.display = 'none'; // Oculta o cronômetro
-            finalizarProvaBtn.style.display = 'none'; // Oculta o botão "Finalizar Prova"
-        } else if (selectedExam === "Escolha o Exame" || !selectedExam) {
-            countdownTimer.style.display = 'none';
-            countdownTimer.textContent = "05:00:00";
-            displayDescriptionContainer();
-            clearInterval(countdownInterval);
-            document.getElementById('disciplinaSelect').style.display = 'none'; // Oculta o select de disciplinas
-            finalizarProvaBtn.style.display = 'none'; // Oculta o botão "Finalizar Prova"
-        } else {
-            document.getElementById('disciplinaSelect').style.display = 'none'; // Oculta o select de disciplinas
-            layoutContainer.innerHTML = ''; 
-            displayQuestions(selectedExam); // Somente exibe questões para um exame válido
-            countdownTimer.style.display = 'block'; // Exibe o cronômetro
-            finalizarProvaBtn.style.display = 'block'; // Exibe o botão "Finalizar Prova"
-            startCountdown(5 * 60 * 60);  
-        }
-    });
+    if (selectedExam === "filtro") {
+        document.getElementById('disciplinaSelect').style.display = 'block'; // Exibe o select de disciplinas
+        populateDisciplinaSelect(); // Popula a lista de disciplinas
+        displayDescriptionContainer(totalQuestionsAll); // Passar o número total de questões
+        countdownTimer.style.display = 'none'; // Oculta o cronômetro
+        gabaritoBtn.style.display = 'none';
+        finalizarProvaBtn.style.display = 'none'; // Oculta o botão "Finalizar Prova"
+    } else if (selectedExam === "Escolha o Exame" || !selectedExam) {
+        countdownTimer.style.display = 'none';
+        countdownTimer.textContent = "05:00:00";
+        displayDescriptionContainer(totalQuestionsAll); // Passar o número total de questões
+        clearInterval(countdownInterval);
+        document.getElementById('disciplinaSelect').style.display = 'none'; // Oculta o select de disciplinas
+        finalizarProvaBtn.style.display = 'none'; // Oculta o botão "Finalizar Prova"
+        gabaritoBtn.style.display = 'none';
+    } else {
+        document.getElementById('disciplinaSelect').style.display = 'none'; // Oculta o select de disciplinas
+        layoutContainer.innerHTML = ''; 
+        displayQuestions(selectedExam); // Somente exibe questões para um exame válido
+        countdownTimer.style.display = 'block'; // Exibe o cronômetro
+        gabaritoBtn.style.display = 'block';
+        finalizarProvaBtn.style.display = 'block';
+        startCountdown(5 * 60 * 60);  
+    }
+});
 
     function populateDisciplinaSelect() {
         const disciplinaSelect = document.getElementById('disciplinaSelect');
@@ -724,120 +757,168 @@ container1.appendChild(resultadoProva);
             const selectedDisciplina = this.value;
             if (selectedDisciplina) {
                 displayFilteredQuestions(selectedDisciplina);
+                gabaritoBtn.style.display = 'block';
             }
         });
     }
     
-    function displayFilteredQuestions(disciplina) {
-        layoutContainer.innerHTML = '';  // Limpa o container antes de exibir as questões filtradas
-        selectedAnswers = {};  // Reseta as respostas selecionadas pelo usuário
-        let navigationCounter = 1;  // Inicializar o contador de navegação secundária
-    
-        Object.keys(examsData).forEach(examNumber => {
-            const questions = examsData[examNumber];
-    
-            questions.forEach((row, index) => {
-                if (index === 0 || row[4] !== disciplina) return;  // Ignorar o cabeçalho e disciplinas diferentes
-    
-                const questionDiv = document.createElement('div');
-                questionDiv.classList.add('question');
-                questionDiv.id = `question-${examNumber}-${index}`;  // ID único da questão (gabarito)
-    
-                // Atribuir uma ID secundária para navegação
-                questionDiv.setAttribute('data-navigation-id', navigationCounter);  // ID para navegação
-    
-                // Verificar se a questão foi anulada
-                let anulada = row[15] && row[15].toLowerCase() === "anulada";
-                if (anulada) {
-                    questionDiv.style.backgroundColor = 'rgba(255, 248, 179, 0.8)';  // Amarelo suave para anulada
-                }
-    
-                // Cabeçalho da questão
-                const questionHeader = document.createElement('div');
-                questionHeader.classList.add('small-text');
-                questionHeader.innerHTML = `<strong style="font-size: 1.25em;">${navigationCounter})</strong> ${row[8]} / ${row[6]} / ${row[7]} / ${row[4]}`;
-                questionDiv.appendChild(questionHeader);
-    
-                // Enunciado da questão
-                const questionText = document.createElement('p');
-                questionText.style.marginLeft = "10px"; 
-                questionText.innerHTML = `${row[9]}`;
-                questionDiv.appendChild(questionText);
-    
-                // Alternativas da questão
-                const answerContainer = document.createElement('div');
-                answerContainer.classList.add('answer-container');
-    
-                ['A', 'B', 'C', 'D', 'E'].forEach((letter, i) => {
-                    const alternativeText = row[i + 10];
-                    if (alternativeText) {
-                        const optionContainer = document.createElement('div');
-                        optionContainer.classList.add('icon-container');
-                        const scissorsIcon = document.createElement('div');
-                        scissorsIcon.classList.add('icon');
-    
-                        // Lógica de tesoura
-                        if (!anulada) {
-                            scissorsIcon.addEventListener('click', () => {
-                                const label = optionContainer.querySelector('label');
-                                const radioInput = label.querySelector('input');
-                                const optionText = label.querySelector('span');
-    
-                                if (radioInput.checked) {
-                                    radioInput.checked = false;
-                                    delete selectedAnswers[`question${index}`];
-                                }
-    
-                                if (radioInput.disabled) {
-                                    radioInput.disabled = false;
-                                    optionText.classList.remove('striked');
-                                } else {
-                                    radioInput.disabled = true;
-                                    optionText.classList.add('striked');
-                                }
-                            });
-                        } else {
-                            scissorsIcon.style.opacity = 0.5;
-                            scissorsIcon.style.cursor = 'not-allowed';
+    let currentOrder = 'decrescente'; // Ordem inicial decrescente
+
+function displayFilteredQuestions(disciplina) {
+    layoutContainer.innerHTML = '';  // Limpa o container antes de exibir as questões filtradas
+    selectedAnswers = {};  // Reseta as respostas selecionadas pelo usuário
+    let navigationCounter = 1;  // Inicializar o contador de navegação secundária
+
+    // Coletar as questões correspondentes à disciplina
+    let filteredQuestions = [];
+
+    Object.keys(examsData).forEach(examNumber => {
+        const questions = examsData[examNumber];
+
+        questions.forEach((row, index) => {
+            if (index === 0 || row[4] !== disciplina) return;  // Ignorar o cabeçalho e disciplinas diferentes
+            filteredQuestions.push({ examNumber, index, year: row[5], questionData: row });
+        });
+    });
+
+    // Ordenar por ano de acordo com a ordem atual
+    if (currentOrder === 'decrescente') {
+        filteredQuestions.sort((a, b) => b.year - a.year);
+    } else if (currentOrder === 'crescente') {
+        filteredQuestions.sort((a, b) => a.year - b.year);
+    } else if (currentOrder === 'randomizado') {
+        filteredQuestions.sort(() => Math.random() - 0.5);  // Randomizar a ordem
+    }
+
+    const orderButton = document.createElement('button');
+    orderButton.id = 'order-toggle-btn';  // Adiciona o ID para estilização
+    orderButton.textContent = `Ordenar por Ano: ${currentOrder}`;
+    orderButton.addEventListener('click', toggleOrder);
+    layoutContainer.appendChild(orderButton);
+
+    // Adicionar o botão ao layout-container
+    layoutContainer.appendChild(orderButton);
+    // Criar o botão de "Gabarito"
+    const gabaritoButton = document.createElement('button');
+    gabaritoButton.id = 'gabarito-inline-btn';  // ID para estilização
+    gabaritoButton.textContent = 'Ver Gabarito';
+
+    // Adicionar o evento de clique ao botão de Gabarito
+    gabaritoButton.addEventListener('click', function() {
+        gabaritoBtn.click();  // Simula o clique no botão gabaritoBtn original
+    });
+
+    // Adicionar os dois botões ao layout-container
+    layoutContainer.appendChild(orderButton);
+    layoutContainer.appendChild(gabaritoButton);
+    // Exibir as questões filtradas após ordenação
+    filteredQuestions.forEach(({ examNumber, index, questionData }) => {
+        const questionDiv = document.createElement('div');
+        questionDiv.classList.add('question');
+        questionDiv.id = `question-${examNumber}-${index}`;  // ID único da questão (gabarito)
+        questionDiv.setAttribute('data-navigation-id', navigationCounter);  // ID para navegação
+
+        // Verificar se a questão foi anulada
+        let anulada = questionData[15] && questionData[15].toLowerCase() === "anulada";
+        if (anulada) {
+            questionDiv.style.backgroundColor = 'rgba(255, 248, 179, 0.8)';  // Amarelo suave para anulada
+        }
+
+        // Cabeçalho da questão
+        const questionHeader = document.createElement('div');
+        questionHeader.classList.add('small-text');
+        questionHeader.innerHTML = `<strong style="font-size: 1.25em;">${navigationCounter})</strong> ${questionData[8]} / ${questionData[6]} / ${questionData[7]} / ${questionData[4]} / ${questionData[5]}`;
+        questionDiv.appendChild(questionHeader);
+
+        // Enunciado da questão
+        const questionText = document.createElement('p');
+        questionText.style.marginLeft = "10px"; 
+        questionText.innerHTML = `${questionData[9]}`;
+        questionDiv.appendChild(questionText);
+
+        // Alternativas da questão
+        const answerContainer = document.createElement('div');
+        answerContainer.classList.add('answer-container');
+        ['A', 'B', 'C', 'D', 'E'].forEach((letter, i) => {
+            const alternativeText = questionData[i + 10];
+            if (alternativeText) {
+                const optionContainer = document.createElement('div');
+                optionContainer.classList.add('icon-container');
+
+                const scissorsIcon = document.createElement('div');
+                scissorsIcon.classList.add('icon');
+
+                if (!anulada) {
+                    scissorsIcon.addEventListener('click', () => {
+                        const label = optionContainer.querySelector('label');
+                        const radioInput = label.querySelector('input');
+                        const optionText = label.querySelector('span');
+
+                        if (radioInput.checked) {
+                            radioInput.checked = false;
+                            delete selectedAnswers[`question${index}`];
                         }
-    
-                        // Alternativa
-                        const optionLabel = document.createElement('label');
-                        optionLabel.style.display = 'block';
-    
-                        const radioInput = document.createElement('input');
-                        radioInput.type = 'radio';
-                        radioInput.name = `question${examNumber}-${index}`;  // Usar um name único para cada questão
-                        radioInput.value = letter;
-                        if (anulada) radioInput.disabled = true;
-    
-                        const optionText = document.createElement('span');
-                        optionText.textContent = `${letter}) ${alternativeText}`;
-    
-                        radioInput.addEventListener('click', () => {
-                            const questionKey = `question${examNumber}-${index}`;
-                            if (radioInput.checked && selectedAnswers[questionKey] === letter) {
-                                radioInput.checked = false;
-                                delete selectedAnswers[questionKey];
-                            } else {
-                                selectedAnswers[questionKey] = letter;
-                            }
-                            //console.log("Respostas capturadas até agora:", selectedAnswers); // Verificar as respostas armazenadas
-                        });
-    
-                        optionLabel.appendChild(radioInput);
-                        optionLabel.appendChild(optionText);
-                        optionContainer.appendChild(scissorsIcon);
-                        optionContainer.appendChild(optionLabel);
-                        answerContainer.appendChild(optionContainer);
+
+                        if (radioInput.disabled) {
+                            radioInput.disabled = false;
+                            optionText.classList.remove('striked');
+                        } else {
+                            radioInput.disabled = true;
+                            optionText.classList.add('striked');
+                        }
+                    });
+                } else {
+                    scissorsIcon.style.opacity = 0.5;
+                    scissorsIcon.style.cursor = 'not-allowed';
+                }
+
+                const optionLabel = document.createElement('label');
+                optionLabel.style.display = 'block';
+
+                const radioInput = document.createElement('input');
+                radioInput.type = 'radio';
+                radioInput.name = `question${examNumber}-${index}`;  // Usar um name único para cada questão
+                radioInput.value = letter;
+                if (anulada) radioInput.disabled = true;
+
+                const optionText = document.createElement('span');
+                optionText.textContent = `${letter}) ${alternativeText}`;
+
+                radioInput.addEventListener('click', () => {
+                    const questionKey = `question${examNumber}-${index}`;
+                    if (radioInput.checked && selectedAnswers[questionKey] === letter) {
+                        radioInput.checked = false;
+                        delete selectedAnswers[questionKey];
+                    } else {
+                        selectedAnswers[questionKey] = letter;
                     }
                 });
-    
-                questionDiv.appendChild(answerContainer);
-                layoutContainer.appendChild(questionDiv);
-                navigationCounter++;  // Incrementa o contador de navegação
-            });
+
+                optionLabel.appendChild(radioInput);
+                optionLabel.appendChild(optionText);
+                optionContainer.appendChild(scissorsIcon);
+                optionContainer.appendChild(optionLabel);
+                answerContainer.appendChild(optionContainer);
+            }
         });
+
+        questionDiv.appendChild(answerContainer);
+        layoutContainer.appendChild(questionDiv);
+        navigationCounter++;  // Incrementa o contador de navegação
+    });
+}
+
+function toggleOrder() {
+    if (currentOrder === 'decrescente') {
+        currentOrder = 'crescente';
+    } else if (currentOrder === 'crescente') {
+        currentOrder = 'randomizado';
+    } else {
+        currentOrder = 'decrescente';
     }
+
+    // Atualizar a exibição com a nova ordem
+    displayFilteredQuestions(document.getElementById('disciplinaSelect').value);
+}
     
 });
