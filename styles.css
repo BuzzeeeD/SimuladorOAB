@@ -266,6 +266,42 @@ footer {
     border-left: 4px solid #002a5c;
     border-right: 4px solid #002a5c;
 }
+
+/* Estilo para os botões com tamanhos iguais */
+#gabarito-inline-btn, #order-toggle-btn {
+    width: 35vh;
+    padding: 10px 20px; /* Deixe o padding determinar a altura */
+    font-size: 16px;
+    background-color: #002a5c;
+    color: white;
+    border: 2px solid transparent;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+    box-sizing: border-box;
+}
+
+/* Adiciona uma margem comum para alinhar os dois botões */
+.buttons-wrapper {
+    display: flex;
+    justify-content: center;   /* Centraliza os botões horizontalmente */
+    gap: 20px;                 /* Espaço entre os botões */
+    align-items: center;       /* Garante o alinhamento vertical */
+}
+
+/* Efeito hover nos botões */
+#gabarito-inline-btn:hover, #order-toggle-btn:hover {
+    background-color: #ffca28;  /* Muda para amarelo no hover */
+    color: #002a5c;             /* Texto azul escuro no hover */
+    transform: scale(1.05);     /* Aumenta ligeiramente o tamanho no hover */
+}
+
+/* Efeito quando o botão é clicado */
+#gabarito-inline-btn:active, #order-toggle-btn:active {
+    background-color: #ffb400;  /* Cor de fundo um pouco mais escura ao clicar */
+    color: #fff;                /* Mantém o texto branco ao clicar */
+    transform: scale(0.98);     /* Suave redução no clique */
+}
 /* Estilo para as questões inseridas posteriormente */
 .question {
     padding: 15px;
@@ -489,6 +525,7 @@ input[type="radio"]:disabled {
     flex: 1;                   /* Ambos os botões terão a mesma largura */
     max-width: 200px;          /* Limitar a largura máxima para evitar exageros */
     text-align: center;        /* Centralizar o texto nos botões */
+    
 }
 
 .buttons-container button:hover {
@@ -655,27 +692,31 @@ input[type="radio"]:disabled {
         flex-direction: column;
     }
     /* Estilo do cronômetro para mobile */
+    #gabarito-inline-btn, #order-toggle-btn {
+        width: 44.5vh;
+        margin-bottom: 5px;
+    }
     #countdown-timer {
         font-size: 18px;
-        padding-left: 20px;
-        padding-right: 20px;
+        padding-left: 2vh;
+        padding-right: 2vh;
     }
 
     #question-navigator {
-        width: 90%;
+        width: 42vh;
         font-size: 14px; /* Ajusta o tamanho da fonte */
     }
 
     #question-navigator button {
-        padding: 8px 8px;
-        margin: -5px;
-        margin-left: -2px;
+        padding: 1vh 1vh;
+        margin: 0px;
+        margin-left: 0px;
         font-size: 12px;
     }
 
     #question-navigator input {
-        width: 30px; /* Reduz a largura do input */
-        padding: 5px;
+        width: 2vh; /* Reduz a largura do input */
+        padding: 0.8vh;
         font-size: 14px; /* Ajusta o tamanho da fonte do input */
     }
     
