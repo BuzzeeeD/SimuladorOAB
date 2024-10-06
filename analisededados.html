@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">   
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Análise de Dados Questões OAB</title>
+    <link rel="stylesheet" href="data\analise.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <header>
+        <div class="logo-themis">
+            <img src="data/logos/logothemis.png" alt="Logo Têmis" class="logo-themis-img">
+        </div>
+        <div class="logo-oab">
+            <img src="data/logos/logooab.png" alt="Logo OAB" class="logo-oab-img">
+        </div>
+    </header>
+
+    <main>
+        <div class="welcome-message">
+            <h1>Análise de Dados Questões OAB</h1>
+        </div>
+        <div class="return-button-container">
+            <button id="return-button">Voltar para a página inicial</button>
+        </div>
+        <div class="chart-container">
+            <section class="chart-controls-box">
+                <h2>Controles de Análise</h2>
+                <div class="chart-controls">
+                </div>
+                <p id="data-explanation" style="text-align: justify;">
+                    Esta página oferece uma análise detalhada das questões dos últimos 41 Exames de Ordem da OAB, abrangendo dados desde 2010. Aqui você pode visualizar gráficos interativos que mostram a distribuição das questões por disciplina ou por tópicos específicos, permitindo identificar os conteúdos mais cobrados nas provas. Use o seletor para alternar entre as visualizações e observe a atualização dinâmica dos gráficos.
+                </p>
+                <p id="data-explanation" style="text-align: justify;">
+                    Além dos gráficos, uma tabela apresenta o total de questões por disciplina, com a opção de expandir tópicos específicos para uma análise mais aprofundada. Esta ferramenta foi desenvolvida para auxiliar na identificação das tendências dos exames, facilitando seu estudo e preparação.
+                </p><div class="chart-controls">
+                    <label for="chartSelector">Visualizar:</label>
+                    <select id="chartSelector" aria-label="Selecionar visualização">
+                        <option value="discipline">Matérias</option>
+                        <option value="breadcrumbs">Assuntos</option>
+                    </select>
+                </div>
+                </section>
+                </div>
+
+                <canvas id="chartDiscipline"></canvas>
+
+        <div class="container">
+            <section class="box" id="disciplineBox">
+                <h2>Assuntos por Matéria</h2>
+                <table id="disciplineTable">
+                    <thead>
+                        <tr>
+                            <th>Matérias</th>
+                            <th>Questões</th>
+                        </tr>
+                    </thead>
+                    <tbody id="disciplineBody"></tbody>
+                </table>
+            </section>
+        </div>
+    </main>
+
+    <footer>
+        <div class="footer-content">
+            <p><strong>Desenvolvido por: Leonardo Frota</strong></p>
+            <p><strong>Contato:</strong> (21) 97665-1085 | <a href="mailto:l.frota94@gmail.com">l.frota94@gmail.com</a></p>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.16.9/xlsx.full.min.js"></script>
+    <script src="data\analise.js"></script>
+</body>
+</html>
