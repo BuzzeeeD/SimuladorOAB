@@ -1,8 +1,6 @@
-/* Fonte moderna e visual mais clean */
-
-/* Opcional: Se quiser aplicar em um elemento específico */
-.no-select, html {
-    user-select: none; /* Desabilitar seleção apenas para esse elemento */
+.html {
+    user-select: none;
+    margin: 0, auto;
 }
 /* Estilo para o header */
 header {
@@ -53,9 +51,10 @@ footer {
 body {
     font-family: 'Roboto', sans-serif;
     background-color: #f4f4f9;
-    margin: 0;
-    padding: 0px;
-    height: 100%;
+    display: block;
+    margin: auto;
+    padding: auto;
+    height: auto;
     user-select: none; /* CSS para desabilitar seleção de texto */
 }
 
@@ -164,7 +163,7 @@ tr:hover {
     cursor: pointer;
 }
 .chart-container {
-    max-width: 1200px;
+    max-width: 100%;
     margin: 0 auto;
     padding: 20px;
     background-color: #fff;
@@ -312,10 +311,13 @@ html::-webkit-scrollbar-thumb, body::-webkit-scrollbar-thumb {
 }
 
 html::-webkit-scrollbar-thumb:hover, body::-webkit-scrollbar-thumb:hover {
-    background-color: #ffca28; /* Cor da barra de rolagem ao passar o mouse (hover) */
+    background-color: #6128ff; /* Cor da barra de rolagem ao passar o mouse (hover) */
 }
 /* Melhorar a responsividade em dispositivos móveis */
 @media (max-width: 768px) {
+    .html{
+        height: 100%;
+    }
     table, th, td {
         font-size: 0.8rem;
         padding: 8px;
