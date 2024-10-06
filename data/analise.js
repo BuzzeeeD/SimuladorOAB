@@ -129,18 +129,18 @@ $(document).ready(function () {
         if (chartInstance) {
             chartInstance.destroy();  // Destruir o gráfico anterior
         }
-
+    
         const ctx = document.getElementById('chartDiscipline').getContext('2d');
-
+    
         if (chartType === 'discipline') {
             // Exibir disciplinas
             const sortedData = Object.entries(disciplineData).sort((a, b) => b[1].total - a[1].total);
             const top18Data = sortedData.slice(0, 18);
             const labels = top18Data.map(([disciplina]) => truncateText(disciplina));
             const values = top18Data.map(([, data]) => data.total);
-
+    
             const colors = top18Data.map(() => `rgba(${Math.floor(Math.random() * 255)}, ${Math.floor(Math.random() * 255)}, ${Math.floor(Math.random() * 255)}, 0.7)`);
-
+    
             chartInstance = new Chart(ctx, {
                 type: 'bar',
                 data: {
@@ -159,7 +159,7 @@ $(document).ready(function () {
                             ticks: {
                                 callback: function(value) {
                                     if (value.length > 10) {
-                                        return value.substr(10, 20) + '...';  // Trunca os rótulos longos
+                                        return value.substr(0, 10) + '...';  // Trunca os rótulos longos
                                     }
                                     return value;
                                 }
@@ -168,27 +168,107 @@ $(document).ready(function () {
                         y: {
                             beginAtZero: true
                         }
+                    },
+                    plugins: {
+                        tooltip: {
+                            // Aumentar o tamanho da fonte do tooltip
+                            bodyFont: {
+                                size: 16  // Aumentar o tamanho da fonte para 16px
+                            },
+                            titleFont: {
+                                size: 18  // Aumentar o tamanho da fonte do título para 18px
+                            },
+                            callbacks: {
+                                label: function(context) {
+                                    return context.dataset.label + ': ' + context.raw + ' questões';
+                                }
+                            }
+                        },
+                        legend: {
+                            display: false  // Esconder a legenda padrão
+                        }
                     }
                 }
             });
+    
+            function adjustLegendLayout() {
+                const legendContainer = document.getElementById('custom-legend');
+                legendContainer.innerHTML = '';  // Limpar a legenda anterior
+            
+                // Detectar o tamanho da tela para ajustar o layout da legenda
+                if (window.innerWidth <= 768) {  // Verificar se a largura da janela é menor ou igual a 768px (mobile)
+                    // Estilos para dispositivos móveis (uma coluna ocupando toda a largura)
+                    legendContainer.style.gridTemplateColumns = 'repeat(auto-fit, minmax(100%, 1fr))';
+                    legendContainer.style.padding = '0px';  // Sem padding para economizar espaço
+                } else {
+                    // Estilos para desktop (3 colunas)
+                    legendContainer.style.gridTemplateColumns = 'repeat(3, 1fr)';  // 3 colunas no desktop
+                    legendContainer.style.padding = '10px';  // Adicionar padding no desktop
+                    legendContainer.style.columnGap = '5px';  // Espaço entre as colunas
+                    legendContainer.style.rowGap = '10px';  // Espaço entre as linhas
+                }
+            
+                // Aplicar estilo de contêiner para criar colunas
+                legendContainer.style.display = 'grid';
+            
+                labels.forEach((label, index) => {
+                    const legendItem = document.createElement('div');
+                    const quantity = values[index];  // O valor correspondente ao número de questões
+            
+                    // Conteúdo da legenda com a quantidade de questões
+                    legendItem.innerHTML = `
+                    <div style="display: flex; align-items: center;">
+                        <div style="width: 15px; height: 15px; background-color: ${colors[index]}; margin-right: 10px; border-radius: 3px;"></div>
+                        <span style="font-size: 14px; font-weight: 500;">${label}</span>
+                        <span style="font-size: 14px; font-weight: 500; margin-left: 5px;"> <span style="color: #6128ff;"> {${quantity} questões)</span>
+                    </div>
+                `;
+            
+                    // Adicionar o evento de "hover" para destacar o respectivo item no gráfico
+                    legendItem.addEventListener('mouseover', () => {
+                        const meta = chartInstance.getDatasetMeta(0);
+                        const rect = meta.data[index];
+            
+                        // Simula a exibição do tooltip no gráfico
+                        chartInstance.tooltip.setActiveElements([{ datasetIndex: 0, index: index }], {
+                            x: rect.x,
+                            y: rect.y
+                        });
+                        chartInstance.update();
+                    });
+            
+                    legendItem.addEventListener('mouseout', () => {
+                        // Esconde o tooltip quando o mouse sai do item da legenda
+                        chartInstance.tooltip.setActiveElements([], {});
+                        chartInstance.update();
+                    });
+            
+                    legendContainer.appendChild(legendItem);
+                });
+            }
+            // Chamar a função para ajustar a legenda inicialmente
+            adjustLegendLayout();
+ 
+            // Reajustar a legenda quando a janela for redimensionada
+        window.addEventListener('resize', adjustLegendLayout);
         } else if (chartType === 'breadcrumbs') {
             // Exibir breadcrumbs
             const breadcrumbData = processBreadcrumbData(disciplineData);
             const sortedBreadcrumbs = Object.entries(breadcrumbData).sort((a, b) => b[1] - a[1]);
             const top20Breadcrumbs = sortedBreadcrumbs.slice(0, 20);
-
+    
             const labels = top20Breadcrumbs.map(([breadcrumb]) => truncateText(breadcrumb)); // Usar a função de truncamento
             const values = top20Breadcrumbs.map(([, count]) => count);
-
+    
             const colors = top20Breadcrumbs.map(() => `rgba(${Math.floor(Math.random() * 255)}, ${Math.floor(Math.random() * 255)}, ${Math.floor(Math.random() * 255)}, 0.7)`);
-
+    
             // Criar o novo gráfico
             chartInstance = new Chart(ctx, {
                 type: 'bar',
                 data: {
                     labels: labels,
                     datasets: [{
-                        label: 'Quantidade de questões',  // Adicionar texto "questões" no rótulo
+                        label: 'Quantidade de questões',
                         data: values,
                         backgroundColor: colors,
                         borderColor: colors.map(color => color.replace('0.7', '1')),
@@ -201,7 +281,7 @@ $(document).ready(function () {
                             ticks: {
                                 callback: function(value) {
                                     if (value.length > 10) {
-                                        return value.substr(10, 20) + '...';  // Trunca os rótulos longos
+                                        return value.substr(0, 10) + '...';  // Trunca os rótulos longos
                                     }
                                     return value;
                                 }
@@ -210,11 +290,65 @@ $(document).ready(function () {
                         y: {
                             beginAtZero: true
                         }
+                    },
+                    plugins: {
+                        tooltip: {
+                            // Aumentar o tamanho da fonte do tooltip
+                            bodyFont: {
+                                size: 16  // Aumentar o tamanho da fonte para 16px
+                            },
+                            titleFont: {
+                                size: 18  // Aumentar o tamanho da fonte do título para 18px
+                            },
+                            callbacks: {
+                                label: function(context) {
+                                    return context.dataset.label + ': ' + context.raw + ' questões';
+                                }
+                            }
+                        },
+                        legend: {
+                            display: false  // Esconder a legenda padrão
+                        }
                     }
                 }
             });
-        }
-    }
+    
+            // Criar a legenda manualmente para breadcrumbs
+            const legendContainer = document.getElementById('custom-legend');
+            legendContainer.innerHTML = '';  // Limpar a legenda anterior
+                        // Detectar o tamanho da tela para ajustar o layout da legenda
+                        if (window.innerWidth <= 768) {  // Verificar se a largura da janela é menor ou igual a 768px (mobile)
+                            // Estilos para dispositivos móveis (uma coluna ocupando toda a largura)
+                            legendContainer.style.gridTemplateColumns = 'repeat(auto-fit, minmax(100%, 1fr))';
+                            legendContainer.style.padding = '0px';  // Sem padding para economizar espaço
+                        } else {
+                            // Estilos para desktop (3 colunas)
+                            legendContainer.style.gridTemplateColumns = 'repeat(3, 1fr)';  // 3 colunas no desktop
+                            legendContainer.style.padding = '10px';  // Adicionar padding no desktop
+                            legendContainer.style.columnGap = '5px';  // Espaço entre as colunas
+                            legendContainer.style.rowGap = '10px';  // Espaço entre as linhas
+                        }
+                    
+                        // Aplicar estilo de contêiner para criar colunas
+                        legendContainer.style.display = 'grid';
+                    
+                        labels.forEach((label, index) => {
+                            const legendItem = document.createElement('div');
+                            const quantity = values[index];  // O valor correspondente ao número de questões
+                    
+                            // Conteúdo da legenda com a quantidade de questões
+                            legendItem.innerHTML = `
+                            <div style="display: flex; align-items: center;">
+                                <div style="width: 15px; height: 15px; background-color: ${colors[index]}; margin-right: 10px; border-radius: 3px;"></div>
+                                <span style="font-size: 14px; font-weight: 500;">${label}</span>
+                                <span style="font-size: 14px; font-weight: 500; margin-left: 5px;"> <span style="color: #6128ff;"> {${quantity} questões)</span>
+                            </div>
+                        `;
+                            legendContainer.appendChild(legendItem);
+                        });
+                    }
+                }
+                
 
     function processBreadcrumbData(disciplineData) {
         const breadcrumbData = {};
