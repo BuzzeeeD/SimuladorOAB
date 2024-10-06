@@ -220,7 +220,7 @@ $(document).ready(function () {
                     <div style="display: flex; align-items: center;">
                         <div style="width: 15px; height: 15px; background-color: ${colors[index]}; margin-right: 10px; border-radius: 3px;"></div>
                         <span style="font-size: 14px; font-weight: 500;">${label}</span>
-                        <span style="font-size: 14px; font-weight: 500; margin-left: 5px;"> <span style="color: #6128ff;"> {${quantity} questões)</span>
+                        <span style="font-size: 14px; font-weight: 500; margin-left: 5px;"> <span style="color: #6128ff;"> (${quantity} questões)</span>
                     </div>
                 `;
             
@@ -341,7 +341,7 @@ $(document).ready(function () {
                             <div style="display: flex; align-items: center;">
                                 <div style="width: 15px; height: 15px; background-color: ${colors[index]}; margin-right: 10px; border-radius: 3px;"></div>
                                 <span style="font-size: 14px; font-weight: 500;">${label}</span>
-                                <span style="font-size: 14px; font-weight: 500; margin-left: 5px;"> <span style="color: #6128ff;"> {${quantity} questões)</span>
+                                <span style="font-size: 14px; font-weight: 500; margin-left: 5px;"> <span style="color: #6128ff;"> (${quantity} questões)</span>
                             </div>
                         `;
                             legendContainer.appendChild(legendItem);
