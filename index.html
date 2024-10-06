@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Simulador de Provas - OAB 1ª Fase</title>
+  <link rel="stylesheet" href="data\styles.css">
+  <div id="question-navigator">
+    <button id="scroll-top-btn">⬆ Subir</button>
+    <button id="scroll-bottom-btn">⬇ Descer</button>
+    <label for="question-number">Ir até: </label>
+    <input type="number" id="question-number" min="1" value="1" placeholder="Número">
+    <button id="go-to-question-btn">Ir</button>
+    <div id="countdown-timer">05:00:00</div> <!-- Moved inside question-navigator -->
+  </div>
+</head>
+
+<body>
+    <div class="header-container">
+    <header>
+      <div class="logo">
+        <img src="data\logos\logooab.png" alt="Logo OAB">
+      </div>
+      <div class="welcome-message">
+        <h1>Bem-vindo ao simulador de provas 1ª fase OAB</h1>
+      </div>
+    </header>
+  </div>
+
+  <main>
+    <section id="exames">
+      <h2>Selecione um Exame de Ordem</h2>
+      <select id="examSelect">
+          <option value="">Escolha o Exame</option>
+          <option value="filtro">Questões por Matéria</option>
+          <!-- Exames existentes -->
+      </select>
+      <select id="disciplinaSelect" style="display: none;">
+          <option value="">Escolha a Disciplina</option>
+      </select>
+      <div class="checkbox-container" style="display:none;">
+        <input type="checkbox" id="hide-anuladas-checkbox">
+        <label for="hide-anuladas-checkbox" id="hide-anuladas-checkbox-label">
+            Ocultar Questões Anuladas/Desatualizadas <span id="anuladas-count">0</span>
+        </label>
+    </div>
+  </section>
+    <section id="layout-container">
+      <button id="order-toggle-btn">Ordenar por Ano</button>
+      <button id="gabarito-inline-btn">Ver Gabarito</button>
+        <!-- Questões serão inseridas aqui dinamicamente -->
+    </section>
+
+  </main>
+  <div class="buttons-container">
+    <button id="gabarito-btn">Conferir Acertos/Erros</button>
+    <button id="finalizar-prova-btn">Encerrar a Prova</button>
+  </div>
+  <footer>
+    <div class="footer-content">
+      <p><strong>Prepare-se para o Exame de Ordem</strong></p>
+      <p>Simulador de 1ª fase desenvolvido por Leonardo Frota</p>
+      <p><strong>Contato:</strong> (21) 97665-1085 | <a href="mailto:l.frota94@gmail.com">l.frota94@gmail.com</a></p>
+    </div>
+  </footer>
+  
+  <!-- jQuery CDN -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+  <!-- XLSX Library -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.16.9/xlsx.full.min.js"></script>
+  <!-- Custom Script -->
+  <script src="data\script.js"></script>
+</body>
+</html>
