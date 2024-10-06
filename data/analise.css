@@ -1,7 +1,7 @@
 /* Fonte moderna e visual mais clean */
 
 /* Opcional: Se quiser aplicar em um elemento específico */
-.no-select {
+.no-select, html {
     user-select: none; /* Desabilitar seleção apenas para esse elemento */
 }
 body {
