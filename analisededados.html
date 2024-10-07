@@ -20,6 +20,7 @@
     </header>
 
     <main>
+        
         <div class="welcome-message">
             <h1>Análise de Dados Questões OAB</h1>
         </div>
@@ -36,7 +37,9 @@
                 </p>
                 <p id="data-explanation" style="text-align: justify;">
                     Além dos gráficos, uma tabela apresenta o total de questões por disciplina, com a opção de expandir tópicos específicos para uma análise mais aprofundada. Esta ferramenta foi desenvolvida para auxiliar na identificação das tendências dos exames, facilitando seu estudo e preparação.
-                </p><div class="chart-controls">
+                </p>
+                <div id="questionCounter" style="text-align:center; font-size:18px; margin-top:10px;"></div>
+                <div class="chart-controls">
                     <label for="chartSelector">Visualizar:</label>
                     <select id="chartSelector" aria-label="Selecionar visualização">
                         <option value="discipline">Matérias</option>
@@ -49,6 +52,7 @@
                 </div>
 
         <div class="container">
+            
             <section class="box" id="disciplineBox">
                 <h2>Assuntos Mais Cobrados nas Ultimas 41 Provas</h2>
                 <table id="disciplineTable">
@@ -62,6 +66,7 @@
                 </table>
             </section>
         </div>
+        
     </main>
 
     <footer>
