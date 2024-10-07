@@ -462,4 +462,35 @@ html::-webkit-scrollbar-thumb:hover, body::-webkit-scrollbar-thumb:hover {
         height: auto !important;
         box-sizing: border-box;
     }
-}
+        /* Botão de retorno */
+        #return-button {
+            width: 100%; /* Ocupa toda a largura em dispositivos móveis */
+            padding: 12px 0; /* Ajuste de padding para melhor usabilidade */
+            font-size: 16px; /* Aumenta o tamanho da fonte para toque fácil */
+        }
+    
+        #return-button:hover {
+            background-color: #002a5c; /* Cor de fundo ao passar o mouse */
+        }
+    
+        /* Personalização da barra de rolagem para dispositivos móveis */
+        html::-webkit-scrollbar, body::-webkit-scrollbar {
+            width: 8px; /* Largura menor da barra de rolagem para dispositivos móveis */
+        }
+    
+        html::-webkit-scrollbar-track, body::-webkit-scrollbar-track {
+            background: #f1f1f1; /* Cor do trilho da barra de rolagem */
+            border-radius: 10px; /* Bordas arredondadas no trilho */
+        }
+    
+        html::-webkit-scrollbar-thumb, body::-webkit-scrollbar-thumb {
+            background-color: #002a5c; /* Cor da barra de rolagem */
+            border-radius: 10px; /* Bordas arredondadas na barra */
+            border: 1px solid #f1f1f1; /* Pequeno espaçamento entre a barra e o trilho */
+        }
+    
+        html::-webkit-scrollbar-thumb:hover, body::-webkit-scrollbar-thumb:hover {
+            background-color: #6128ff; /* Cor da barra de rolagem ao passar o mouse (hover) */
+        }
+    }
+
