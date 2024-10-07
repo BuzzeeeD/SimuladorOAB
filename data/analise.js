@@ -2,57 +2,82 @@ $(document).ready(function () {
     let chartInstance = null;  // Agora é garantido que está no escopo global
     let disciplineData = {};  // Para armazenar dados das disciplinas
 
-    // Carregar automaticamente o arquivo Excel ao carregar a página
+    let totalQuestions = 0;
+    let annulledQuestions = 0;
+    
     function loadExcel() {
+        // Reinicializa os contadores para evitar acumulação
+        totalQuestions = 0;
+        annulledQuestions = 0;
+        disciplineData = {};
+    
         fetch('data/dados/OAB/dataoab.xlsx') // Caminho do arquivo Excel
             .then(response => response.arrayBuffer())
             .then(data => {
                 const workbook = XLSX.read(new Uint8Array(data), { type: 'array' });
-
+            
                 // Processar o arquivo Excel e popular disciplineData
-                workbook.SheetNames.forEach(function (sheetName) {
+                workbook.SheetNames.forEach(sheetName => {
+                    console.log(`Abrindo folha: ${sheetName}`);  // Exibe o nome da folha no console
                     const sheet = workbook.Sheets[sheetName];
-                    const jsonData = XLSX.utils.sheet_to_json(sheet);
-
+                    const jsonData = XLSX.utils.sheet_to_json(sheet, { skipHeader: true });
+    
                     jsonData.forEach(row => {
-                        const disciplina = row["Disciplina"];
-                        if (disciplina) {
-                            if (!disciplineData[disciplina]) {
-                                disciplineData[disciplina] = { total: 0, breadcrumbs: {} };
+                        if (row) {  // Verifica se a linha existe e é válida
+                            totalQuestions++; // Contabiliza o total de questões
+    
+                            // Verifica se a questão é anulada na coluna "Resposta Certa"
+                            if (row["Resposta Certa"] && row["Resposta Certa"] === "Anulada") {
+                                annulledQuestions++;
                             }
-                            disciplineData[disciplina].total += 1;
-
-                            // Processar breadcrumbs por nível
-                            Object.keys(row).forEach(key => {
-                                if (key.startsWith("Breadcrumb")) {
-                                    const breadcrumbLevel = key.match(/\d+/);
-                                    const breadcrumb = row[key];
-                                    if (breadcrumb && disciplina && breadcrumbLevel) {
-                                        const level = parseInt(breadcrumbLevel[0], 10);
-                                        if (!disciplineData[disciplina].breadcrumbs[level]) {
-                                            disciplineData[disciplina].breadcrumbs[level] = {};
-                                        }
-                                        disciplineData[disciplina].breadcrumbs[level][breadcrumb] =
-                                            (disciplineData[disciplina].breadcrumbs[level][breadcrumb] || 0) + 1;
-                                    }
+    
+                            const disciplina = row["Disciplina"];
+                            if (disciplina) {
+                                if (!disciplineData[disciplina]) {
+                                    disciplineData[disciplina] = { total: 0, breadcrumbs: {} };
                                 }
-                            });
+                                disciplineData[disciplina].total += 1;
+    
+                                // Processar breadcrumbs por nível
+                                Object.keys(row).forEach(key => {
+                                    if (key.startsWith("Breadcrumb")) {
+                                        const breadcrumbLevel = key.match(/\d+/);
+                                        const breadcrumb = row[key];
+                                        if (breadcrumb && disciplina && breadcrumbLevel) {
+                                            const level = parseInt(breadcrumbLevel[0], 10);
+                                            if (!disciplineData[disciplina].breadcrumbs[level]) {
+                                                disciplineData[disciplina].breadcrumbs[level] = {};
+                                            }
+                                            disciplineData[disciplina].breadcrumbs[level][breadcrumb] =
+                                                (disciplineData[disciplina].breadcrumbs[level][breadcrumb] || 0) + 1;
+                                        }
+                                    }
+                                });
+                            }
                         }
                     });
                 });
-
+            
+                // Exibe o contador na página
+                displayQuestionCounter();
+            
                 // Chamar a função de renderização do gráfico
                 renderDisciplineChart(disciplineData, 'discipline');
-
+            
                 // Preencher a tabela de disciplinas
                 populateDisciplineTable(disciplineData);
             })
             .catch(error => console.error('Erro ao carregar a planilha:', error));
     }
-
+    
+    function displayQuestionCounter() {
+        const validQuestions = totalQuestions - annulledQuestions;
+        const counterElement = document.getElementById('questionCounter');
+        counterElement.textContent = `Nosso banco de dados possui ${totalQuestions} questões verificadas, ${validQuestions} atualizadas, ${annulledQuestions} filtradas entre desatualizadas e anuladas.`;
+    }
+    
     // Chamar a função para carregar o Excel automaticamente
     loadExcel();
-
     // Função para renderizar o gráfico de disciplinas
     $('#chartSelector').on('change', function () {
         const selectedValue = $(this).val();
@@ -386,18 +411,17 @@ $(document).ready(function () {
             });
         }
     }
-
     function renderBreadcrumbs(breadcrumbsByLevel, index, $parentRow) {
         const $fragment = $(document.createDocumentFragment());
-
-        // Percorrer cada nível de breadcrumbs
+    
+        // Percorrer os breadcrumbs disponíveis (Breadcrumb 1, 2 e 3)
         $.each(breadcrumbsByLevel, function (level, breadcrumbs) {
-            const sortedBreadcrumbs = Object.entries(breadcrumbs).sort((a, b) => b[1] - a[1]); // Ordena por quantidade
-
+            const sortedBreadcrumbs = Object.entries(breadcrumbs).sort((a, b) => b[1] - a[1]);
+    
             $.each(sortedBreadcrumbs, function (_, [breadcrumb, count]) {
                 const hasChildren = breadcrumbsByLevel[level + 1] && Object.keys(breadcrumbsByLevel[level + 1]).length > 0;
-
-                // Cria a linha do breadcrumb com espaçamento visual para hierarquia
+    
+                // Cria a linha do breadcrumb com recuo visual para a hierarquia
                 const $breadcrumbRow = $(`<tr class="breadcrumb-list breadcrumb-row-${index} breadcrumb-level-${level}" data-level="${level}" data-breadcrumb="${breadcrumb}">
                     <td class="breadcrumb-expandable" style="padding-left: ${level * 20}px;">
                         ${hasChildren ? '<span class="toggle-arrow">▶</span>' : ''} 
@@ -405,20 +429,20 @@ $(document).ready(function () {
                     </td>
                     <td class="quantity-column">${count} questões</td>
                 </tr>`);
-
-                $breadcrumbRow.hide(); // Oculta inicialmente
+    
+                $breadcrumbRow.hide(); // Ocultar inicialmente
                 $fragment.append($breadcrumbRow);
-
+    
                 // Adiciona funcionalidade de clique para expandir/colapsar subníveis
                 if (hasChildren) {
                     $breadcrumbRow.addClass('breadcrumb-has-children');
                     $breadcrumbRow.on('click', function () {
-                        toggleNextLevel(index, level, breadcrumb, $breadcrumbRow); // Expande/colapsa apenas filhos diretos
+                        toggleNextLevel(index, level, breadcrumb, $breadcrumbRow);
                     });
                 }
             });
         });
-
+    
         // Inserir fragmento abaixo do pai
         $parentRow.after($fragment);
     }
@@ -427,7 +451,7 @@ $(document).ready(function () {
         const $nextLevelRows = $(`.breadcrumb-row-${index}[data-level="${currentLevel + 1}"]`);
         const $arrow = $currentRow.find('.toggle-arrow');
         const isVisible = $nextLevelRows.is(':visible');
-
+    
         if (isVisible) {
             // Se os filhos diretos estão visíveis, ocultar todos os filhos e subníveis
             $nextLevelRows.each(function () {
@@ -435,11 +459,13 @@ $(document).ready(function () {
                 if ($(this).prev().attr('data-breadcrumb') === currentBreadcrumb) {
                     $row.hide(); // Oculta o filho direto
                     $row.find('.toggle-arrow').text('▶'); // Reseta a seta
+                    // Ocultar subníveis de forma recursiva
+                    toggleNextLevel(index, parseInt($row.attr('data-level')), $row.attr('data-breadcrumb'), $row);
                 }
             });
             $arrow.text('▶'); // Altera a seta para direita
         } else {
-            // Caso contrário, exibir apenas os filhos diretos do nível atual
+            // Exibir os filhos diretos
             $nextLevelRows.each(function () {
                 if ($(this).prev().attr('data-breadcrumb') === currentBreadcrumb) {
                     $(this).show(); // Exibir o filho direto
@@ -454,32 +480,6 @@ $(document).ready(function () {
         return text.length > maxLength ? text.slice(0, maxLength) + '...' : text;
     }
 
-    
-    function toggleNextLevel(index, currentLevel, currentBreadcrumb, $currentRow) {
-        const $nextLevelRows = $(`.breadcrumb-row-${index}[data-level="${currentLevel + 1}"]`);
-        const $arrow = $currentRow.find('.toggle-arrow');
-        const isVisible = $nextLevelRows.is(':visible');
-    
-        if (isVisible) {
-            // Se os filhos diretos estão visíveis, ocultar todos os filhos e subníveis
-            $nextLevelRows.each(function () {
-                const $row = $(this);
-                if ($(this).prev().attr('data-breadcrumb') === currentBreadcrumb) {
-                    $row.hide(); // Oculta o filho direto
-                    $row.find('.toggle-arrow').text('▶'); // Reseta a seta
-                }
-            });
-            $arrow.text('▶'); // Altera a seta para direita
-        } else {
-            // Caso contrário, exibir apenas os filhos diretos do nível atual
-            $nextLevelRows.each(function () {
-                if ($(this).prev().attr('data-breadcrumb') === currentBreadcrumb) {
-                    $(this).show(); // Exibir o filho direto
-                }
-            });
-            $arrow.text('▼'); // Altera a seta para baixo
-        }
-    }
     function collapseSubLevels(index, level) {
         const $subLevelRows = $(`.breadcrumb-row-${index}[data-level="${level}"]`);
         $subLevelRows.each(function () {
