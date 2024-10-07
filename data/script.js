@@ -102,6 +102,7 @@ window.addEventListener('scroll', function() {
                 // Iterar sobre as folhas (Exames 30 ao 41)
                 workbook.SheetNames.forEach(sheetName => {
                     const sheet = workbook.Sheets[sheetName];
+                    console.log(`Abrindo folha: ${sheetName}`);  // Exibe o nome da folha no console
                     const jsonData = XLSX.utils.sheet_to_json(sheet, { header: 1 });
 
                     // Extrair o número do exame (30 ao 41)
@@ -197,26 +198,52 @@ $(document).ready(function() {
     populateExamSelect();
 });
 
-    // Exibir questões ao selecionar um exame e iniciar cronômetro
-    examSelect.addEventListener('change', function() {
-        const selectedExam = this.value;
+let totalQuestionsAll = 0;
 
-        if (selectedExam === "Escolha o Exame" || !selectedExam) {
-            // Ocultar o cronômetro e resetar o texto dele
-            countdownTimer.style.display = 'none'; 
-            countdownTimer.textContent = "05:00:00"; // Resetar o tempo
-            displayDescriptionContainer(); // Exibir a descrição se "Escolha o Exame" for selecionado
-            clearInterval(countdownInterval); // Parar o cronômetro
-            location.reload();  // Recarrega a página inteira
-            
-        } else {
-            // Limpar o container e exibir questões se um exame válido for selecionado
-            layoutContainer.innerHTML = ''; 
-            displayQuestions(selectedExam);
-            countdownTimer.style.display = 'block'; // Mostrar o cronômetro
-            startCountdown(5 * 60 * 60);  // Iniciar o cronômetro de 5 horas
+// Função para calcular o total de questões em todas as folhas de `examsData`
+function calculateTotalQuestionsAll() {
+    totalQuestionsAll = 0; // Reinicializa para evitar acumulação
+
+    // Percorre as folhas especificadas (1 a 41)
+    for (let i = 1; i <= 41; i++) {
+        if (examsData[i] && examsData[i].length > 1) {
+            totalQuestionsAll += examsData[i].length - 1; // Desconta o cabeçalho
         }
-    });
+    }
+}
+
+// Chama a função para calcular `totalQuestionsAll` no carregamento da página
+calculateTotalQuestionsAll();
+
+examSelect.addEventListener('change', function() {
+    const selectedExam = this.value;
+
+    if (selectedExam === "filtro") {
+        document.getElementById('disciplinaSelect').style.display = 'block'; // Exibe o select de disciplinas
+        populateDisciplinaSelect(); // Popula a lista de disciplinas
+        displayDescriptionContainer(totalQuestionsAll); // Passar o número total de questões
+        countdownTimer.style.display = 'none'; // Oculta o cronômetro
+        gabaritoBtn.style.display = 'none';
+        finalizarProvaBtn.style.display = 'none'; // Oculta o botão "Finalizar Prova"
+    } else if (selectedExam === "Escolha o Exame" || !selectedExam) {
+        countdownTimer.style.display = 'none';
+        countdownTimer.textContent = "05:00:00";
+        displayDescriptionContainer(totalQuestionsAll); // Passar o número total de questões
+        clearInterval(countdownInterval);
+        document.getElementById('disciplinaSelect').style.display = 'none'; // Oculta o select de disciplinas
+        finalizarProvaBtn.style.display = 'none'; // Oculta o botão "Finalizar Prova"
+        gabaritoBtn.style.display = 'none';
+    } else {
+        document.getElementById('disciplinaSelect').style.display = 'none'; // Oculta o select de disciplinas
+        layoutContainer.innerHTML = ''; 
+        displayQuestions(selectedExam); // Somente exibe questões para um exame válido
+        countdownTimer.style.display = 'block'; // Exibe o cronômetro
+        gabaritoBtn.style.display = 'block';
+        finalizarProvaBtn.style.display = 'block';
+        startCountdown(5 * 60 * 60);  
+    }
+});
+
 
    // Função para exibir as questões e capturar as respostas
    function displayQuestions(examNumber) {
