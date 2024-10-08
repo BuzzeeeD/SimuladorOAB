@@ -310,7 +310,7 @@ examSelect.addEventListener('change', function() {
 
                 // Adicionar o ícone da tesoura
                 const scissorsIcon = document.createElement('img');
-                scissorsIcon.src = 'data\\logos\\tesoura.png'; // Substitua pelo caminho correto
+                scissorsIcon.src = 'data\logos\tesoura.png'; // Substitua pelo caminho correto
                 scissorsIcon.alt = 'Ícone de tesoura';
                 scissorsIcon.classList.add('icon');
 
