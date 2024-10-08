@@ -309,7 +309,9 @@ examSelect.addEventListener('change', function() {
                 optionContainer.classList.add('icon-container');
 
                 // Adicionar o ícone da tesoura
-                const scissorsIcon = document.createElement('div');
+                const scissorsIcon = document.createElement('img');
+                scissorsIcon.src = '\\data\\logos\\tesoura.png'; // Substitua pelo caminho correto
+                scissorsIcon.alt = 'Ícone de tesoura';
                 scissorsIcon.classList.add('icon');
 
                 // Verifica se a questão foi anulada
