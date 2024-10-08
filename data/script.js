@@ -304,15 +304,13 @@ examSelect.addEventListener('change', function() {
         ['A', 'B', 'C', 'D', 'E'].forEach((letter, i) => {
             const alternativeText = row[i + 10];
             if (alternativeText) {
-                // Criar o container que envolve a tesoura e a alternativa
+                Criar o container que envolve a tesoura e a alternativa
                 const optionContainer = document.createElement('div');
                 optionContainer.classList.add('icon-container');
 
                 // Adicionar o ícone da tesoura
-                const scissorsIcon = document.createElement('img');
-                scissorsIcon.src = 'logos\tesoura.png'; // Substitua pelo caminho correto
-                scissorsIcon.alt = 'Ícone de tesoura';
-                scissorsIcon.classList.add('icon');
+                const scissorsIcon = document.createElement('div');
+                scissorsIcon.classList.add('icon');"
 
                 // Verifica se a questão foi anulada
                 if (!anulada) {
