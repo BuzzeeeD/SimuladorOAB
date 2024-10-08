@@ -304,7 +304,7 @@ examSelect.addEventListener('change', function() {
         ['A', 'B', 'C', 'D', 'E'].forEach((letter, i) => {
             const alternativeText = row[i + 10];
             if (alternativeText) {
-                Criar o container que envolve a tesoura e a alternativa
+                //Criar o container que envolve a tesoura e a alternativa
                 const optionContainer = document.createElement('div');
                 optionContainer.classList.add('icon-container');
 
