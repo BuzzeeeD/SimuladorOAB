@@ -9,7 +9,7 @@ let chatAberto = false; // Controle de estado do chat
 let questaoSelecionada = null; // Armazena a questão atual 
 // Função para carregar a planilha ao abrir a página
 function loadExcel() {
-    fetch('dados/TRT/data.xlsx')
+    fetch('data/dados/TRT/data.XLSX')
         .then(response => response.arrayBuffer())
         .then(data => {
             const workbook = XLSX.read(data, { type: 'array' });
