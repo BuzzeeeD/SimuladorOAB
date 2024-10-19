@@ -844,7 +844,6 @@ async function enviarPergunta() {
             adicionarMensagemAoChat('Professor IA', 'Erro ao processar o gabarito. Tente novamente.', 'resposta');
         }
     } else {
-        adicionarMensagemAoChat('Professor IA', 'Por favor, digite uma mensagem antes de enviar.', 'resposta');
     }
 }
 
