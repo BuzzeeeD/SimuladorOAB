@@ -8,8 +8,14 @@ let mensagensCache = []; // Armazena cache de mensagens para o chat
 let chatAberto = false; // Controle de estado do chat
 let questaoSelecionada = null; // Armazena a questão atual 
 // Função para carregar a planilha ao abrir a página
+
+// Definir a URL base do servidor
+const SERVER_URL = window.location.hostname === 'localhost' 
+    ? 'http://localhost:3000/chat' 
+    : 'https://professor-ia-c39492e02422.herokuapp.com/chat';  // URL do Heroku
+
 function loadExcel() {
-    fetch('data/dados/TRT/data.XLSX')
+    fetch('data/dados/TRT/data.xlsx')
         .then(response => response.arrayBuffer())
         .then(data => {
             const workbook = XLSX.read(data, { type: 'array' });
@@ -798,7 +804,7 @@ async function enviarPergunta() {
                 role: 'user',
                 content: `**Sou aluno e concurseiro e agora preciso que você incorpore o papel de professor acadêmico sob as seguintes instruções:**\n\n
                 1. Você deverá ter linguagem acessível para abordar todos os aspectos da questão, do enúnciado, da fundamentação, e da explicação acerca da matéria relacionada.\n
-                2. Você terá que avaliar o enúnciado da questão com atenção especial para o comando da questão, para as alternativas e a resposta certa para fornecer um gabarito comentado.\n
+                2. Você terá que avaliar o enunciado da questão com atenção especial para o comando da questão, para as alternativas e a resposta certa para fornecer um gabarito comentado.\n
                 3. O gabarito comentado deverá conter o porquê determinada alternativa está errada ou correta.\n
                 4. Deverá apresentar sugestões de próximas interações com o conteúdo da questão.\n
                 5. Seja objetivo e didático.\n
@@ -817,7 +823,6 @@ async function enviarPergunta() {
                 **Resposta Correta**: ${dadosQuestao.respostaCorreta}\n\n`
             };
             
-
             adicionarMensagemAoCache('user', mensagemParaAPI.content);
         }
 
@@ -830,7 +835,7 @@ async function enviarPergunta() {
         };
 
         try {
-            const response = await axios.post('http://localhost:3000/chat', payload);
+            const response = await axios.post(SERVER_URL, payload);
             adicionarMensagemAoChat('Professor IA', response.data.reply, 'resposta');
             adicionarMensagemAoCache('assistant', response.data.reply);
         } catch (error) {
@@ -838,7 +843,7 @@ async function enviarPergunta() {
             adicionarMensagemAoChat('Professor IA', 'Erro ao processar o gabarito. Tente novamente.', 'resposta');
         }
     } else {
-       
+        adicionarMensagemAoChat('Professor IA', 'Por favor, digite uma mensagem antes de enviar.', 'resposta');
     }
 }
 
@@ -878,7 +883,7 @@ async function enviarDadosParaChat(dadosQuestao) {
     };
 
     try {
-        const response = await axios.post('http://localhost:3000/chat', payload);
+        const response = await axios.post('https://professor-ia-c39492e02422.herokuapp.com/chat', payload);
         adicionarMensagemAoChat('Professor IA', response.data.reply, 'resposta');
         adicionarMensagemAoCache('assistant', response.data.reply);
     } catch (error) {
