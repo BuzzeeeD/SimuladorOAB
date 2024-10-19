@@ -15,7 +15,8 @@ const SERVER_URL = window.location.hostname === 'localhost'
     : 'https://professor-ia-c39492e02422.herokuapp.com/chat';  // URL do Heroku
 
 function loadExcel() {
-    fetch('data/dados/TRT/data.XLSX')
+    fetch('https://BuzzeeeD.github.io/SimuladorOAB/data/dados/TRT/data.XLSX')
+    
         .then(response => response.arrayBuffer())
         .then(data => {
             const workbook = XLSX.read(data, { type: 'array' });
