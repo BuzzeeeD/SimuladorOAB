@@ -1315,23 +1315,54 @@ body {
 body {
     scrollbar-color: #002a5c #f1f1f1; /* Thumb e track */
     scrollbar-width: thin; /* Fina no Firefox */
-    margin-top: 0; /* Remova o margin-top fixo */
-    padding-top: var(--header-height, 0); /* Use a altura dinâmica do header */
-    transition: padding-top 0.3s ease-in-out;
-}
+    position: relative; /* Garante que o body siga o header */
 
+}
 /* Media Queries para Telas Menores */
 /* Adiciona margem ao body apenas no desktop */
 @media (min-width: 769px) {
     body {
-        margin-top: 10px; /* Ajuste para o tamanho do header no desktop */
+        margin-top: 160px; /* Ajuste para o tamanho do header no desktop */
     }
 }
 
 /* Ajustes para telas pequenas */
 @media (max-width: 768px) {
+    .menu-toggle-btn {
+        display: block;
+        background-color: #002a5c;
+        color: white;
+        border: none;
+        padding: 0.8rem 1rem;
+        font-size: 1.2rem;
+        cursor: pointer;
+        width: 100%;
+        text-align: center;
+        transition: background-color 0.3s ease-in-out;
+    }
+    
+    .menu-toggle-btn:hover {
+        background-color: #004080;
+    }
+    
+    /* Animação para o .header-middle */
+    .header-middle {
+        display: none;
+        background-color: #004080; /* Cor de fundo */
+        transition: max-height 0.3s ease-in-out, opacity 0.3s ease-in-out;
+        max-height: 0; /* Altura inicial para animação */
+        overflow: hidden; /* Evita que o conteúdo "escape" */
+        opacity: 0; /* Invisível inicialmente */
+    }
+    
+    /* Classe para exibir o Header Middle */
+    .header-middle.active {
+        display: block;
+        max-height: 42vh; /* Altura suficiente para o conteúdo */
+        opacity: 1;
+    }
     body {
-        margin-top: 1;
+        margin-top: 150px;
     }
 
     .header-top {
@@ -1346,11 +1377,6 @@ body {
 
     .top-links {
         justify-content: center; /* Centraliza os links no topo */
-    }
-
-    .header-middle {
-        flex-direction: column;
-        text-align: center;
     }
 
     .menu-list {
@@ -1376,11 +1402,6 @@ body {
     .middle-container {
         flex-direction: column; /* Alinha verticalmente no mobile */
         align-items: center;
-    }
-
-    .menu-list {
-        flex-direction: column; /* Links empilhados no mobile */
-        gap: 1rem;
     }
 
     .search-bar input {
@@ -1446,10 +1467,6 @@ body {
 /* Ajustes para telas extra pequenas */
 @media (max-width: 480px) {
     /* Header */
-    .menu-list li a {
-        font-size: 0.8rem; /* Reduz o tamanho dos links no menu */
-    }
-
     .social-icons {
         justify-content: center;
         gap: 0.5rem;
