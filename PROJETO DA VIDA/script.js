@@ -49,14 +49,14 @@ document.addEventListener('DOMContentLoaded', function () {
         { threshold: 15_000_000, name: "General de Divisão", image: "images/patentes/generaldedivisão.gif" },
         { threshold: 10_000_000, name: "General de Brigada", image: "images/patentes/generaldebrigada.gif" },
         { threshold: 7_500_000, name: "Coronel", image: "images/patentes/coronel.gif" },
-        { threshold: 5_000_000, name: "Major", image: "images/patentes/major.gif" },
-        { threshold: 2_500_000, name: "Capitão", image: "images/patentes/capitao.gif" },
+        { threshold: 5_000_000, name: "Major", image: "/images/patentes/major.gif" },
+        { threshold: 2_500_000, name: "Capitão", image: "/images/patentes/capitao.gif" },
         { threshold: 1_000_000, name: "Primeiro-Tenente", image: "images/patentes/primeiro-tenente.gif" },
-        { threshold: 750_000, name: "Segundo-Tenente", image: "images/patentes/segundo-tenente.gif" },
+        { threshold: 750_000, name: "Segundo-Tenente", image: "/images/patentes/segundo-tenente.gif" },
         { threshold: 500_000, name: "Aspirante a Oficial", image: "images/patentes/aspiranteaoficial.gif" },
         { threshold: 300_000, name: "Subtenente", image: "images/patentes/subtenente.gif" },
         { threshold: 200_000, name: "Primeiro-Sargento", image: "/images/patentes/primeiro-sargento.gif" },
-        { threshold: 150_000, name: "Segundo-Sargento", image: "images/patentes/segundo-sargento.gif" },
+        { threshold: 150_000, name: "Segundo-Sargento", image: "/images/patentes/segundo-sargento.gif" },
         { threshold: 100_000, name: "Terceiro-Sargento", image: "images/patentes/terceiro-sargento.gif" },
         { threshold: 50_000, name: "Cabo", image: "images/patentes/cabo.gif" },
         { threshold: 30_000, name: "Soldado", image: "images/patentes/soldado.gif" },
@@ -184,7 +184,7 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 
-document.addEventListener('DOMContentLoaded', () => {
+    document.addEventListener('DOMContentLoaded', () => {
     // Selecionar todas as instâncias de carrosséis
     const carousels = document.querySelectorAll('.carousel-container, .carousel1-container');
 
@@ -234,15 +234,15 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 });
 
-document.querySelectorAll('.carousel-btn').forEach((btn) => {
-    btn.addEventListener('click', (e) => {
-        const isNext = btn.classList.contains('next-btn');
-        const carousel = btn.parentElement.querySelector('.carousel');
-        const scrollAmount = carousel.offsetWidth;
-        carousel.scrollBy({
-            left: isNext ? scrollAmount : -scrollAmount,
-            behavior: 'smooth',
-        });
+    document.querySelectorAll('.carousel-btn').forEach((btn) => {
+        btn.addEventListener('click', (e) => {
+            const isNext = btn.classList.contains('next-btn');
+            const carousel = btn.parentElement.querySelector('.carousel');
+            const scrollAmount = carousel.offsetWidth;
+            carousel.scrollBy({
+                left: isNext ? scrollAmount : -scrollAmount,
+                behavior: 'smooth',
+            });
     });
     document.addEventListener('DOMContentLoaded', function () {
         const patentes = [
@@ -284,4 +284,37 @@ document.querySelectorAll('.carousel-btn').forEach((btn) => {
             tableBody.appendChild(row);
         });
     });
+});
+document.addEventListener('DOMContentLoaded', () => {
+    const header = document.querySelector('.custom-header');
+    let lastScrollTop = 0;
+
+    const handleScroll = () => {
+        const isMobile = window.innerWidth <= 768; // Define limite para mobile
+        const currentScroll = window.pageYOffset || document.documentElement.scrollTop;
+
+        if (isMobile && header) {
+            if (currentScroll > lastScrollTop) {
+                // Rolando para baixo: Ocultar o header
+                header.style.transform = "translateY(-100%)";
+                header.style.transition = "transform 0.3s ease-in-out";
+            } else if (currentScroll < lastScrollTop) {
+                // Rolando para cima: Mostrar o header
+                header.style.transform = "translateY(0)";
+                header.style.transition = "transform 0.3s ease-in-out";
+            }
+        } else if (header) {
+            // Garante que o header no desktop fique sempre visível
+            header.style.transform = "translateY(0)";
+        }
+
+        lastScrollTop = currentScroll <= 0 ? 0 : currentScroll; // Atualiza a posição do scroll
+    };
+
+    // Escutando o evento de scroll
+    window.addEventListener('scroll', handleScroll);
+
+    // Garante que a visibilidade inicial do header esteja correta
+    window.addEventListener('resize', handleScroll);
+    handleScroll();
 });
