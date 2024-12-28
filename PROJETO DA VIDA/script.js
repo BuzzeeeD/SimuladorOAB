@@ -286,47 +286,10 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 });
 document.addEventListener('DOMContentLoaded', () => {
-    const header = document.querySelector('.custom-header');
-    const body = document.body;
-    let lastScrollTop = 0;
-    const headerHeight = header.offsetHeight;
+    const menuToggleBtn = document.getElementById('menuToggleBtn');
+    const headerMiddle = document.getElementById('headerMiddle');
 
-    // Define a altura dinâmica do header como variável CSS
-    document.documentElement.style.setProperty('--header-height', `${headerHeight}px`);
-
-    const handleScroll = () => {
-        const isMobile = window.innerWidth <= 768; // Somente para mobile
-        const currentScroll = window.pageYOffset || document.documentElement.scrollTop;
-
-        if (isMobile) {
-            if (currentScroll > lastScrollTop) {
-                // Rolando para baixo: Ocultar o header
-                header.style.transform = "translateY(-100%)";
-                body.style.paddingTop = "0"; // Remove o espaço
-            } else if (currentScroll < lastScrollTop) {
-                // Rolando para cima: Mostrar o header
-                header.style.transform = "translateY(0)";
-                body.style.paddingTop = `${headerHeight}px`; // Adiciona o espaço
-            }
-        } else {
-            // Garantir que o header esteja visível no desktop
-            header.style.transform = "translateY(0)";
-            body.style.paddingTop = `${headerHeight}px`;
-        }
-
-        lastScrollTop = currentScroll <= 0 ? 0 : currentScroll; // Evita valores negativos
-    };
-
-    // Escutar o evento de scroll
-    window.addEventListener('scroll', handleScroll);
-
-    // Ajusta o padding-top ao redimensionar a janela
-    window.addEventListener('resize', () => {
-        if (window.innerWidth > 768) {
-            header.style.transform = "translateY(0)";
-            body.style.paddingTop = `${headerHeight}px`;
-        } else {
-            body.style.paddingTop = "0";
-        }
+    menuToggleBtn.addEventListener('click', () => {
+        headerMiddle.classList.toggle('active');
     });
 });
