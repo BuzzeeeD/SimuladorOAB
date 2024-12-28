@@ -140,15 +140,17 @@ body {
     gap: 1rem;
 }
 
-.top-link {
+.top-link1, .top-link2 {
     color: white;
     text-decoration: none;
     font-size: 0.9rem;
+    margin-inline: 20px;
 }
 
 .top-link.destaque {
     color: #ffca28;
     font-weight: bold;
+    font-size: 0.9rem;
 }
 
 .social-icons {
@@ -1319,7 +1321,7 @@ body {
 
 }
 
-#menuToggleBtn{ display: none;}
+.menuToggleBtn{ display: none;}
 /* Media Queries para Telas Menores */
 /* Adiciona margem ao body apenas no desktop */
 @media (min-width: 769px) {
@@ -1330,62 +1332,86 @@ body {
 
 /* Ajustes para telas pequenas */
 @media (max-width: 768px) {
-    #menuToggleBtn{ display: block;}
-    .menu-toggle-btn {
-        display: block;
-        background-color: #002a5c;
-        color: white;
-        border: none;
-        padding: 0.8rem 1rem;
-        font-size: 1.2rem;
-        cursor: pointer;
-        width: 100%;
-        text-align: center;
-        transition: background-color 0.3s ease-in-out;
-    }
-    
-    .menu-toggle-btn:hover {
-        background-color: #004080;
-    }
-    
-    /* Animação para o .header-middle */
-    .header-middle {
-        display: none;
-        background-color: #004080; /* Cor de fundo */
-        transition: max-height 0.3s ease-in-out, opacity 0.3s ease-in-out;
-        max-height: 0; /* Altura inicial para animação */
-        overflow: hidden; /* Evita que o conteúdo "escape" */
-        opacity: 0; /* Invisível inicialmente */
-    }
-    
-    /* Classe para exibir o Header Middle */
-    .header-middle.active {
-        display: block;
-        max-height: 42vh; /* Altura suficiente para o conteúdo */
-        opacity: 1;
-    }
     body {
-        margin-top: 150px;
+        margin-top: 6vh; /* Ajuste para o tamanho do header no desktop */
+    }
+    .header-top {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 0.5rem 1rem;
+        background-color: #002a5c;
     }
 
-    .header-top {
-        flex-direction: column; /* Alinha verticalmente no mobile */
-        gap: 1rem;
-        text-align: center;
-    }
-    .top-container {
-        flex-direction: column; /* Elementos em coluna */
+    .logo {
+        flex: 1; /* Alinha a logo à esquerda */
+        display: flex;
         align-items: center;
     }
 
-    .top-links {
-        justify-content: center; /* Centraliza os links no topo */
+    .logo img {
+        position: relative;
+        left: -7vh;
+        height: 40px;
+        max-width: 100%;
     }
 
-    .menu-list {
-        flex-direction: column; /* Alinha os itens verticalmente */
-        gap: 0.5rem;
+    .top-links {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 1rem;
+        flex: 2; /* Garante que os links fiquem no centro */
+        text-align: center;
     }
+
+    .top-link1 {
+        display: none; /* Oculta o link 'Central de Ajuda' no mobile */
+    }
+
+    .top-link2, 
+    .top-link.destaque {
+        font-size: 0.9rem; /* Ajusta o tamanho da fonte */
+        color: white;
+        text-decoration: none;
+    }
+
+    .top-link.destaque {
+        color: #ffca28; /* Destaque para 'Cadastre-se' */
+        font-weight: bold;
+        font-size: 0.9rem; /* Ajusta o tamanho da fonte */
+        white-space: nowrap; /* Evita a quebra de linha */
+        padding-inline: 10px;
+    }
+
+    #menuToggleBtn {
+        flex: 1; /* Posiciona o botão no canto direito */
+        display: flex;
+        justify-content: flex-end;
+        align-items: center;
+        background-color: transparent;
+        border: none;
+        color: white;
+        font-size: 1.5rem;
+        cursor: pointer;
+        position: relative;
+        left: 7vh;
+        
+    }
+
+    #menuToggleBtn:hover {
+        color: #ffca28;
+    }
+
+    .header-middle {
+        display: none; /* Oculta a segunda linha do header por padrão */
+    }
+
+    .header-middle.active {
+        display: block; /* Exibe a segunda linha quando ativada */
+    }
+
+    .top-link1{display: none;}
 
     .search-bar {
         width: 100%; /* A barra ocupa toda a largura */
