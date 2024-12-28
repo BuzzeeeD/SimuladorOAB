@@ -7,7 +7,7 @@ body {
 }
 
 /* Títulos */
-h1, h2, .section-title {
+h1, h2 {
     font-family: 'Inter', sans-serif; /* Ou 'Poppins' */
     font-weight: 700; /* Peso para destacar os títulos */
     font-size: 1.8rem;
@@ -239,7 +239,8 @@ body {
 
 .section-title {
     font-size: 1.8rem;
-    color: #002a5c;
+    color: #ff0000;
+    background-color: #ffca28;
     margin-bottom: 1.5rem;
     font-weight: bold;
     text-transform: uppercase;
@@ -346,13 +347,6 @@ body {
     text-align: center;
     margin: 0 auto;
    }
-
-/* Ajuste do título */
-.section-title {
-    font-size: 1.8rem;
-    color: #002a5c;
-    margin-bottom: 1rem;
-}
 
 /* Ajuste do texto de descrição */
 .dashboard-description {
@@ -509,17 +503,9 @@ body {
 
 
 /* Sections */
-
-.section-title {
-    font-size: 2rem;
-    color: #002a5c;
-    margin-bottom: 1rem;
-    font-weight: bold;
-}
-
 .section-description {
     font-size: 1.2rem;
-    color: #666;
+    color: #000000;
     margin-bottom: 2.5rem;
     max-width: 800px;
     margin-left: auto;
