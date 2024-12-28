@@ -285,11 +285,18 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 });
-document.addEventListener('DOMContentLoaded', () => {
-    const menuToggleBtn = document.getElementById('menuToggleBtn');
-    const headerMiddle = document.getElementById('headerMiddle');
-
-    menuToggleBtn.addEventListener('click', () => {
-        headerMiddle.classList.toggle('active');
-    });
-});
+document.addEventListener("click", (event) => {
+    const menuToggleBtn = document.getElementById("menuToggleBtn");
+    const headerMiddle = document.getElementById("headerMiddle");
+  
+    // Verifica se o clique não foi no botão ou no menu
+    if (!menuToggleBtn.contains(event.target) && !headerMiddle.contains(event.target)) {
+      headerMiddle.classList.remove("active"); // Oculta o menu
+    }
+  });
+  
+  // Alterna o menu ao clicar no botão
+  document.getElementById("menuToggleBtn").addEventListener("click", () => {
+    const headerMiddle = document.getElementById("headerMiddle");
+    headerMiddle.classList.toggle("active");
+  });
