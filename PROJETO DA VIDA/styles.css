@@ -91,8 +91,6 @@ body {
     margin: auto;
 }
 
-/* HEADER REESTILIZADO */
-/* Header Geral */
 /* HEADER GERAL */
 .custom-header {
     background-color: #002a5c;
@@ -1317,10 +1315,19 @@ body {
 body {
     scrollbar-color: #002a5c #f1f1f1; /* Thumb e track */
     scrollbar-width: thin; /* Fina no Firefox */
-    margin-top: 140px;
+    margin-top: 0; /* Remova o margin-top fixo */
+    padding-top: var(--header-height, 0); /* Use a altura dinâmica do header */
+    transition: padding-top 0.3s ease-in-out;
 }
 
 /* Media Queries para Telas Menores */
+/* Adiciona margem ao body apenas no desktop */
+@media (min-width: 769px) {
+    body {
+        margin-top: 10px; /* Ajuste para o tamanho do header no desktop */
+    }
+}
+
 /* Ajustes para telas pequenas */
 @media (max-width: 768px) {
     body {
