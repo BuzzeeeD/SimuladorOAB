@@ -287,34 +287,46 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 document.addEventListener('DOMContentLoaded', () => {
     const header = document.querySelector('.custom-header');
+    const body = document.body;
     let lastScrollTop = 0;
+    const headerHeight = header.offsetHeight;
+
+    // Define a altura dinâmica do header como variável CSS
+    document.documentElement.style.setProperty('--header-height', `${headerHeight}px`);
 
     const handleScroll = () => {
-        const isMobile = window.innerWidth <= 768; // Define limite para mobile
+        const isMobile = window.innerWidth <= 768; // Somente para mobile
         const currentScroll = window.pageYOffset || document.documentElement.scrollTop;
 
-        if (isMobile && header) {
+        if (isMobile) {
             if (currentScroll > lastScrollTop) {
                 // Rolando para baixo: Ocultar o header
                 header.style.transform = "translateY(-100%)";
-                header.style.transition = "transform 0.3s ease-in-out";
+                body.style.paddingTop = "0"; // Remove o espaço
             } else if (currentScroll < lastScrollTop) {
                 // Rolando para cima: Mostrar o header
                 header.style.transform = "translateY(0)";
-                header.style.transition = "transform 0.3s ease-in-out";
+                body.style.paddingTop = `${headerHeight}px`; // Adiciona o espaço
             }
-        } else if (header) {
-            // Garante que o header no desktop fique sempre visível
+        } else {
+            // Garantir que o header esteja visível no desktop
             header.style.transform = "translateY(0)";
+            body.style.paddingTop = `${headerHeight}px`;
         }
 
-        lastScrollTop = currentScroll <= 0 ? 0 : currentScroll; // Atualiza a posição do scroll
+        lastScrollTop = currentScroll <= 0 ? 0 : currentScroll; // Evita valores negativos
     };
 
-    // Escutando o evento de scroll
+    // Escutar o evento de scroll
     window.addEventListener('scroll', handleScroll);
 
-    // Garante que a visibilidade inicial do header esteja correta
-    window.addEventListener('resize', handleScroll);
-    handleScroll();
+    // Ajusta o padding-top ao redimensionar a janela
+    window.addEventListener('resize', () => {
+        if (window.innerWidth > 768) {
+            header.style.transform = "translateY(0)";
+            body.style.paddingTop = `${headerHeight}px`;
+        } else {
+            body.style.paddingTop = "0";
+        }
+    });
 });
