@@ -93,79 +93,27 @@ body {
 
 /* HEADER REESTILIZADO */
 /* Header Geral */
+/* HEADER GERAL */
 .custom-header {
-    font-family: 'Inter', sans-serif;
-    color: #ffffff;
+    background-color: #002a5c;
+    color: white;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    border-radius: 10px;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1000;
+    transform: translateY(0); /* Padrão: visível */
+    transition: transform 0.3s ease-in-out; /* Suavidade na animação */
 }
 
-/* Primeira Linha (Top Bar) */
+/* PRIMEIRA LINHA (TOPO) */
 .header-top {
-    background-color: #002a5c;
-    padding: 0.5rem 1rem;
     display: flex;
-    justify-content: space-between;
+    justify-content: center; /* Centraliza horizontalmente */
     align-items: center;
+    padding: 0.5rem 1rem;
     flex-wrap: wrap; /* Permite quebra em telas menores */
-    gap: 1rem;
-}
-
-.top-links {
-    display: flex;
-    gap: 1rem;
-    margin-top: 5rem;
-    margin-right: 0rem;
-}
-
-.top-link {
-    color: #ffffff;
-    text-decoration: none;
-    font-size: 0.9rem;
-    font-weight: 500;
-}
-
-.top-link.destaque {
-    color: #ffca28;
-    font-weight: bold;
-}
-
-.social-icons {
-    display: flex;
-    gap: 0.5rem;
-}
-
-.social-link {
-    color: #ffffff;
-    font-size: 1.2rem;
-    transition: color 0.3s ease;
-}
-
-.social-link:hover {
-    color: #ffd95b;
-}
-
-/* Segunda Linha (Menu e Busca) */
-/* Header Geral */
-.custom-header {
-    font-family: 'Inter', sans-serif;
-    color: #ffffff;
-}
-
-/* Centraliza tudo na página */
-.header-top,
-.header-middle {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 0.5rem 1rem;
-    text-align: center;
-    flex-wrap: wrap; /* Permite quebra para telas menores */
-}
-
-/* Primeiro andar (Top Bar) */
-.header-top {
-    background-color: #002a5c;
 }
 
 .top-container {
@@ -173,12 +121,20 @@ body {
     justify-content: space-between;
     align-items: center;
     width: 100%;
-    max-width: 1200px; /* Largura máxima */
-    gap: 1rem;
+    max-width: 1200px; /* Limita a largura para centralizar */
+}
+
+.top-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    width: 100%;
 }
 
 .logo img {
-    height: 100px;
+    height: 60px;
+    max-width: 100%;
 }
 
 .top-links {
@@ -187,10 +143,9 @@ body {
 }
 
 .top-link {
-    color: #ffffff;
+    color: white;
     text-decoration: none;
     font-size: 0.9rem;
-    font-weight: 500;
 }
 
 .top-link.destaque {
@@ -203,18 +158,23 @@ body {
     gap: 0.5rem;
 }
 
-.social-link {
-    color: #ffffff;
+.social-icons a {
+    color: white;
     font-size: 1.2rem;
     transition: color 0.3s ease;
 }
 
-.social-link:hover {
+.social-icons a:hover {
     color: #ffd95b;
 }
 
-/* Segundo andar (Menu e Busca) */
+/* SEGUNDA LINHA (MENU E BUSCA) */
 .header-middle {
+    display: flex;
+    justify-content: center; /* Centraliza horizontalmente */
+    align-items: center;
+    padding: 0.8rem 1rem;
+    flex-wrap: wrap; /* Permite quebra em telas menores */
     background-color: #004080;
 }
 
@@ -222,23 +182,23 @@ body {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    flex-wrap: wrap;
     width: 100%;
-    max-width: 1200px; /* Largura máxima */
-    gap: 1rem;
+    max-width: 1200px;
 }
 
 .menu-list {
     list-style: none;
     display: flex;
-    gap: 1.5rem;
+    gap: 1rem;
     margin: 0;
     padding: 0;
 }
 
 .menu-list li a {
-    color: #ffffff;
+    color: white;
     text-decoration: none;
-    font-size: 0.95rem;
+    font-size: 0.9rem;
     text-transform: uppercase;
     transition: color 0.3s ease;
 }
@@ -251,24 +211,24 @@ body {
     display: flex;
     align-items: center;
     gap: 0.5rem;
+    width: 100%;
+    max-width: 300px;
 }
 
 .search-bar input {
-    width: 250px;
+    flex-grow: 1;
     padding: 0.5rem;
-    border: none;
     border-radius: 5px;
-    outline: none;
+    border: none;
 }
 
 .search-button {
     background-color: #ffca28;
     border: none;
-    border-radius: 5px;
     padding: 0.5rem 1rem;
+    border-radius: 5px;
     cursor: pointer;
     color: #002a5c;
-    font-size: 1rem;
 }
 
 /* Seção Dashboard */
@@ -1082,7 +1042,7 @@ body {
     line-height: 1.6; /* Espaçamento entre linhas */
 }
 
-.btn-newsletter {
+.btn-newsletter, .btn-saiba-mais{
     background-color: #ffd700;
     color: #003580;
     border: none;
@@ -1098,7 +1058,7 @@ body {
     transition: background-color 0.3s ease, transform 0.3s ease;
 }
 
-.btn-newsletter:hover {
+.btn-newsletter:hover, .btn-saiba-mais:hover {
     background-color: #ffdd33;
     transform: translateY(-3px); /* Efeito de elevação no hover */
 }
@@ -1357,13 +1317,54 @@ body {
 body {
     scrollbar-color: #002a5c #f1f1f1; /* Thumb e track */
     scrollbar-width: thin; /* Fina no Firefox */
+    margin-top: 140px;
 }
-
-
 
 /* Media Queries para Telas Menores */
 /* Ajustes para telas pequenas */
 @media (max-width: 768px) {
+    body {
+        margin-top: 1;
+    }
+
+    .header-top {
+        flex-direction: column; /* Alinha verticalmente no mobile */
+        gap: 1rem;
+        text-align: center;
+    }
+    .top-container {
+        flex-direction: column; /* Elementos em coluna */
+        align-items: center;
+    }
+
+    .top-links {
+        justify-content: center; /* Centraliza os links no topo */
+    }
+
+    .header-middle {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .menu-list {
+        flex-direction: column; /* Alinha os itens verticalmente */
+        gap: 0.5rem;
+    }
+
+    .search-bar {
+        width: 100%; /* A barra ocupa toda a largura */
+        max-width: 100%; /* Remove limite de largura */
+    }
+
+    .search-bar input {
+        width: 100%; /* Faz o input ocupar toda a largura */
+        max-width: 100%; /* Remove limite de largura */
+    }
+
+    .search-button {
+        width: 100%; /* Botão ocupa toda a largura */
+        text-align: center; /* Centraliza o ícone no botão */
+    }
     .top-container,
     .middle-container {
         flex-direction: column; /* Alinha verticalmente no mobile */
@@ -1438,7 +1439,23 @@ body {
 /* Ajustes para telas extra pequenas */
 @media (max-width: 480px) {
     /* Header */
+    .menu-list li a {
+        font-size: 0.8rem; /* Reduz o tamanho dos links no menu */
+    }
 
+    .social-icons {
+        justify-content: center;
+        gap: 0.5rem;
+    }
+
+    .search-bar input {
+        font-size: 0.85rem; /* Reduz o tamanho da fonte */
+    }
+
+    .search-button {
+        padding: 0.5rem;
+        font-size: 0.85rem; /* Ajusta o tamanho do botão */
+    }
     .menu-list {
         flex-direction: column;
         gap: 0.5rem;
@@ -1452,10 +1469,6 @@ body {
     .search-bar input {
         width: 150%;
     }
-
-    .search-button {
-        width: 150%;
-        }
     
     .social-icons {
         justify-content: center;
