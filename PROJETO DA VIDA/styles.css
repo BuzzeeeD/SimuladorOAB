@@ -1318,6 +1318,8 @@ body {
     position: relative; /* Garante que o body siga o header */
 
 }
+
+#menuToggleBtn{ display: none;}
 /* Media Queries para Telas Menores */
 /* Adiciona margem ao body apenas no desktop */
 @media (min-width: 769px) {
@@ -1328,6 +1330,7 @@ body {
 
 /* Ajustes para telas pequenas */
 @media (max-width: 768px) {
+    #menuToggleBtn{ display: block;}
     .menu-toggle-btn {
         display: block;
         background-color: #002a5c;
