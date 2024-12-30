@@ -35,7 +35,6 @@
 }
 
 .ranking-table th, .ranking-table td {
-    padding: 10px;
     text-align: left;
 }
 
@@ -81,11 +80,12 @@
         padding: 15px;
     }
 
-    .ranking-table th, .ranking-table td {
-        padding: 8px;
-        font-size: 0.9rem;
+    .ranking-table th {
+        font-size: 0.8rem;
     }
-
+    .ranking-table td {
+        font-size: 0.4rem;
+    }
     .ranking-description {
         padding: 15px;
     }
@@ -101,11 +101,7 @@
 
 @media (max-width: 768px) {
     .ranking-table {
-        font-size: 0.9rem;
-    }
-
-    .ranking-table th, .ranking-table td {
-        padding: 6px;
+        font-size: 0.8rem;
     }
 
     .patente-icon {
@@ -121,26 +117,28 @@
     }
 
     .ranking-description p {
-        font-size: 0.85rem;
+        font-size: 0.1rem;
     }
 }
 
 @media (max-width: 480px) {
     .section-container {
-        padding: 10px;
+        padding: 1px;
     }
 
-    .ranking-table th, .ranking-table td {
-        padding: 5px;
-        font-size: 0.8rem;
+    .ranking-table th{
+        font-size: 0.6rem;
+        
     }
-
+    .ranking-table td {
+        font-size: 0.6rem;
+    }
     .patente-icon {
-        width: 20px;
+        width: 15px;
     }
 
     .section-container h2 {
-        font-size: 1.2rem;
+        font-size: 1.8rem;
     }
 
     .ranking-description h3 {
