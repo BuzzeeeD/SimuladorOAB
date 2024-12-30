@@ -77,7 +77,7 @@
 /* Media Queries */
 @media (max-width: 1024px) {
     .section-container {
-        padding: 15px;
+        padding: 20px;
     }
 
     .ranking-table th {
@@ -123,7 +123,7 @@
 
 @media (max-width: 480px) {
     .section-container {
-        padding: 1px;
+        padding: 10px;
     }
 
     .ranking-table th{
