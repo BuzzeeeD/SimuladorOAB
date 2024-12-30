@@ -1,0 +1,496 @@
+.html {
+    user-select: none;
+    margin: 0, auto;
+}
+/* Estilo para o header */
+header {
+    background-color: #002a5c;
+    width: 100%;
+    padding: 15px;
+    display: flex;
+    justify-content: center; /* Centraliza a logo da OAB */
+    align-items: center;
+    position: relative;
+}
+
+/* Estilo para a logo da Têmis no canto esquerdo */
+.logo-themis {
+    position: absolute;
+    left: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.logo-themis-img {
+    width: 80px;
+    height: auto;
+}
+
+/* Estilo para a logo da OAB centralizada */
+.logo-oab {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.logo-oab-img {
+    width: 250px;
+    height: auto;
+}
+
+/* Estilo para o footer */
+footer {
+    background-color: #002a5c;
+    color: white;
+    text-align: center;
+    padding: 10px;
+    font-size: 15px;
+    margin: 0;
+    width: 100%;
+}
+body {
+    font-family: 'Roboto', sans-serif;
+    background-color: #f4f4f9;
+    display: block;
+    margin: auto;
+    padding: auto;
+    height: auto;
+    user-select: none; /* CSS para desabilitar seleção de texto */
+}
+
+h1 {
+    text-align: center;
+    font-size: 2rem;
+    color: #333;
+}
+
+/* Tabela responsiva */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    background-color: #fff;
+    border-radius: 8px;
+    overflow: hidden;
+    
+}
+
+th, td {
+    padding: 12px 16px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+    
+}
+
+th {
+    background-color: #002a5c;
+    color: white;
+    font-weight: bold;
+    text-transform: uppercase;
+    
+}
+
+td {
+    color: #333;
+    font-size: 0.9rem;
+    
+}
+
+td.quantity-column {
+    text-align: right;
+}
+
+tr:hover {
+    background-color: #f1f1f1;
+    transition: background-color 0.3s ease;
+}
+
+/* Melhor contraste e feedback visual */
+.toggle-arrow {
+    font-size: 1.2rem;
+    cursor: pointer;
+    color: #002a5c;
+    margin-right: 10px;
+}
+
+.breadcrumb-expandable:hover {
+    background-color: #002a5c;
+    color: #fff;
+    border-radius: 5px;
+    box-shadow: 0 0 10px #002a5c(0, 123, 255, 0.6);
+}
+
+/* Breadcrumb Expandable em níveis mais profundos (indentação) */
+.breadcrumb-list td {
+    padding-left: 20px;
+}
+
+/* Breadcrumb level - mais profundos */
+.breadcrumb-level-2 td {
+    padding-left: 40px;
+}
+
+.breadcrumb-level-3 td {
+    padding-left: 60px;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: unset;
+}
+/* Breadcrumbs com filhos */
+.breadcrumb-has-children {
+    cursor: pointer;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.breadcrumb-has-children:hover {
+    background-color: #002a5c;  /* Cor de hover */
+    color: white;
+}
+
+/* Breadcrumbs sem filhos */
+.breadcrumb-static {
+    cursor: default;
+    background-color: #f4f4f9;  /* Fundo neutro */
+    color: #333;
+}
+
+/* Setas */
+.toggle-arrow {
+    margin-right: 10px;
+    cursor: pointer;
+}
+.chart-container {
+    max-width: 100%;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    margin-top: 20px;
+    border-radius: 10px;
+    border-left: 4px solid #002a5c;
+    border-right: 4px solid #002a5c;
+}
+
+.chart-controls-box {
+    display: grid;
+    padding: 20px;
+    border-radius: 8px;
+    background-color: #f9f9f9;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.chart-controls-box h2 {
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 15px;
+    color: #333;
+    
+}
+
+#data-explanation {
+    font-size: 16px;
+    color: #333;
+    line-height: 1.6;
+    margin-top: 15px;
+    
+}
+
+#data-explanation:focus {
+    outline: none;
+    border-color: #002a5c;
+    box-shadow: 0 0 10px rgba(0, 123, 255, 0.3);
+}
+
+/* Estilo geral para a área de controles */
+.chart-controls {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 10px;  /* Espaço entre o rótulo e o seletor */
+    margin-bottom: 20px;
+    font-family: 'Arial', sans-serif;  /* Fonte legível */
+}
+
+/* Estilo para o rótulo do seletor */
+.chart-controls label {
+    font-size: 16px;
+    font-weight: bold;
+    color: #333;  /* Cor do texto */
+}
+
+/* Estilo do seletor (dropdown) */
+.chart-controls select {
+    padding: 10px;
+    font-size: 14px;
+    border: 2px solid #002a5c;  /* Borda azul */
+    border-radius: 4px;  /* Cantos arredondados */
+    background-color: #f8f9fa;  /* Cor de fundo */
+    color: #333;  /* Cor do texto */
+    transition: all 0.3s ease;  /* Animação suave */
+    cursor: pointer;  /* Cursor de ponteiro */
+    outline: none;  /* Remover o contorno padrão */
+    border-radius: 10px;
+    border-left: 4px solid #002a5c;
+    border-right: 4px solid #002a5c;
+}
+
+/* Efeito ao focar o seletor */
+.chart-controls select:focus {
+    border-color: #002a5c;  /* Borda mais escura ao focar */
+    box-shadow: 0 0 8px 002a5c(0, 123, 255, 0.5);  /* Sombra azul suave */
+}
+
+/* Efeito ao passar o mouse sobre o seletor */
+.chart-controls select:hover {
+    background-color: #e2e6ea;  /* Cor de fundo ao passar o mouse */
+    border-color: #002a5c;  /* Borda mais escura */
+}
+
+/* Estilo das opções no seletor */
+.chart-controls select option {
+    padding: 10px;
+    font-size: 14px;
+    color: #333;
+    background-color: #ffffff8a;
+}
+
+/* Adicionando transição ao passar o mouse sobre as opções */
+.chart-controls select option:hover {
+    background-color: #f1f1f1;  /* Cor de fundo ao selecionar */
+}
+
+/* Acessibilidade */
+.chart-controls select:focus-visible {
+    outline: 2px dashed #002a5c;  /* Contorno visível para acessibilidade */
+    outline-offset: 3px;
+}
+#chartDiscipline {
+    width: 100%;           /* O gráfico ocupará 100% da largura do container pai */
+    max-width: 76vh;      /* Limita a largura máxima do gráfico */
+    height: 50%;         /* Define a altura do gráfico */
+    margin: 0 auto;        /* Centraliza o gráfico */
+    box-sizing: border-box; /* Garante que padding/border não influenciem no tamanho final */
+
+}
+.return-button-container {
+    text-align: center;      /* Centraliza o botão */
+    margin-top: 20px;        /* Adiciona um espaço superior */
+}
+
+#return-button {
+    padding: 10px 20px;      /* Ajusta o tamanho do botão */
+    background-color: #002a5c; /* Cor de fundo do botão */
+    color: white;            /* Cor do texto */
+    border: none;            /* Remove as bordas padrão */
+    border-radius: 5px;      /* Borda arredondada */
+    cursor: pointer;         /* Cursor de ponteiro ao passar o mouse */
+    font-size: 16px;         /* Ajusta o tamanho da fonte */
+    transition: background-color 0.3s ease; /* Transição suave ao passar o mouse */
+}
+
+#return-button:hover {
+    background-color: #002a5c; /* Cor de fundo ao passar o mouse */
+}
+/* Personalização da barra de rolagem para a página */
+html::-webkit-scrollbar, body::-webkit-scrollbar {
+    width: 20px; /* Largura da barra de rolagem */
+}
+
+html::-webkit-scrollbar-track, body::-webkit-scrollbar-track {
+    background: #f1f1f1; /* Cor do trilho da barra de rolagem */
+    border-radius: 10px; /* Bordas arredondadas no trilho */
+}
+
+html::-webkit-scrollbar-thumb, body::-webkit-scrollbar-thumb {
+    background-color: #002a5c; /* Cor da barra de rolagem */
+    border-radius: 10px; /* Bordas arredondadas na barra */
+    border: 2px solid #f1f1f1; /* Pequeno espaçamento entre a barra e o trilho */
+}
+
+html::-webkit-scrollbar-thumb:hover, body::-webkit-scrollbar-thumb:hover {
+    background-color: #6128ff; /* Cor da barra de rolagem ao passar o mouse (hover) */
+}
+
+/* Estiliza o cabeçalho do popup */
+.popup-header {
+    text-align: center;
+    font-size: 20px;
+    font-weight: bold;
+    margin-top: 10px;
+    margin-bottom: 15px;
+    color: #333;
+}
+
+/* Estiliza o overlay e o container do popup */
+.popup-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.6);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+}
+
+.popup-content {
+    width: 500px;
+    max-height: 80vh;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    overflow: hidden;
+    position: relative;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+}
+
+#scrollable-container {
+    max-height: 70vh;
+    overflow-y: auto;
+    padding-right: 10px;
+}
+
+/* Estiliza cada bloco de questão */
+.question-container {
+    background-color: #f9f9f9;
+    border: 1px solid #ddd;
+    padding: 15px;
+    border-radius: 5px;
+    margin-bottom: 15px;
+    position: relative;
+}
+
+.question-container h3 {
+    font-size: 18px;
+    margin-bottom: 10px;
+    color: #333;
+}
+
+.question-data .data-block {
+    border-bottom: 1px solid #e0e0e0;
+    padding: 5px 0;
+    font-size: 14px;
+}
+
+.divider {
+    border: none;
+    border-top: 1px solid #ddd;
+    margin: 10px 0;
+}
+
+/* Estilo do botão fechar */
+.close-button {
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    background: #d9534f;
+    color: #fff;
+    border: none;
+    border-radius: 3px;
+    padding: 5px 10px;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: bold;
+}
+
+.close-button:hover {
+    background-color: #c9302c;
+}
+
+/* Estilo do botão de copiar */
+.copy-button {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background-color: #5cb85c;
+    color: #fff;
+    border: none;
+    border-radius: 3px;
+    padding: 5px 10px;
+    cursor: pointer;
+    font-size: 12px;
+    font-weight: bold;
+}
+
+.copy-button:hover {
+    background-color: #4cae4c;
+}
+
+
+
+.popup-content h3 {
+    margin-top: 0;
+}
+
+.popup-content table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.popup-content table td {
+    padding: 8px;
+    border: 1px solid #ddd;
+    
+}
+
+/* Melhorar a responsividade em dispositivos móveis */
+@media (max-width: 768px) {
+    .html{
+        height: 100%;
+    }
+    table, th, td {
+        font-size: 0.8rem;
+        padding: 8px;
+    }
+    
+    h1 {
+        font-size: 1.5rem;
+    }
+
+    #chartDiscipline {
+        width: 100% !important;
+        max-width: 100%;
+        height: auto !important;
+        box-sizing: border-box;
+    }
+        /* Botão de retorno */
+        #return-button {
+            width: 100%; /* Ocupa toda a largura em dispositivos móveis */
+            padding: 12px 0; /* Ajuste de padding para melhor usabilidade */
+            font-size: 16px; /* Aumenta o tamanho da fonte para toque fácil */
+        }
+    
+        #return-button:hover {
+            background-color: #002a5c; /* Cor de fundo ao passar o mouse */
+        }
+    
+        /* Personalização da barra de rolagem para dispositivos móveis */
+        html::-webkit-scrollbar, body::-webkit-scrollbar {
+            width: 8px; /* Largura menor da barra de rolagem para dispositivos móveis */
+        }
+    
+        html::-webkit-scrollbar-track, body::-webkit-scrollbar-track {
+            background: #f1f1f1; /* Cor do trilho da barra de rolagem */
+            border-radius: 10px; /* Bordas arredondadas no trilho */
+        }
+    
+        html::-webkit-scrollbar-thumb, body::-webkit-scrollbar-thumb {
+            background-color: #002a5c; /* Cor da barra de rolagem */
+            border-radius: 10px; /* Bordas arredondadas na barra */
+            border: 1px solid #f1f1f1; /* Pequeno espaçamento entre a barra e o trilho */
+        }
+    
+        html::-webkit-scrollbar-thumb:hover, body::-webkit-scrollbar-thumb:hover {
+            background-color: #6128ff; /* Cor da barra de rolagem ao passar o mouse (hover) */
+        }
+    }
+

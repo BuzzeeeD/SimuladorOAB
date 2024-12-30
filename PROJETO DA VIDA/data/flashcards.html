@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flashcards - Plataforma de Concursos</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/flashcards-intro.css">
+</head>
+<body>
+    <header class="header">
+        <h1>Descubra o Poder dos Flashcards</h1>
+        <p>Transforme sua rotina de estudos com nossa ferramenta de repetição ativa e personalizada.</p>
+    </header>
+
+    <section class="benefits">
+        <h2>Como Funcionam os Flashcards?</h2>
+        <p>
+            Os flashcards utilizam o princípio da repetição espaçada para reforçar a memorização de conteúdo.
+            Você pratica questões de forma contínua, identificando seus pontos fracos e fortalecendo sua aprendizagem.
+        </p>
+        <div class="features">
+            <div class="feature-item">
+                <h3>Memorização Ativa</h3>
+                <p>Reforce conteúdos com prática regular e veja seu progresso.</p>
+            </div>
+            <div class="feature-item">
+                <h3>Revisões Personalizadas</h3>
+                <p>Estude com base no seu desempenho e domine as áreas mais difíceis.</p>
+            </div>
+            <div class="feature-item">
+                <h3>Estatísticas de Progresso</h3>
+                <p>Acompanhe seu desempenho e veja seu avanço ao longo do tempo.</p>
+            </div>
+        </div>
+    </section>
+    <section class="user-dashboard">
+
+      <!-- Pontuação do Usuário -->
+      <div class="user-points">
+        <h2>Pontuação de Hoje</h2>
+        <div class="points-info">
+            <!-- Questões Realizadas -->
+            <div class="points-item">
+                <p class="points-value">85</p>
+                <p class="points-label">Questões Realizadas</p>
+            </div>
+    
+            <!-- Meta Diária -->
+            <div class="points-item">
+                <p class="points-value">100</p>
+                <p class="points-label">Meta Diária</p>
+            </div>
+    
+            <!-- Pontos do Dia -->
+            <div class="points-item">
+                <p class="points-value">765</p>
+                <p class="points-label">Pontos do Dia</p>
+            </div>
+    
+            <!-- Parâmetro Adicional 1: Tempo de Estudo -->
+            <div class="points-item">
+                <p class="points-value">3h 45min</p>
+                <p class="points-label">Tempo de Estudo</p>
+            </div>
+    
+            <!-- Parâmetro Adicional 2: Taxa de Acerto -->
+            <div class="points-item">
+                <p class="points-value">89%</p>
+                <p class="points-label">Taxa de Acerto</p>
+            </div>
+    
+            <!-- Parâmetro Adicional 3: Progresso Diário -->
+            <div class="points-item">
+                <p class="points-value">85%</p>
+                <p class="points-label">Progresso Diário</p>
+            </div>
+        </div>
+    </div>
+    
+  </section>
+
+  <section class="start-flashcards">
+          <!-- Filtros -->
+          <form class="filter-form" onsubmit="applyFilters(event)">
+            <div class="form-group">
+                <label for="discipline">Disciplina:</label>
+                <select id="discipline" name="discipline" onchange="validateFilters()">
+                    <option value="">Selecione</option>
+                    <option value="direito-civil">Direito Civil</option>
+                    <option value="direito-penal">Direito Penal</option>
+                    <option value="constitucional">Direito Constitucional</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="topic">Assunto:</label>
+                <select id="topic" name="topic" onchange="validateFilters()">
+                    <option value="">Selecione</option>
+                    <option value="contratos">Contratos</option>
+                    <option value="processo-penal">Processo Penal</option>
+                    <option value="direitos-fundamentais">Direitos Fundamentais</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="difficulty">Nível de Dificuldade:</label>
+                <select id="difficulty" name="difficulty" onchange="validateFilters()">
+                    <option value="">Selecione</option>
+                    <option value="facil">Fácil</option>
+                    <option value="medio">Médio</option>
+                    <option value="dificil">Difícil</option>
+                </select>
+            </div>
+            <button type="submit" class="apply-filters-btn">Aplicar Filtros</button>
+        </form>
+      
+    <h2>Pronto para começar?</h2>
+    <p>Selecione as opções acima e clique no botão para iniciar sua prática de flashcards.</p>
+    <button class="start-btn" id="startFlashcardsBtn" onclick="startFlashcards()" disabled>Iniciar Flashcards</button>
+</section>
+
+    <section class="flashcards-overview">
+      <h2>Status dos Flashcards</h2>
+      <div class="overview-container">
+          <!-- Flashcards Pendentes -->
+          <div class="flashcards-pending">
+              <h3>Flashcards Pendentes</h3>
+              <div class="flashcards-info">
+                  <p class="flashcards-number">25</p>
+                  <p class="flashcards-label">Pendentes Hoje</p>
+              </div>
+              <p class="flashcards-description">Você ainda tem 25 flashcards para revisar com base nas metas diárias configuradas.</p>
+          </div>
+  
+          <!-- Flashcards Realizados -->
+          <div class="flashcards-completed">
+              <h3>Flashcards Realizados</h3>
+              <div class="flashcards-info">
+                  <p class="flashcards-number">75</p>
+                  <p class="flashcards-label">Realizados Hoje</p>
+              </div>
+              <p class="flashcards-description">Ótimo trabalho! Você já completou 75 flashcards hoje e está no caminho certo.</p>
+          </div>
+      </div>
+  
+      <!-- Materiais Estudados -->
+      <div class="materials-studied">
+          <h3>Materiais Estudados</h3>
+          <ul class="materials-list">
+              <li>
+                  <span class="material-name">Direito Civil - Contratos</span>
+                  <span class="material-progress">Flashcards: 20/25</span>
+              </li>
+              <li>
+                  <span class="material-name">Direito Penal - Processo Penal</span>
+                  <span class="material-progress">Flashcards: 15/20</span>
+              </li>
+              <li>
+                  <span class="material-name">Direitos Fundamentais</span>
+                  <span class="material-progress">Flashcards: 10/15</span>
+              </li>
+          </ul>
+      </div>
+  </section>
+
+    <!-- Popup Modal -->
+    <div id="quizPopup" class="popup" onclick="closePopupOnClickOutside(event)">
+      <div class="popup-content">
+        <div class="popup-content">
+            <!-- Botão para fechar o popup -->
+            <button class="close-popup-btn" onclick="closePopup()">×</button>
+
+            <!-- Quiz Layout -->
+            <div class="flashcard">
+                <div class="action-buttons">
+                    <!-- Botão de Certo -->
+                    <button class="btn-correct">
+                        <img src="/data/images/flashcards/true.png" alt="Certo">
+                    </button>
+                    <!-- Botão de Errado -->
+                    <button class="btn-wrong">
+                        <img src="/data/images/flashcards/false.png" alt="Errado">
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/flashcards.js"></script>
+</body>
+</html>

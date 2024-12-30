@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Concurseiros - Plataforma do Usuário</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="apple-touch-icon" href="data/images/logos/logoconcurseiros.png">
+    <link rel="icon" href="data/images/logos/logoconcurseiros.png" type="image/png">
+    <link rel="stylesheet" href="data/css/dashboard.css">
+</head>
+<body>
+   <!-- Header -->
+<header class="header-global">
+    <div class="logo">
+        <img src="data/images/logos/logoconcurseiros.png" alt="Logo Plataforma">
+    </div>
+    <nav class="nav-global">
+        <ul>
+            <li><a href="#">Início</a></li>
+            <li><a href="#">Sobre</a></li>
+            <li><a href="#">Contato</a></li>
+            <li><a href="#" class="btn-login">Entrar</a></li>
+        </ul>
+    </nav>
+</header>
+
+    <!-- Layout -->
+    <div class="layout">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <h2>Navegação</h2>
+                <p>Organize sua rotina de estudos com eficiência.</p>
+            </div>
+            <nav class="menu">
+                <a href="#" class="menu-item active" data-tab="dashboard">
+                    <i class="fas fa-chart-line"></i> Dashboard
+                </a>
+                <a href="#" class="menu-item" data-tab="ranking">
+                    <i class="fas fa-trophy"></i> Ranking
+                </a>
+                <a href="#" class="menu-item" data-tab="cursos">
+                    <i class="fas fa-book"></i> Cursos
+                </a>
+                <a href="#" class="menu-item" data-tab="calendario">
+                    <i class="fas fa-calendar-alt"></i> Calendário
+                </a>
+                <a href="#" class="menu-item" data-tab="mensagens">
+                    <i class="fas fa-envelope"></i> Mensagens
+                </a>
+                <a href="#" class="menu-item" data-tab="mentor">
+                    <i class="fas fa-user-tie"></i> Meu Mentor
+                </a>
+                <a href="#" class="menu-item" data-tab="configuracoes">
+                    <i class="fas fa-cog"></i> Configurações
+                </a>
+            </nav>
+            <div class="sidebar-footer">
+                <p>&copy; 2024 Plataforma de Concursos</p>
+            </div>
+        </aside>
+        <div class="tab-content active" id="dashboard">
+            <!-- Painel de Controle -->
+            <section class="section-container">
+                <h2><i class="fas fa-chart-line"></i> Painel de Controle</h2>
+                <p>Bem-vindo ao seu dashboard! Aqui você encontra um resumo das suas atividades recentes e próximos passos.</p>
+        
+                <!-- Ações Rápidas -->
+                <section class="quick-actions">
+                    <h3>Ações Rápidas</h3>
+                    <div class="actions-grid">
+                        <button class="action-card" data-tab="simulados">
+                            <i class="fas fa-clipboard-check"></i>
+                            <p>Realizar Simulado</p>
+                        </button>
+                        <button class="action-card" data-tab="estatisticas">
+                            <i class="fas fa-chart-bar"></i>
+                            <p>Ver Estatísticas</p>
+                        </button>
+                        <button class="action-card" data-tab="mentor">
+                            <i class="fas fa-user-tie"></i>
+                            <p>Falar com Mentor</p>
+                        </button>
+                        <button class="action-card" data-tab="conquistas">
+                            <i class="fas fa-medal"></i>
+                            <p>Ver Conquistas</p>
+                        </button>
+                    </div>
+                </section>
+            </section>
+        
+            <!-- Linha Divisória -->
+            <div class="section-divider"></div>
+        
+            <!-- Estatísticas Detalhadas -->
+            <section class="section-container">
+                <h3>Estatísticas Detalhadas</h3>
+                <div style="height: 300px;">
+                    <canvas id="performanceChart"></canvas>
+                </div>
+            </section>
+        
+            <!-- Linha Divisória -->
+            <div class="section-divider"></div>
+        
+            <!-- Progresso e Atividades Recentes -->
+            <section class="section-container">
+                <h3>Seu Progresso</h3>
+                <div style="height: 300px;">
+                    <canvas id="progressChart"></canvas>
+                </div>
+        
+                <h3>Atividades Recentes</h3>
+                <ul class="recent-activities">
+                    <li><i class="fas fa-check-circle"></i> Você concluiu o Simulado de Direito Penal - 80% de acerto.</li>
+                    <li><i class="fas fa-chart-line"></i> Estatísticas atualizadas: 5% de melhoria desde o último simulado.</li>
+                    <li><i class="fas fa-trophy"></i> Nova conquista desbloqueada: "Especialista em Penal".</li>
+                </ul>
+            </section>
+        </div>
+
+            <!-- Estatísticas -->
+            <div class="tab-content" id="estatisticas">
+                <h2><i class="fas fa-chart-bar"></i> Estatísticas</h2>
+                <p>Confira gráficos detalhados sobre seu desempenho.</p>
+                <canvas id="performanceChart"></canvas>
+            </div>
+
+            <!-- Cursos -->
+            <div class="tab-content" id="cursos">
+                <h2><i class="fas fa-book"></i> Cursos Disponíveis</h2>
+                <p>Confira nossos cursos organizados por tema e dificuldade:</p>
+                <ul>
+                    <li><i class="fas fa-gavel"></i> Direito Penal - 40 horas</li>
+                    <li><i class="fas fa-balance-scale"></i> Direito Civil - 50 horas</li>
+                    <li><i class="fas fa-calculator"></i> Raciocínio Lógico - 30 horas</li>
+                </ul>
+            </div>
+
+            <!-- Calendário -->
+            <div class="tab-content" id="calendario">
+                <h2><i class="fas fa-calendar-alt"></i> Calendário</h2>
+                <p>Organize seu cronograma de estudos e eventos importantes.</p>
+                <ul>
+                    <li><i class="fas fa-clock"></i> Simulado Direito Constitucional: 01/01/2024</li>
+                    <li><i class="fas fa-calendar-check"></i> Entrega de exercícios: 05/01/2024</li>
+                </ul>
+            </div>
+
+            <!-- Mensagens -->
+            <div class="tab-content" id="mensagens">
+                <h2><i class="fas fa-envelope"></i> Mensagens</h2>
+                <p>Caixa de entrada:</p>
+                <ul>
+                    <li><strong>Professor João:</strong> Comentários sobre o último simulado.</li>
+                    <li><strong>Secretaria:</strong> Novos materiais disponíveis.</li>
+                </ul>
+            </div>
+
+            <!-- Simulados -->
+            <div class="tab-content" id="simulados">
+                <h2><i class="fas fa-clipboard-check"></i> Simulados</h2>
+                <p>Desafie-se com nossos simulados exclusivos:</p>
+                <ul>
+                    <li><i class="fas fa-circle"></i> Simulado Direito Penal</li>
+                    <li><i class="fas fa-circle"></i> Simulado Raciocínio Lógico</li>
+                </ul>
+            </div>
+
+            <!-- Meu Mentor -->
+            <div class="tab-content" id="mentor">
+                <h2><i class="fas fa-user-tie"></i> Meu Mentor</h2>
+                <p>Converse com seu mentor e receba orientações personalizadas.</p>
+            </div>
+            <div class="tab-content" id="ranking">
+                <h2><i class="fas fa-trophy"></i> Ranking</h2>
+                <p>Confira o ranking dos melhores usuários da plataforma:</p>
+                <table class="ranking-table">
+                    <thead>
+                        <tr>
+                            <th>Posição</th>
+                            <th>Ícone</th>
+                            <th>Usuário</th>
+                            <th>Pontos</th>
+                            <th>Patente</th>
+                        </tr>
+                    </thead>
+                    <tbody class="ranking-body">
+                        <!-- Linhas serão adicionadas dinamicamente pelo JavaScript -->
+                    </tbody>
+                </table>
+                <!-- Descrição do Ranking -->
+                <div class="ranking-description">
+                    <h3>Sobre o Ranking</h3>
+                    <p>
+                        O ranking reflete os melhores desempenhos dos usuários na plataforma. Ele é baseado na pontuação acumulada
+                        por meio da realização de simulados, participação em cursos, e atividades concluídas. Cada ponto reflete o esforço
+                        e a dedicação do usuário, e as patentes atribuídas destacam sua progressão ao longo do tempo.
+                    </p>
+                    <p>
+                        Usuários no topo do ranking são reconhecidos como lendas e heróis da plataforma, representando um exemplo para a comunidade. Continue participando para subir no ranking e alcançar novas patentes!
+                    </p>
+                </div>
+            </div>
+            
+            <!-- Configurações -->
+            <div class="tab-content" id="configuracoes">
+                <h2><i class="fas fa-cog"></i> Configurações</h2>
+                <p>Personalize sua experiência:</p>
+                <ul>
+                    <li><i class="fas fa-key"></i> Alterar senha</li>
+                    <li><i class="fas fa-envelope"></i> Atualizar e-mail</li>
+                    <li><i class="fas fa-bell"></i> Gerenciar notificações</li>
+                </ul>
+            </div>
+        </main>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer-global">
+        <div class="container">
+            <p>&copy; 2024 Plataforma de Concursos. Todos os direitos reservados.</p>
+            <ul class="footer-links">
+                <li><a href="#"><i class="fas fa-info-circle"></i> Política de Privacidade</a></li>
+                <li><a href="#"><i class="fas fa-gavel"></i> Termos de Uso</a></li>
+                <li><a href="#"><i class="fas fa-life-ring"></i> Ajuda</a></li>
+            </ul>
+            <p>Conecte-se com a gente:</p>
+            <div class="social-icons">
+                <a href="#"><i class="fab fa-facebook-f"></i></a>
+                <a href="#"><i class="fab fa-twitter"></i></a>
+                <a href="#"><i class="fab fa-instagram"></i></a>
+            </div>
+        </div>
+    </footer>
+
+    <script src="data/js/dashboard.js"></script>
+</body>
+</html>
