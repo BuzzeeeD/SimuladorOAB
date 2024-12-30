@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Concurseiros - Plataforma do Usuário</title>
+    <link rel="stylesheet" href="data/css/global.css"> <!-- CSS global -->
+    <link rel="stylesheet" href="data/css/ranking.css"> <!-- Link para o CSS específico -->
+    <link rel="stylesheet" href="data/css/flashcards.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+   <!-- Header -->
+   <header class="header-global">
+       <div class="logo">
+           <img src="data/images/logos/logoconcurseiros.png" alt="Logo Plataforma">
+       </div>
+       <nav class="nav-global">
+           <ul>
+               <li><a href="#">Início</a></li>
+               <li><a href="#">Sobre</a></li>
+               <li><a href="#">Contato</a></li>
+               <li><a href="#" class="btn-login">Entrar</a></li>
+           </ul>
+       </nav>
+   </header>
+
+   <!-- Layout -->
+   <div class="layout">
+       <!-- Sidebar -->
+       <aside class="sidebar">
+           <div class="sidebar-header">
+               <h2>Navegação</h2>
+               <p>Organize sua rotina de estudos com eficiência.</p>
+           </div>
+           <nav class="menu">
+            <a href="data/painel-controle.html" class="menu-item active" data-script="data/js/painel-de-controle.js">
+                <i class="fas fa-chart-line"></i> Painel de Controle
+            </a>
+            <a href="data/ranking.html" class="menu-item" data-script="data/js/ranking.js">
+                <i class="fas fa-trophy"></i> Ranking
+            </a>
+            <a href="data/flashcards.html" class="menu-item" data-script="data/js/flashcards.js">
+                <i class="fas fa-clone"></i> FlashCards
+            </a>
+            <a href="data/cursos.html" class="menu-item" data-script="data/js/cursos.js">
+                <i class="fas fa-book"></i> Cursos
+            </a>
+            <a href="data/calendario.html" class="menu-item" data-script="data/js/calendario.js">
+                <i class="fas fa-calendar-alt"></i> Calendário
+            </a>
+            <a href="data/mensagens.html" class="menu-item" data-script="data/js/mensagens.js">
+                <i class="fas fa-envelope"></i> Mensagens
+            </a>
+            <a href="data/mentor.html" class="menu-item" data-script="data/js/mentor.js">
+                <i class="fas fa-user-tie"></i> Meu Mentor
+            </a>
+            <a href="data/configuracoes.html" class="menu-item" data-script="data/js/configuracoes.js">
+                <i class="fas fa-cog"></i> Configurações
+            </a>
+        </nav>
+           <div class="sidebar-footer">
+               <p>&copy; 2024 Plataforma de Concursos</p>
+           </div>
+       </aside>
+
+       <!-- Main Content -->
+       <div class="main-content">
+           <p>Bem-vindo! Selecione uma seção para começar.</p>
+       </div>
+   </div>
+
+   <!-- Footer -->
+   <footer class="footer-global">
+       <div class="container">
+           <p>&copy; 2024 Plataforma de Concursos. Todos os direitos reservados.</p>
+           <ul class="footer-links">
+               <li><a href="#"><i class="fas fa-info-circle"></i> Política de Privacidade</a></li>
+               <li><a href="#"><i class="fas fa-gavel"></i> Termos de Uso</a></li>
+               <li><a href="#"><i class="fas fa-life-ring"></i> Ajuda</a></li>
+           </ul>
+           <div class="social-icons">
+               <a href="#"><i class="fab fa-facebook-f"></i></a>
+               <a href="#"><i class="fab fa-twitter"></i></a>
+               <a href="#"><i class="fab fa-instagram"></i></a>
+           </div>
+       </div>
+   </footer>
+
+   <script src="data/js/global.js" defer></script> <!-- Script global -->
+</body>
+</html>
