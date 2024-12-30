@@ -445,7 +445,7 @@ body {
 /* Flashcard com fundo */
 .flashcard {
   position: relative;
-  background: url('data/images/flashcards/background.png') no-repeat center center;
+  background: url('/data/images/flashcards/background.png') no-repeat center center;
   background-size: cover;
   width: 1440px;
   height: 1024px;
