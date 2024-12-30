@@ -502,3 +502,43 @@ body {
   object-fit: contain;
   -webkit-user-drag: none;
 }
+
+/* Media Query para telas menores (tablets e celulares) */
+@media (max-width: 768px) {
+  .action-buttons {
+      padding: 0 20px;
+  }
+}
+
+/* Media Query para telas muito pequenas */
+@media (max-width: 480px) {
+  .popup{
+    width: 430px;
+    height: 932px;
+  }
+  .popup-content {
+    width: 98%;
+    height: 315px;
+}
+
+  .flashcard {
+      width: 430px;
+      height: 300px;
+  }
+
+  .action-buttons .btn-wrong {
+    right: 100px; /* Ajuste para alinhar à esquerda */
+    bottom: 10px; /* Ajuste para alinhar ao fundo */
+    border-radius: 50%;
+  }
+  
+  .action-buttons .btn-correct {
+    left: 100px; /* Ajuste para alinhar à direita */
+    bottom: 10px; /* Ajuste para alinhar ao fundo */
+    border-radius: 50%;
+  }
+
+  .action-buttons button img {
+    width: 35%;
+  }
+}
