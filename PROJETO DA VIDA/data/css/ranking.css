@@ -74,3 +74,80 @@
     line-height: 1.6;
     color: #333;
 }
+
+/* Media Queries */
+@media (max-width: 1024px) {
+    .section-container {
+        padding: 15px;
+    }
+
+    .ranking-table th, .ranking-table td {
+        padding: 8px;
+        font-size: 0.9rem;
+    }
+
+    .ranking-description {
+        padding: 15px;
+    }
+
+    .ranking-description h3 {
+        font-size: 1.3rem;
+    }
+
+    .ranking-description p {
+        font-size: 0.9rem;
+    }
+}
+
+@media (max-width: 768px) {
+    .ranking-table {
+        font-size: 0.9rem;
+    }
+
+    .ranking-table th, .ranking-table td {
+        padding: 6px;
+    }
+
+    .patente-icon {
+        width: 25px;
+    }
+
+    .section-container h2 {
+        font-size: 1.5rem;
+    }
+
+    .ranking-description h3 {
+        font-size: 1.2rem;
+    }
+
+    .ranking-description p {
+        font-size: 0.85rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .section-container {
+        padding: 10px;
+    }
+
+    .ranking-table th, .ranking-table td {
+        padding: 5px;
+        font-size: 0.8rem;
+    }
+
+    .patente-icon {
+        width: 20px;
+    }
+
+    .section-container h2 {
+        font-size: 1.2rem;
+    }
+
+    .ranking-description h3 {
+        font-size: 1rem;
+    }
+
+    .ranking-description p {
+        font-size: 0.8rem;
+    }
+}
