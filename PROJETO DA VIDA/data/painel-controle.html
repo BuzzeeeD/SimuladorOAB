@@ -1,0 +1,424 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Painel de Controle</title>
+    <link rel="icon" href="/data/images/logos/logoconcurseiros.png" type="image/png">
+    <link rel="apple-touch-icon" href= "/data/images/logos/logoconcurseiros.png">
+
+        <link rel="stylesheet" href="data/css/global.css">
+        <link rel="stylesheet" href="data/css/painel-de-controle.css">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+</aside>
+<div class="tab-content active" id="dashboard">
+    <!-- Painel de Controle -->
+    <section class="section-container">
+        <h2><i class="fas fa-chart-line"></i> Painel de Controle</h2>
+        <p>Bem-vindo ao seu dashboard! Aqui você encontra um resumo das suas atividades recentes e próximos passos.</p>
+
+        <!-- Ações Rápidas -->
+        <section class="quick-actions">
+            <h3>Ações Rápidas</h3>
+            <div class="actions-grid">
+                <button class="action-card" data-tab="simulados">
+                    <i class="fas fa-clipboard-check"></i>
+                    <p>Realizar Simulado</p>
+                </button>
+                <button class="action-card" data-tab="estatisticas">
+                    <i class="fas fa-chart-bar"></i>
+                    <p>Ver Estatísticas</p>
+                </button>
+                <button class="action-card" data-tab="mentor">
+                    <i class="fas fa-user-tie"></i>
+                    <p>Falar com Mentor</p>
+                </button>
+                <button class="action-card" data-tab="conquistas">
+                    <i class="fas fa-medal"></i>
+                    <p>Ver Conquistas</p>
+                </button>
+            </div>
+        </section>
+    </section>
+
+    <section class="notifications-section">
+        <h3 onclick="toggleNotifications()" class="toggle-header">
+            <i class="toggle-arrow fas fa-chevron-right"></i>&nbsp<i class="fas fa-bell"></i>&nbsp Notificações</h3> 
+        <div class="notifications-content">
+            <ul class="notifications-list">
+                <li><i class="fas fa-calendar"></i> Lembrete: Simulado programado para amanhã às 10h.</li>
+                <li><i class="fas fa-video"></i> Nova aula disponível: "Revisão de Direito Civil".</li>
+                <li><i class="fas fa-trophy"></i> Você desbloqueou a conquista: "Especialista em Penal".</li>
+                <li><i class="fas fa-clock"></i> Programe seu próximo estudo: Direito Penal às 14h.</li>
+                <li><i class="fas fa-check"></i> Novo curso: "Como passar na OAB".</li>
+            </ul>
+        </div>
+    </section>
+    
+    <section class="profile-section">
+        <div class="profile-container">
+            <!-- Informações do Perfil -->
+             
+            <div class="status-and-purchases">
+                <div class="profile-status">
+                    <h3>Status Atual</h3>
+                    <div class="status-card">
+                        <p class="status-label">Muito Bom</p>
+                        <i class="fas fa-smile-beam"></i>
+                    </div>
+    
+                    <!-- Frase Motivadora -->
+                    <div class="motivational-quote">
+                        <p>"O conhecimento é o único bem que quanto mais se compartilha, mais se multiplica." — Sócrates</p>
+                    </div>
+                </div>
+                <div class="profile-details">
+                    <div class="profile-content">
+                        <div class="field name">
+                            <p><strong>Nome: João Silva da Silva Sauro</strong></p>
+                        </div>
+                        <div class="field birthdate">
+                            <p>Data de Nascimento:<p> 01/01/1990</p>
+                        </div>
+                        <div class="field email">
+                            <p>E-mail:<p> joao.silva@email.com</p>
+                        </div>
+                        <div class="field objective">
+                            <p>Objetivo Principal:<p> Juiz Federal</p>
+                        </div>
+                        <div class="field activity">
+                            <p>Tempo de Atividade:<p> 120 Horas</p>
+                        </div>
+                        <div class="field performance">
+                            <p>Desempenho Mensal: 85%</p>
+                        </div>
+                        <div class="field sex">
+                            <p>Sexo: Masculino</p>
+                        </div>
+                        <div class="field registration">
+                            <p>Cadastro: 01/01/2022</p>
+                        </div>
+                        <div class="field last-login">
+                            <p>Último Login: 01/01/2022</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+                    
+                <div class="profile-purchases">
+                    <h3 class="toggle-header" onclick="togglePurchases()">
+                        <i class="toggle-arrow fas fa-chevron-right"></i>
+                        &nbsp<i class="fas fa-shopping-cart"></i>&nbsp Histórico de Compras
+                    </h3>
+                    <div class="purchases-content" style="display: none;">
+                        <table class="purchases-table">
+                            <thead>
+                                <tr>
+                                    <th>Data</th>
+                                    <th>Descrição</th>
+                                    <th>Valor</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>15/12/2024</td>
+                                    <td>Simulado Avançado</td>
+                                    <td>R$ 29,90</td>
+                                </tr>
+                                <tr>
+                                    <td>10/12/2024</td>
+                                    <td>Curso Direito Penal</td>
+                                    <td>R$ 199,90</td>
+                                </tr>
+                                <tr>
+                                    <td>01/12/2024</td>
+                                    <td>Aula Ao Vivo</td>
+                                    <td>R$ 49,90</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+    <!-- Linha Divisória -->
+    <div class="section-divider"></div>
+    
+    <section class="challenges-section">
+        <h3><i class="fas fa-tasks"></i> Desafios Personalizados</h3>
+        <div class="carousel-container">
+            <button class="carousel-button prev" onclick="scrollCarousel(-1)">&#8249;</button>
+            <div class="carousel-wrapper">
+                <div class="carousel-track">
+                    <div class="challenge-card" title="Completar 3 simulados">
+                        <i class="fas fa-clipboard-check"></i>
+                    </div>
+                    <div class="challenge-card" title="Estudar 1h de Direito Penal">
+                        <i class="fas fa-book"></i>
+                    </div>
+                    <div class="challenge-card" title="Melhorar desempenho em Raciocínio Lógico">
+                        <i class="fas fa-brain"></i>
+                    </div>
+                    <div class="challenge-card" title="Revisar 5 tópicos de Direito Civil">
+                        <i class="fas fa-scroll"></i>
+                    </div>
+                    <div class="challenge-card" title="Completar 2 simulados de Direito Civil">
+                        <i class="fas fa-clipboard-list"></i>
+                    </div>
+                    <div class="challenge-card" title="Assistir aula sobre Raciocínio Lógico">
+                        <i class="fas fa-video"></i>
+                    </div>
+                    <div class="challenge-card" title="Praticar 10 questões de Direito Penal">
+                        <i class="fas fa-balance-scale"></i>
+                    </div>
+                    <div class="challenge-card" title="Participar de um simulado completo">
+                        <i class="fas fa-hourglass-half"></i>
+                    </div>
+                    <div class="challenge-card" title="Alcançar 80% de acerto em Raciocínio Lógico">
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+                    <div class="challenge-card" title="Estudar 3h durante esta semana">
+                        <i class="fas fa-clock"></i>
+                    </div>
+                    <div class="challenge-card" title="Revisar Estatuto de Direito Civil">
+                        <i class="fas fa-file-contract"></i>
+                    </div>
+                    <div class="challenge-card" title="Ler 2 artigos de Direito Constitucional">
+                        <i class="fas fa-gavel"></i>
+                    </div>
+                    <div class="challenge-card" title="Completar 5 questões de múltipla escolha">
+                        <i class="fas fa-check-circle"></i>
+                    </div>
+                    <div class="challenge-card" title="Praticar análise de casos">
+                        <i class="fas fa-briefcase"></i>
+                    </div>
+                    <div class="challenge-card" title="Estudar 5 tópicos prioritários">
+                        <i class="fas fa-list-ul"></i>
+                    </div>
+                    <div class="challenge-card" title="Focar em Direito Administrativo">
+                        <i class="fas fa-user-tie"></i>
+                    </div>
+                    <div class="challenge-card" title="Aumentar desempenho geral para 85%">
+                        <i class="fas fa-chart-bar"></i>
+                    </div>
+                    <div class="challenge-card" title="Completar revisão semanal">
+                        <i class="fas fa-sync-alt"></i>
+                    </div>
+                    <div class="challenge-card" title="Melhorar acertos em Direito Constitucional">
+                        <i class="fas fa-university"></i>
+                    </div>
+                    <div class="challenge-card" title="Estudar jurisprudências recentes">
+                        <i class="fas fa-balance-scale-left"></i>
+                    </div>
+                    <div class="challenge-card" title="Praticar leitura dinâmica">
+                        <i class="fas fa-book-reader"></i>
+                    </div>
+                    <div class="challenge-card" title="Revisar tópicos de Direito Penal avançado">
+                        <i class="fas fa-book-open"></i>
+                    </div>
+                    <div class="challenge-card" title="Concluir 1h de aula gravada">
+                        <i class="fas fa-play-circle"></i>
+                    </div>
+                    <div class="challenge-card" title="Organizar suas prioridades de estudo">
+                        <i class="fas fa-tasks"></i>
+                    </div>
+                    <div class="challenge-card" title="Completar 2 exercícios discursivos">
+                        <i class="fas fa-pen"></i>
+                    </div>
+                    <div class="challenge-card" title="Praticar 15 questões de Raciocínio Lógico">
+                        <i class="fas fa-question-circle"></i>
+                    </div>
+                    <div class="challenge-card" title="Estudar 2 tópicos prioritários">
+                        <i class="fas fa-thumbtack"></i>
+                    </div>
+                    <div class="challenge-card" title="Fazer anotações detalhadas sobre Direito Civil">
+                        <i class="fas fa-edit"></i>
+                    </div>
+                    <div class="challenge-card" title="Ler um resumo completo de Direito Penal">
+                        <i class="fas fa-file-alt"></i>
+                    </div>
+                    <div class="challenge-card" title="Revisar tópicos avançados em Direito Administrativo">
+                        <i class="fas fa-trophy"></i>
+                    </div>
+                </div>
+            </div>
+            <button class="carousel-button next" onclick="scrollCarousel(1)">&#8250;</button>
+        </div>
+    </section>
+    
+        <!-- Linha Divisória -->
+        <div class="section-divider"></div>
+  <!-- Estatísticas Detalhadas -->
+        <section class="section-container">
+            <h3>Estatísticas Simulados</h3>
+            <div class="progress-and-line-charts">
+                <!-- Gráfico de Simulados -->
+                <div class="chart-container">
+                    <canvas id="performanceChart"></canvas>
+                </div>
+
+                <!-- Gráfico de Linhas (Atividades) -->
+                <div class="chart-container">
+                    <canvas id="activityLineChart"></canvas>
+                </div>
+            </div>
+            <!-- Filtro -->
+            <div class="filter-container">
+                <button class="filter-btn" data-period="7d">7D</button>
+                <button class="filter-btn" data-period="1m">1M</button>
+                <button class="filter-btn" data-period="3m">3M</button>
+                <button class="filter-btn" data-period="6m">6M</button>
+                <button class="filter-btn" data-period="1y">1A</button>
+            </div>
+        </section>
+
+        <!-- Linha Divisória -->
+        <div class="section-divider"></div>
+
+        <!-- Progresso e Atividades Recentes -->
+        <section class="section-container-pizza">
+            <div class="progress-and-activities">
+                <!-- Gráfico de Estatísticas por Matéria -->
+                <div class="chart-container">
+                    <h3>Estatísticas por Matéria</h3>
+                    <canvas id="subjectChart"></canvas>
+                </div>
+        
+                <!-- Gráfico de Estatísticas por Banca -->
+                <div class="chart-container">
+                    <h3>Estatísticas por Banca</h3>
+                    <canvas id="examinerChart"></canvas>
+                </div>
+        
+                <!-- Gráfico de Estatísticas Negativas -->
+                <div class="chart-container">
+                    <h3>Estatísticas Negativas</h3>
+                    <canvas id="negativeChart"></canvas>
+                </div>
+            </div>
+        </section>
+        <section class="recent-activities">
+            <h3 class="recent-activities-title toggle-header" onclick="toggleRecentActivities()">
+                <i class="toggle-arrow fas fa-chevron-right"></i>
+                <i class="fas fa-history"></i> Atividades Recentes
+            </h3>
+            <div class="recent-activities-content">
+                <ul class="recent-activities-list">
+                    <li>
+                        <div class="activity-icon">
+                            <i class="fas fa-check-circle"></i>
+                        </div>
+                        <div class="activity-content">
+                            <p><strong>Simulado Concluído:</strong> Direito Penal - 80% de acerto.</p>
+                            <span class="activity-date">Hoje, às 14:30</span>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="activity-icon">
+                            <i class="fas fa-chart-line"></i>
+                        </div>
+                        <div class="activity-content">
+                            <p><strong>Estatísticas Atualizadas:</strong> 5% de melhoria desde o último simulado.</p>
+                            <span class="activity-date">Ontem, às 10:00</span>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="activity-icon">
+                            <i class="fas fa-trophy"></i>
+                        </div>
+                        <div class="activity-content">
+                            <p><strong>Nova Conquista:</strong> Especialista em Penal.</p>
+                            <span class="activity-date">Há 2 dias, às 16:45</span>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </section>
+        
+        <section class="objectives-section">
+            <h3 class="objectives-title toggle-header" onclick="toggleObjectives()">
+                <i class="toggle-arrow fas fa-chevron-right"></i>
+                <i class="fas fa-bullseye"></i> Seus Objetivos
+            </h3>
+            <div class="objectives-content">
+                <div class="objectives-cards">
+                    <div class="objective-card">
+                        <h4><i class="fas fa-chart-line"></i> Atingir 90% em Direito Penal</h4>
+                        <div class="progress-bar-container">
+                            <div class="progress-bar" style="width: 80%"></div>
+                            <span class="progress-label">80%</span>
+                        </div>
+                    </div>
+                    <div class="objective-card">
+                        <h4><i class="fas fa-tasks"></i> Completar 5 simulados esta semana</h4>
+                        <div class="progress-bar-container">
+                            <div class="progress-bar" style="width: 60%"></div>
+                            <span class="progress-label">60%</span>
+                        </div>
+                    </div>
+                    <div class="objective-card">
+                        <h4><i class="fas fa-brain"></i> Melhorar desempenho em Raciocínio Lógico para 85%</h4>
+                        <div class="progress-bar-container">
+                            <div class="progress-bar" style="width: 70%"></div>
+                            <span class="progress-label">70%</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+
+        <section class="recommendations-section">
+            <h3 class="recommendations-title toggle-header" onclick="toggleRecommendations()">
+                <i class="toggle-arrow fas fa-chevron-right"></i>
+                <i class="fas fa-lightbulb"></i> Recomendações de Estudo
+            </h3>
+            <div class="recommendations-content">
+                <p class="recommendations-intro">Com base nos seus dados, sugerimos:</p>
+                <ul class="recommendations-list">
+                    <li>
+                        <i class="fas fa-book"></i>
+                        <span>Revisar Direito Civil - Erros no último simulado.</span>
+                    </li>
+                    <li>
+                        <i class="fas fa-lightbulb"></i>
+                        <span>Praticar questões de Raciocínio Lógico por 30 minutos.</span>
+                    </li>
+                    <li>
+                        <i class="fas fa-chalkboard-teacher"></i>
+                        <span>Assista à aula gravada sobre Direito Penal.</span>
+                    </li>
+                </ul>
+            </div>
+        </section>
+        
+        <section class="ranking-section">
+            <h3 class="ranking-title"><i class="fas fa-trophy"></i> Ranking</h3>
+            <div class="ranking">
+                <div class="ranking-card">
+                    <h4><i class="fas fa-crown"></i> 1º Maria Santos</h4>
+                    <p>Pontos: <span class="points">950</span></p>
+                    <p>Você está <strong>100 pontos atrás</strong></p>
+                </div>
+                <div class="ranking-card user-position">
+                    <h4><i class="fas fa-user"></i> 2º Você</h4>
+                    <p>Pontos: <span class="points">850</span></p>
+                    <p>Pedro está <strong>50 pontos atrás</strong></p>
+                </div>
+                <div class="ranking-card">
+                    <h4><i class="fas fa-medal"></i> 3º Pedro Lima</h4>
+                    <p>Pontos: <span class="points">800</span></p>
+                    <p>Você está <strong>50 pontos à frente</strong></p>
+                </div>
+            </div>
+        </section>
+    </div>
+    <script src="painel-de-controle.js"></script>
+
+</body>
+</html>
