@@ -86,8 +86,7 @@ body {
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
 }
 .profile-details {
-    background: url('https://buzzeeed.github.io/SimuladorOAB/PROJETO%20DA%20VIDA/data/images/painel-de-controle/id.png') no-repeat center center;
-    background-size: cover;
+    background: url('https://buzzeeed.github.io/SimuladorOAB/PROJETO%20DA%20VIDA/data/images/painel-de-controle/id.png') no-repeat center center;    background-size: cover;
     width: 500px;
     height: 355px;
     margin: 20px auto;
@@ -1075,7 +1074,25 @@ canvas {
     .profile-content p {
         font-size: 0.6rem;
     }
-
+    .challenge-card {
+    width: 25px;
+    height: 25px;
+    border-radius: 5px;
+    gap: 2px;
+    }
+   .challenge-card i {
+    font-size: 1rem;
+    }
+    .carousel-button.next {
+        width: 25px;
+        height: 25px;
+        right: 5px;
+    }
+    .carousel-button.prev {
+        width: 25px;
+        height: 25px;
+        left: 5px;
+    }
 /* Ajuste as posições para cada campo */
 .profile-content .field.name {
     top: 75px;
