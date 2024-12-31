@@ -86,7 +86,7 @@ body {
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
 }
 .profile-details {
-    background: url('../images/painel-de-controle/id.png') no-repeat center center; /* Atualize para o caminho real da imagem */
+    background: url('https://buzzeeed.github.io/SimuladorOAB/PROJETO%20DA%20VIDA/data/images/painel-de-controle/id.png') no-repeat center center;
     background-size: cover;
     width: 500px;
     height: 355px;
