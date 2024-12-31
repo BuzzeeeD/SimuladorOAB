@@ -90,7 +90,7 @@ body {
 .profile-container {
     display: flex;
     gap: 20px;
-    flex-wrap: wrap;
+    flex-wrap: nowrap;
 }
 
 /* Container Geral do Perfil */
@@ -169,6 +169,7 @@ body {
 }
 
 .status-and-purchases {
+    flex: 1;
     display: flex;
     gap: 20px;
     width: 100%; /* Garante que ocupem o espaço completo */
@@ -177,6 +178,7 @@ body {
 }
 
 .patent-progress {
+    flex: 1;
     margin-top: 20px;
     background: #f9f9f9;
     border-radius: 10px;
@@ -254,8 +256,8 @@ body {
 .profile-status,
 .profile-purchases {
     flex: 1;
-    min-width: 300px; /* Garante que cada elemento tenha um tamanho mínimo */
-    max-width: 48%; /* Limita a largura para manter alinhamento */
+    min-width: 50%;
+    max-width: 100%;
 }
 
 /* Status */
@@ -593,14 +595,6 @@ canvas {
     transition: width 0.3s ease;
 }
 
-.progress-label {
-    position: absolute;
-    right: 10px;
-    top: 50%;
-    transform: translateY(-50%);
-    font-size: 0.9rem;
-    color: #333;
-}
 
 /* Objetivos */
 .objectives-section {
@@ -689,12 +683,14 @@ canvas {
     .info-grid {
         grid-template-columns: 1fr; /* Empilha as colunas em telas menores */
     }
-
+    .profile-container{
+        flex-wrap: wrap;
+    }
     .profile-info {
         flex-direction: column;
         align-items: center;
     }
-
+    .profile-purchases{flex: 1;}
     .profile-photo img {
         margin-bottom: 15px;
     }
